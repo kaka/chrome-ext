@@ -12,12 +12,14 @@
 function Mode(args) {
     this.onEnterMode = args.onEnterMode || function() {};
     this.onExitMode = args.onExitMode || function() {};
-    this.onInput = args.onInput || function() {};
+    this.onInput = args.onInput || function(text, event) {};
     this.onNavigate = args.onNavigate || function(direction) {};
     this.onSelect = args.onSelect || function() {};
     this.onAdvance = args.onAdvance || function() {};
     this.onBack = args.onBack || function() {};
 }
+
+Mode.prototype.text = "";
 
 const TARGET_VERSION = 1; // Increment when changing target structure
 
@@ -37,8 +39,7 @@ var basicMode = new Mode({
 	    updateSelection(0);
 	}
     },
-    onInput: function() {
-	var text = $("#input").val().trim();
+    onInput: function(text, event) {
 	filterTargets(text);
 	buildTable(filteredTargets);
 	updateSelection(0);
@@ -83,7 +84,7 @@ function setDeepLinkMode(target) {
 	    setMode(basicMode);
 	},
 	onSelect: function() {
-	    window.open(target.deeplink.url.replace("<replace>", $("#input").val().trim()));
+	    window.open(target.deeplink.url.replace("<replace>", this.text));
 	}
     }));
 }
@@ -421,7 +422,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // handle filtering
     $("#input").focus();
     $("#input").on("input", function() {
-	mode.onInput(event);
+	mode.text = $("#input").val().trim();
+	mode.onInput(mode.text, event);
     });
 
     // handle navigation
