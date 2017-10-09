@@ -19,7 +19,9 @@ function Mode(args) {
     this.onBack = args.onBack || function() {};
 }
 
+Mode.prototype.badge = null;
 Mode.prototype.text = "";
+Mode.prototype.placeholder = "Sök";
 
 const TARGET_VERSION = 1; // Increment when changing target structure
 
@@ -29,10 +31,6 @@ var selectedTarget = 0;
 var mode;
 var basicMode = new Mode({
     onEnterMode: function() {
-	$("#mode")
-	    .hide();
-	$("#input")
-	    .attr("placeholder", "Sök");
 	if (allTargets) {
 	    filteredTargets = allTargets;
 	    buildTable(allTargets);
@@ -64,18 +62,23 @@ function setMode(newMode) {
     if (mode) mode.onExitMode();
     mode = newMode;
     mode.onEnterMode();
+    if (mode.badge) {
+	$("#mode")
+	    .text(mode.badge)
+	    .show();
+    } else {
+	$("#mode")
+	    .hide();
+    }
+    $("#input")
+	.val("")
+	.attr("placeholder", mode.placeholder)
+	.focus();
 }
 
 function setDeepLinkMode(target) {
-    setMode(new Mode({
+    var newMode = new Mode({
 	onEnterMode: function() {
-	    $("#mode")
-		.text(target.name)
-		.show();
-	    $("#input")
-		.val("")
-		.attr("placeholder", target.deeplink.placeholder)
-		.focus();
 	    $("#list").empty();
 	    if (target.deeplink.description)
 		$("#list").html(target.deeplink.description);
@@ -86,7 +89,10 @@ function setDeepLinkMode(target) {
 	onSelect: function() {
 	    window.open(target.deeplink.url.replace("<replace>", this.text));
 	}
-    }));
+    });
+    newMode.badge = target.name;
+    newMode.placeholder = target.deeplink.placeholder;
+    setMode(newMode);
 }
 
 function setupHelp() {
