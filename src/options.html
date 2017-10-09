@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Inställningar</title>
+    <!--
+    - JavaScript and HTML must be in separate files: see our Content Security
+    - Policy documentation[1] for details and explanation.
+    -
+    - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+    -->
+    <!-- <link href="options.css" rel="stylesheet" /> -->
+    <script src="jquery.min.js"></script>
+    <script src="options.js"></script>
+    <style type="text/css">
+      body { width: 600px; }
+      #edit { overflow: hidden; padding-right: 2em; }
+      #list { float: right; }
+      dl>dd { margin-bottom: 5px; }
+    </style>
+  </head>
+  <body>
+    <div id="list">
+      <select id="targets" size="20">
+      </select>
+    </div>
+
+    <div id="edit">
+      <h1>Här kan du lägga till egna snabblänkar</h1>
+
+      <dl>
+	<dt><input id="name" type="text" placeholder="Namn" /></dt>
+	<dd>Namn bör vara unika.</dd>
+
+	<dt><input id="url" type="text" placeholder="Url" /></dt>
+
+	<dt><textarea id="description" placeholder="Beskrivning (valfritt)"></textarea></dt>
+
+	<dt><input id="searchTerms" type="text" placeholder="Sökord (valfritt)" /></dt>
+	<dd>Sökord är en kommaseparerad lista med termer som går att söka på.
+	  Om sökord är ifyllt används de(t) vid sökning, annars används namnet.</dd>
+      </dl>
+
+      <h2>Djuplänk (valfritt)</h2>
+
+      <dl>
+	<dt><input id="deeplink-url" type="text" placeholder="Url" /></dt>
+	<dd>Url:n måste innehålla texten <i style="background:lightgrey">&lt;replace&gt;</i> som sedan byts ut mot det som skrivs i sökfältet,
+	  t.ex: <i style="background:lightgrey">https://malaco/inca/inca/issues/&lt;replace&gt;</i></dd>
+
+	<dt><input id="deeplink-description" type="text" placeholder="Kort beskrivning (valfritt)" /></dt>
+
+	<dt><input id="deeplink-placeholder" type="text" placeholder="Placeholder (valfritt)" /></dt>
+	<dd>Placeholder-texten i sökfältet i djuplänksläget.</dd>
+      </dl>
+
+      <hr />
+      <button id="save">Spara</button>
+      <button id="delete">Ta bort</button>
+    </div>
+  </body>
+</html>

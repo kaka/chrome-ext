@@ -1,0 +1,37 @@
+{
+    "manifest_version": 2,
+
+    "name": "Inca-miljöer",
+    "description": "Tillåter en att snabbt söka fram och öppna Inca-miljöer",
+    "version": "1.0",
+
+    "options_ui": {
+	"page": "options.html",
+	"chrome_style": true
+    },
+
+    "commands": {
+	"_execute_browser_action": {
+	    "suggested_key": {"default": "Alt+O"}
+	},
+	"navigate-up": {
+	    "suggested_key": {"default": "Alt+P"},
+	    "description": "Flytta markören uppåt"
+	},
+	"navigate-down": {
+	    "suggested_key": {"default": "Alt+N"},
+	    "description": "Flytta markören nedåt"
+	}
+    },
+
+    "browser_action": {
+	"default_icon": "icon.png",
+	"default_popup": "popup.html",
+	"default_title": "Inca-miljöer (Alt+O)"
+    },
+    "permissions": [
+	"storage",
+	"https://ajax.googleapis.com/",
+	"https://fyren/incaversions/testmiljoer.php"
+    ]
+}

@@ -1,0 +1,36 @@
+<!doctype html>
+<!--
+    This page is shown when the extension button is clicked, because the
+    "browser_action" field in manifest.json contains the "default_popup" key with
+    value "popup.html".
+  -->
+<html>
+  <head>
+    <title>Inca-milj&ouml;er</title>
+    <!--
+	- JavaScript and HTML must be in separate files: see our Content Security
+	- Policy documentation[1] for details and explanation.
+	-
+	- [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+      -->
+    <link href="popup.css" rel="stylesheet" />
+    <script src="jquery.min.js"></script>
+    <script src="popup.js"></script>
+  </head>
+  <body>
+    <div id="top">
+      <span id="mode" class="label" style="display:none"></span>
+      <input id="input" type="text" placeholder="S&ouml;k"></input>
+      <a id="options" href="#" target="_blank">Inställningar</a>
+    </div>
+    <div id="main">
+      <div id="list"></div>
+      <div id="details"></div>
+    </div>
+    <div id="help" class="notification">
+      <p>Flytta markören med <b>piltangenterna</b> eller <b><span>Alt+N / Alt+P</span></b>.
+      <p>Tryck på <b>Enter</b> för att gå till en sida eller använd musen.
+      <p>Tryck på <b>Tab</b> eller <b>Space</b> på de alternativ med <b><big>&#9656;</big></b> för att gå ner en nivå.
+    </div>
+  </body>
+</html>
