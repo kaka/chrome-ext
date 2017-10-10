@@ -233,10 +233,11 @@ function fetchEnvironments() {
 }
 
 function loadEnvironments() {
+    console.log("loadEnvironments");
     chrome.storage.local.get(["environments-version", "environments-date", "environments-targets"], function(items) {
 	var version = items["environments-version"];
 	var date = items["environments-date"];
-	if (version == TARGET_VERSION && date && ((new Date() - date) / 1000*60*60*24) < 1) {
+	if (version == TARGET_VERSION && date && ((new Date().getTime() - date) / (1000*60*60*24)) < 1) {
 	    addTargets(items["environments-targets"]); // TODO may have to be converted, see saveEnvironments()
 	} else {
 	    fetchEnvironments();
@@ -247,7 +248,7 @@ function loadEnvironments() {
 function saveEnvironments(targets) {
     chrome.storage.local.set({
 	"environments-version": TARGET_VERSION,
-	"environments-date": new Date(),
+	"environments-date": new Date().getTime(),
 	"environments-targets": targets, // TODO it may be that objects can't be saved directly
     });
 }
