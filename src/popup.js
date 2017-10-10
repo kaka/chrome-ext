@@ -12,12 +12,16 @@
 function Mode(args) {
     this.onEnterMode = args.onEnterMode || function() {};
     this.onExitMode = args.onExitMode || function() {};
-    this.onInput = args.onInput || function() {};
+    this.onInput = args.onInput || function(text, event) {};
     this.onNavigate = args.onNavigate || function(direction) {};
     this.onSelect = args.onSelect || function() {};
     this.onAdvance = args.onAdvance || function() {};
     this.onBack = args.onBack || function() {};
 }
+
+Mode.prototype.badge = null;
+Mode.prototype.text = "";
+Mode.prototype.placeholder = "Sök";
 
 const TARGET_VERSION = 1; // Increment when changing target structure
 
@@ -27,18 +31,13 @@ var selectedTarget = 0;
 var mode;
 var basicMode = new Mode({
     onEnterMode: function() {
-	$("#mode")
-	    .hide();
-	$("#input")
-	    .attr("placeholder", "Sök");
 	if (allTargets) {
 	    filteredTargets = allTargets;
 	    buildTable(allTargets);
 	    updateSelection(0);
 	}
     },
-    onInput: function() {
-	var text = $("#input").val().trim();
+    onInput: function(text, event) {
 	filterTargets(text);
 	buildTable(filteredTargets);
 	updateSelection(0);
@@ -63,18 +62,23 @@ function setMode(newMode) {
     if (mode) mode.onExitMode();
     mode = newMode;
     mode.onEnterMode();
+    if (mode.badge) {
+	$("#mode")
+	    .text(mode.badge)
+	    .show();
+    } else {
+	$("#mode")
+	    .hide();
+    }
+    $("#input")
+	.val("")
+	.attr("placeholder", mode.placeholder)
+	.focus();
 }
 
 function setDeepLinkMode(target) {
-    setMode(new Mode({
+    var newMode = new Mode({
 	onEnterMode: function() {
-	    $("#mode")
-		.text(target.name)
-		.show();
-	    $("#input")
-		.val("")
-		.attr("placeholder", target.deeplink.placeholder)
-		.focus();
 	    $("#list").empty();
 	    if (target.deeplink.description)
 		$("#list").html(target.deeplink.description);
@@ -83,9 +87,12 @@ function setDeepLinkMode(target) {
 	    setMode(basicMode);
 	},
 	onSelect: function() {
-	    window.open(target.deeplink.url.replace("<replace>", $("#input").val().trim()));
+	    window.open(target.deeplink.url.replace("<replace>", this.text));
 	}
-    }));
+    });
+    newMode.badge = target.name;
+    newMode.placeholder = target.deeplink.placeholder;
+    setMode(newMode);
 }
 
 function setupHelp() {
@@ -422,7 +429,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // handle filtering
     $("#input").focus();
     $("#input").on("input", function() {
-	mode.onInput(event);
+	mode.text = $("#input").val().trim();
+	mode.onInput(mode.text, event);
     });
 
     // handle navigation
