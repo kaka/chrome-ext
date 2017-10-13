@@ -174,6 +174,9 @@ function setupStaticTargets() {
 	    name: "Skumbanan",
 	    url: "http://skumbanan.itello.se/",
 	    searchTerms: "SkumBanan",
+	}, {
+	    name: "Lion Bar",
+	    url: "http://lionbar.se/",
 	}
     ];
     addTargets(staticTargets);
