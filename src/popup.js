@@ -194,6 +194,15 @@ function setupStaticTargets() {
     addTargets(staticTargets);
 }
 
+function loadCustomTargets() {
+    chrome.storage.local.get(["custom-version", "custom-targets"], function(items) {
+	var version = items["custom-version"];
+	if (version == TARGET_VERSION) {
+	    addTargets(items["custom-targets"]);
+	}
+    });
+}
+
 function addTargets(targets) {
     $.each(targets, function(i, e) {
 	e.searchTerms = e.searchTerms || e.name;
@@ -211,35 +220,22 @@ function addTargets(targets) {
     updateSelection(0);
 }
 
-function fetchEnvironments() {
+/* Used for fetching and caching targets from a resource */
+function TargetLoader(name, url, parserFunction) {
+    this.name = name;
+    this.url = url;
+    this.parse = parserFunction; // called with request.responseText
+}
+
+TargetLoader.prototype.fetch = function() {
+    var loader = this;
     var request = new XMLHttpRequest();
-    request.open("GET", "https://fyren/incaversions/testmiljoer.php", true);
+    request.open("GET", this.url, true);
     request.onreadystatechange = function() {
 	if (request.readyState != 4) return;
 	if (request.status == 200) {
-	    var targets = [];
-	    $("<div>", {style: "display:none"})
-		.appendTo(document.body)
-		.html(request.responseText)
-		.find("table tr").each(function(i, e) {
-		    if (i > 0) {
-			var td = $(e).children("td");
-			targets.push({
-			    name: td.eq(0).text(),
-			    searchTerms: td.eq(0).text(),
-			    url: td.eq(0).find("a").eq(0).attr("href"),
-			    // info: td.eq(1).html(),
-			    // mail: td.eq(2).html(),
-			    // home: td.eq(3).html(),
-			    // data: td.eq(4).text(),
-			    details: td.eq(1).html() + "<br />"
-				+ "<br /><b>Ansvarig</b>: " + td.eq(2).html()
-				+ "<br /><b>App</b>: " + td.eq(3).html()
-				+ "<br /><b>Databas</b>: " + td.eq(4).text()
-			});
-		    }
-		});
-	    saveEnvironments(targets);
+	    var targets = loader.parse(request.responseText);
+	    loader.save(targets);
 	    addTargets(targets);
 	} else {
 	    $("<div>", {class: "notification error"})
@@ -252,37 +248,58 @@ function fetchEnvironments() {
 	}
     }
     request.send();
-}
+};
 
-function loadEnvironments() {
-    console.log("loadEnvironments");
-    chrome.storage.local.get(["environments-version", "environments-date", "environments-targets"], function(items) {
-	var version = items["environments-version"];
-	var date = items["environments-date"];
+TargetLoader.prototype.load = function() {
+    var loader = this;
+    chrome.storage.local.get([loader.name + "-version",
+			      loader.name + "-date",
+			      loader.name + "-targets"], function(items) {
+	var version = items[loader.name + "-version"];
+	var date = items[loader.name + "-date"];
 	if (version == TARGET_VERSION && date && ((new Date().getTime() - date) / (1000*60*60*24)) < 1) {
-	    addTargets(items["environments-targets"]); // TODO may have to be converted, see saveEnvironments()
+	    addTargets(items[loader.name + "-targets"]);
 	} else {
-	    fetchEnvironments();
+	    loader.fetch();
 	}
     });
-}
+};
 
-function saveEnvironments(targets) {
-    chrome.storage.local.set({
-	"environments-version": TARGET_VERSION,
-	"environments-date": new Date().getTime(),
-	"environments-targets": targets, // TODO it may be that objects can't be saved directly
-    });
-}
+TargetLoader.prototype.save = function(targets) {
+    var args = {};
+    args[this.name + "-version"] = TARGET_VERSION;
+    args[this.name + "-date"] = new Date().getTime();
+    args[this.name + "-targets"] = targets;
+    chrome.storage.local.set(args);
+};
 
-function loadCustomTargets() {
-    chrome.storage.local.get(["custom-version", "custom-targets"], function(items) {
-	var version = items["custom-version"];
-	if (version == TARGET_VERSION) {
-	    addTargets(items["custom-targets"]); // TODO may have to be converted, see saveEnvironments()
-	}
-    });
-}
+TargetLoader.loaders = [];
+
+TargetLoader.add = function(name, url, parser) {
+    TargetLoader.loaders.push(new TargetLoader(name, url, parser));
+};
+
+TargetLoader.add("environments", "https://fyren/incaversions/testmiljoer.php", function(text) {
+    var targets = [];
+    $("<div>", {style: "display:none"})
+	.appendTo(document.body)
+	.html(text)
+	.find("table tr").each(function(i, e) {
+	    if (i > 0) {
+		var td = $(e).children("td");
+		targets.push({
+		    name: td.eq(0).text(),
+		    searchTerms: td.eq(0).text(),
+		    url: td.eq(0).find("a").eq(0).attr("href"),
+		    details: td.eq(1).html() + "<br />"
+			+ "<br /><b>Ansvarig</b>: " + td.eq(2).html()
+			+ "<br /><b>App</b>: " + td.eq(3).html()
+			+ "<br /><b>Databas</b>: " + td.eq(4).text()
+		});
+	    }
+	});
+    return targets;
+});
 
 function buildTable(targets) {
     if (targets.length) {
@@ -428,7 +445,9 @@ document.addEventListener('DOMContentLoaded', function() {
     buildTable(allTargets);
     updateSelection(0);
     loadCustomTargets();
-    loadEnvironments();
+    $(TargetLoader.loaders).each(function(i, loader) {
+	loader.load();
+    });
 
     $("#main").height(600 - $("#top").outerHeight()); // Fix what CSS can't
 
