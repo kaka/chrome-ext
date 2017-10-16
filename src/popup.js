@@ -177,6 +177,18 @@ function setupStaticTargets() {
 	}, {
 	    name: "Lion Bar",
 	    url: "http://lionbar.se/",
+	    details: '<img src="http://lionbar.se/wp-content/uploads/2014/10/rest2.png" alt="HAPPY HOUR EVERY HOUR!" style="float: right" />' +
+		'<h2>Lion Bar</h2>' +
+		'<p><em>"Vår strävan att ge våra gäster en exceptionell upplevelse och ge stort utrymme för glädje och humor."</em></p>' +
+		'<ul>' +
+		'<li><a target="_blank" href="https://goo.gl/maps/EXaVkRiXKhs" title="Sveavägen 39">Sveavägen</a></li>' +
+		'<li><a target="_blank" href="https://goo.gl/maps/CF4QapegZ4L2" title="Långholmsgatan 40">Hornstull</a></li>' +
+		'<li><a target="_blank" href="https://goo.gl/maps/8sWoigBnKLz" title="Fridhemsgatan 34">Kungsholmen</a></li>' +
+		'<li><a target="_blank" href="https://goo.gl/maps/ZRdh89xk7D82" title="Sveavägen 74">Rådmansgatan</a></li>' +
+		'<li><a target="_blank" href="https://goo.gl/maps/DdBidPcYYyJ2" title="Kornhamnstorg 61">Gamla stan</a></li>' +
+		'</ul>' +
+		'<img src="http://lionbar.se/wp-content/uploads/2014/07/planka-212x300.jpg" />'
+	    ,
 	}
     ];
     addTargets(staticTargets);
