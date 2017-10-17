@@ -187,8 +187,8 @@ function setupStaticTargets() {
 		'<li><a target="_blank" href="https://goo.gl/maps/ZRdh89xk7D82" title="Sveavägen 74">Rådmansgatan</a></li>' +
 		'<li><a target="_blank" href="https://goo.gl/maps/DdBidPcYYyJ2" title="Kornhamnstorg 61">Gamla stan</a></li>' +
 		'</ul>' +
-		'<img src="http://lionbar.se/wp-content/uploads/2014/07/planka-212x300.jpg" />'
-	    ,
+		'<img src="http://lionbar.se/wp-content/uploads/2014/07/planka-212x300.jpg" />',
+	    searchTerms: "Lion Bar,AfterWork",
 	}
     ];
     addTargets(staticTargets);
