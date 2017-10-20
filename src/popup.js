@@ -15,7 +15,7 @@ function Mode(args) {
     this.onInput = args.onInput || function(text, event) {};
     this.onNavigate = args.onNavigate || function(direction) {};
     this.onSelect = args.onSelect || function() {};
-    this.onAdvance = args.onAdvance || function() {};
+    this.onAdvance = args.onAdvance || function() { return false; }; // Return whether the mode was advanced or not
     this.onBack = args.onBack || function() {};
 }
 
@@ -53,7 +53,9 @@ var basicMode = new Mode({
 	var target = filteredTargets[selectedTarget];
 	if (target.deeplink) {
 	    setDeepLinkMode(target);
+	    return true;
 	}
+	return false;
     }
 });
 setMode(basicMode);
@@ -188,7 +190,7 @@ function setupStaticTargets() {
 		'<li><a target="_blank" href="https://goo.gl/maps/DdBidPcYYyJ2" title="Kornhamnstorg 61">Gamla stan</a></li>' +
 		'</ul>' +
 		'<img src="http://lionbar.se/wp-content/uploads/2014/07/planka-212x300.jpg" />',
-	    searchTerms: "Lion Bar,AfterWork",
+	    searchTerms: "Lion Bar,after work,sunkhak",
 	}
     ];
     addTargets(staticTargets);
@@ -507,8 +509,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	    }
 	}
 	if ([9, 32].includes(event.keyCode)) { // tab, space
-	    mode.onAdvance();
-	    return false;
+	    return !mode.onAdvance() && event.keyCode == 32; // Allow spaces to be inserted
 	}
 	if (event.keyCode == 37) { // left
 	    var input = document.getElementById("input");
