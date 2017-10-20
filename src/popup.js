@@ -216,7 +216,7 @@ function addTargets(targets) {
     var text = $("#input").val().trim();
     if (text.length) {
 	filterTargets();
-	buildTable(filterTargets);
+	buildTable(filteredTargets);
     } else {
 	filteredTargets = Array.from(allTargets);
 	buildTable(allTargets);
