@@ -1,0 +1,707 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252"/>
+<meta http-equiv="Pragma" content="no-cache"/> 
+<title>Fyren - Quality Assurance - Test</title>
+<link rel="stylesheet" type="text/css" href="../../../css/Fyren.css"/>
+<script type="text/javascript" src="Graphs/Contents/JS/itellodtree.js"></script>
+<script type="text/javascript" src="../../../script/jquery-1.6.2.min.js"></script>
+<!--<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>-->
+<base target="main"/>
+<script type="text/javascript" language="JScript">
+<!--
+function ShowHideAreaDocs(strArea) {
+	var oDiv = document.all[strArea];
+	if (oDiv.style.display == "none") {
+	    oDiv.style.display = "inline";
+	}
+	else {
+	    oDiv.style.display = "none";
+	}
+}
+var currentUser = trim(getUserName());
+		//-->
+
+			
+		</script>
+		
+		<style>
+			a.stat			{font-size: 8pt;color: #6D87C4;  line-height: 11pt; font-family:  Verdana, Arial, Helvetica, sans-serif;text-decoration: none;}
+			a.stat:hover	{font-size: 8pt;color: #666666;  text-decoration: underline; line-height: 11pt; }
+			a.stat:active	{font-size: 8pt;color: #6D87C4;  line-height: 11pt; text-decoration: underline; }	
+		</style>
+</head>
+<body class="body">	
+<br/>
+<h3 title="Det roligaste som finns"><a href="#verktyg" style="text-decoration:none"><font color="#000000">Test</font></a><img title="Vi letar buggar..." src="pics/greenbugsmall.png" border="0" alt=""/></h3>
+<!-- Egen text efter denna kommentar -->
+
+<table width="700" border="0" cellspacing="0" cellpadding="0">
+<tr>
+	<td>
+	<script type="text/javascript">
+	    document.write('Välkommen <b>' + currentUser + '</b> till Itellos testavdelning.');
+	</script>
+
+	<script type="text/vbscript" language="VBScript">
+	If Month(Now()) = 12 AND Day(Now()) >= 16 Then
+	    imgSource = "\\itello\Document\Intranet\itello\qualityassurance\Test\pics\CuteSanta.png"
+	    document.write "<img title=""God Jul och God Fortsättning..."" src=""" & imgSource & """ />"	    
+	End If	
+	</script>
+
+	<!--
+	Itellos testgrupp testar och kvalitetssäkrar nya versioner av de applikationer som Itello utvecklar. För närvarande är det test av Inca som är vårt främsta uppdrag inom ramen för nya releaser eller projekt.
+	<br /> 
+	<br />
+	Vi har en bra mix av verksamhetskunskap, metodik samt teknik och kan planera, leda och utföra funktionella och icke-funktionella tester så som integration-, system- och prestandatester med mera.
+	<br />
+	<br />
+	-->
+	</td>
+</tr>
+</table>
+
+<!-- <h2><a style="text-decoration:none"><font color="#444444">Git issue search</font></a></h2>-->
+<!DOCTYPE html>
+<html>
+<head>
+<style> 
+input[type=text] {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('pics/searchicon.png');
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+    width: 8%;
+}
+<!-- 
+input[type=text]: {
+	<a href=""https://malaco.itello.se/inca/inca/issues/"+input" style="text-decoration:none" target="_blank">
+		<img title="Sök" src="pics/searchicon.png" border="0"/>
+	</a>
+}-->
+		  
+</style>
+</head>
+<body>
+
+</br></br>
+<p><b>Sök på ett Git-ärende eller Faveo här:</b></p>
+
+<form>
+
+    <input id="gitInput" type="text" name="search" placeholder="ex: 123"/>
+      <button onclick="openUrl();">Sök</button>
+	 
+
+
+ <h2><a style="text-decoration:none"><font color="#444444">Handböcker</font></a></h2>
+<table border="0" cellspacing="8" cellpadding="0">
+	<tr id="iconsRow">
+		<td valign="middle" width="60">
+			<center>
+				<a href="file://///itello.se/Document/Produkt - Inca/Hela systemet/Test/Testhandbok/TesthandbokenDel1.pdf" style="text-decoration:none" target="_blank">
+					<img title="Testhandboken 1" src="pics/ikon_Testhandbok.png" border="0"/>
+				</a>
+			</center>
+		</td>
+		<td valign="middle" width="60">
+			<center>
+				<a href="file://///itello.se/Document/Produkt - Inca/Hela systemet/Test/Testhandbok/TesthandbokenDel2.pdf" style="text-decoration:none" target="_blank">
+					<img title="Testhandboken 2" src="pics/ikon_AvanceradHandboken.png" border="0"/>
+				</a>
+			</center>
+		</td>
+		<td valign="middle" width="60">
+				<center>
+					<a href="file://///itello.se/Document/Produkt - Inca/Hela systemet/Test/Automatisering/SoapUI/SoapUI_Användarhandledning_testhemsidan.docx" style="text-decoration:none" target="_blank">
+						<img title="SoapUI användarhandlening" src="pics/ikon_SoapUI.png" border="0"/>
+					</a>
+				</center>
+		</td>
+		<tr id="iconsRowText">
+		<td width="60px"><center>Test 1 Grunder</center></td>
+		<td width="60px"><center>Test 2 Avancerad</center></td>
+		<td width="60px"><center>SoapUI</center></td>
+	</tr>
+</table>
+
+</br>
+<h2><a style="text-decoration:none"><font color="#444444">Information</font></a></h2>
+<table border="0" cellspacing="8" cellpadding="0">
+	<tr id="iconsRow">
+		<!--
+		<td valign="middle" width="60px">
+			<center>
+				<a href="/incaversions/qaHeaven/accurav.php" style="text-decoration:none" target="_blank">
+					<img title="Sök issues" src="pics/ikon_Accurav.png" border="0"/>
+				</a>
+			</center>
+		</td>
+		-->
+		<td valign="middle" width="60px">
+			<center>
+				<a href="http://skotte/default.aspx" style="text-decoration:none" target="_blank">
+					<img title="Sökfunktion för Q:" src="pics/ikon_Skotte.PNG" border="0"/>
+				</a>
+			</center>
+		</td>
+		<td valign="middle" width="60">
+			<center>
+				<a href="http://dokumentportal.itello.se/" style="text-decoration:none" target="_blank">
+					<img title="Kundportalen" src="pics/ikon_Kundportal.png" border="0"/>
+				</a>
+			</center>
+		</td>
+		<td valign="middle" width="60px">
+			<center>
+				<a href="https://mattermost.itello.se/itello/channels/town-square" style="text-decoration:none" target="_blank">
+					<img title="Chatrum" src="pics/ikon_Mattermost.png" border="0"/>
+				</a>
+			</center>
+		</td>
+		</td>
+		<td valign="middle" width="60px">
+			<center>
+				<a href="\\itello.se\Document\Produkt - Inca\Hela systemet\Product Decision Board\Operativt PDB\" style="text-decoration:none" target="_blank">
+					<img title="Kundpåverkan per dispensaktivitet" src="pics/ikon_Dispenslogg.jpg" border="0"/>
+				</a>
+			</center>
+		</td>
+		<td valign="middle" width="60px">
+			<center>
+				<a href="\\itello\Document\Produkt - Inca\Hela systemet\Releasespecifikationer\Skrivvägledning_RS.pdf" style="text-decoration:none" target="_blank">
+					<img title="Skrivvägledning för Releasespecifikationer" src="pics/ikon_RSSkrivvägledning.png" border="0"/>
+				</a>
+			</center>
+		</td>
+		<td valign="middle" width="60">
+			<center>
+				<a href="file://///itello/Document/Produkt - Inca/Hela systemet/Test/Batchar Inca/Information_IncasBatchar.xlsx" style="text-decoration:none" target="_blank">
+					<img title="Information om Incas batchar" src="pics/ikon_Excel.jpg" border="0"/>
+				</a>
+			</center>
+		</td>
+		<td valign="middle" width="60px">
+			<center>
+				<a href="/incaversions/qaHeaven/Inca_systemMonitor/systemmonitor.php" style="text-decoration:none" target="_blank">
+					<img title="Inca System Monitor - Överblick över systemlogg per miljö" src="pics/ikon_IncaGranskning.png" border="0"/>
+				</a>
+			</center>
+		</td>		
+		<td valign="middle" width="60px">
+			<center>
+				<a href="testCaseManager.html" style="text-decoration:none" target="_blank">
+					<img title="Inca Test Manager - Administration och registrera resultat" src="pics/ikon_ITM.png" border="0"/>
+				</a>
+			</center>
+		</td>		
+	</tr>
+	<tr id="iconsRowText">
+		<!--<td width="60px"><center>accuRäv</center></td>-->
+		<td width="60px"><center>Skotte</center></td>
+		<td width="60px"><center>Dokument portal</center></td>
+		<td width="60px"><center>Mattermost chat</center></td>
+		<td width="60px"><center>Påverkade kunder</center></td>
+		<td width="60px"><center>Skrivvägledning RS</center></td>
+		<td width="60px"><center>Incas batchar</center></td>
+		<td width="60px"><center>Övervakning systemlogg</center></td>
+		<td width="60px"><center>Inca Test Manager</center></td>
+	</tr>
+
+</table>
+
+<br />
+<h2><a style="text-decoration:none"><font color="#444444">Miljöer och byggen</font></a></h2>
+<table border="0" cellspacing="8" cellpadding="0">
+<tr id="iconsRow">
+	<td valign="middle" width="60px">
+		<center>
+			<A href="/intranet/itello/qualityassurance/Test/testmiljoer_advanced.html" target="_blank" style="text-decoration:none" target="_blank">
+				<img title="Avancerad lista över systemtestmiljöer" src="pics/ikon_Inca.png" border="0"/>
+			</A>
+		</center>
+	</td>
+	<td valign="middle" width="60px">
+		<center>
+			<A href="/intranet/itello/qualityassurance/Test/testmiljoer_local.html" target="_blank" style="text-decoration:none" target="_blank">
+				<img title="Mina lokala testmiljöer" src="pics/ikon_IncaLokal.png" border="0"/>
+			</A>
+		</center>
+	</td>
+	<td valign="middle" width="60px">
+		<center>
+			<a href="https://forastero/vertigo/maintenanceps/" style="text-decoration:none" target="_blank">
+				<img title="Produktstudion" src="pics/ikon_PS.png" border="0"/>
+			</a>
+		</center>
+	</td>
+	<td valign="middle" width="60px">
+		<center>
+				<a href="https://jenkins.itello.se/" style="text-decoration:none" target="_blank">
+					<img title="Jenkinsbyggen" src="pics/ikon_Jenkins.png" border="0"/>
+				</a>
+		</center>
+	</td>
+	<td valign="middle" width="60px">
+		<center>
+			<A href="/incaversions/byggbestallning.php" target="_blank" style="text-decoration:none" target="_blank">
+				<img title="Gör en byggbeställning" src="pics/ikon_Bygge.png" border="0"/>
+			</A>
+		</center>
+	</td>
+	<td valign="middle" width="60px">
+		<center>
+			<A href="V:\Itello\Inca\Changelog\changelog_17.3.html" target="_blank" style="text-decoration:none" target="_blank">
+				<img title="Vad kommer i nästa bygge?" src="pics/ikon_ChangeLog.png" border="0"/>
+			</A>
+		</center>
+	</td>
+	<td valign="middle" width="60px">
+		<center>
+			<A href="/incaversions/installationshistorik.php" target="_self" style="text-decoration:none" target="_blank">
+				<img title="Installationshistorik" src="pics/ikon_Historik.png" border="0"/>
+			</A>
+		</center>
+	</td>
+	<td valign="middle" width="60px">
+		<center>
+			<A href="/incaversions/kundmiljoer.php" target="_self" style="text-decoration:none">
+				<img title="Lista över kundmiljöer" src="pics/ikon_Kundmiljoer.png" border="0"/>
+			</A>
+		</center>
+	</td>
+</tr>
+</tr>
+<tr id="iconsRowText">
+<td width="60px"><center>Testmiljöer</center></td>
+<td width="60px"><center>Min Inca</center></td>
+<td width="60px"><center>Product Studio</center></td>
+<td width="60px"><center>Jenkins</center></td>
+<td width="60px"><center>Beställning</center></td>
+<td width="60px"><center>ChangeLog 17.3</center></td>
+<td width="60px"><center>Historik</center></td>
+<td width="60px"><center>Kundmiljöer</center></td>
+</tr>
+</table>
+
+</br>
+<h2><a style="text-decoration:none"><font color="#444444">Verktyg</font></a></h2>
+<table border="0" cellspacing="8" cellpadding="0">
+	<tr id="iconsRow">
+		<td valign="middle" width="60px">
+			<center>
+				<a href="https://malaco.itello.se/inca/inca/issues?scope=all&utf8=%E2%9C%93&state=opened&milestone_title=17.2" style="text-decoration:none" target="_blank">
+					<img title="GitLab Ärendehantering" src="pics/ikon_GitLab.jpg" border="0"/>
+				</a>
+			</center>
+		</td>
+		<td valign="middle" width="60px">
+			<center>
+				<a href="http://kallari/kanboard/?controller=DashboardController" style="text-decoration:none" target="_blank">
+					<img title="Kanboard test" src="pics/ikon_Kanboard.png" border="0"/>
+				</a>
+			</center>
+		</td>
+		<td valign="middle" width="60">
+			<center>
+				<a href="https://forastero:10443/vertigo/common/GOActivities/GOActivities/mainFrameset" style="text-decoration:none" target="_blank">
+					<img title="Planeringsverktyget" src="pics/ikon_Planering.jpg" border="0"/>
+				</a>
+			</center>
+		</td>
+		<td valign="middle" width="60">
+			<center>
+				<a href="https://taza.itello.se:8443/arsys/home" style="text-decoration:none" target="_blank">
+					<img title="Faveo" src="pics/ikon_Faveo.JPG" border="0"/>
+				</a>
+			</center>
+		</td>
+		<td valign="middle" width="60px">
+			<center>
+				<a href="automationManager.html" style="text-decoration:none" target="_blank">
+					<img title="Automatiserade tester" src="pics/runauto.PNG" border="0"/>
+				</a>
+			</center>
+		</td>	
+		<!--
+		<td valign="middle" width="60px">
+			<center>
+				<a href="/intranet/itello/qualityassurance/Test/TestTools/PairWise/index.html" style="text-decoration:none" target="_blank">
+					<img title="PairWise Test case generator" src="pics/ikon_Pairwise.png" border="0"/>
+				</a>
+			</center>
+		</td>
+		--> 
+		<td valign="middle" width="60px">
+			<center>
+				<a href="/incaversions/qaHeaven/Inca_IIS_Tester/xmltool.php" style="text-decoration:none" target="_blank">
+					<img title="Inca XML Test Tool" src="pics/ikon_XML.PNG" border="0"/>
+				</a>
+			</center>
+		</td>
+		<td valign="middle" width="60px">
+			<center>
+				<a href="/intranet/itello/development/testtools/BlameFactory/blame-factory.html" style="text-decoration:none" target="_blank">
+					<img title="Vems är felet?" src="pics/ikon_blame.PNG" border="0"/>
+				</a>
+			</center>
+		</td>
+	</tr>
+	<tr id="iconsRowText">
+		<td width="60px"><center>GitLab</center></td>
+		<td width="60px"><center>Kanboard</center></td>
+		<td width="60px"><center>Planerings verktyget</center></td>
+		<td width="60px"><center>Faveo</center></td>
+		<td width="60px"><center>E2e autotest</center></td>
+		<!-- <td width="60px"><center>PairWise</center></td> -->
+		<td width="60px"><center>XML Tool</center></td>
+		<td width="60px"><center>Blame Factory</center></td>
+	</tr>
+</table>
+
+
+</tr>
+</table>
+<h2><a href="https://fyren/mediawiki/index.php?title=Test" style="text-decoration:none" target="_blank"><font color="#444444">Wiki</font></a></h2>
+<table border="0" cellspacing="8" cellpadding="0">
+	<tr id="iconsRow">
+		<td valign="middle" width="40">
+			<center>
+				<a href="https://fyren/mediawiki/index.php?title=Fels%C3%B6kning" style="text-decoration:none" target="_blank">
+					<img title="Wiki: Felsöka deadlocks" src="pics/ikon_Wiki_SMALL.png" border="0"/>
+				</a>
+			</center>
+		</td>
+		<td valign="middle" width="40">
+			<center>
+				<a href="https://fyren/mediawiki/index.php?title=FAQ_G%26B" style="text-decoration:none" target="_blank">
+					<img title="Wiki: FAQ G&B" src="pics/ikon_Wiki_SMALL.png" border="0"/>
+				</a>
+			</center>
+		</td>
+		<td valign="middle" width="40">
+			<center>
+				<a href="https://fyren/mediawiki/index.php?title=BLI_test" style="text-decoration:none" target="_blank">
+					<img title="Wiki: BLI" src="pics/ikon_Wiki_SMALL.png" border="0"/>
+				</a>
+			</center>
+		</td>
+		<td valign="middle" width="40">
+			<center>
+				<a href="https://fyren/mediawiki/index.php?title=GitLab" style="text-decoration:none" target="_blank">
+					<img title="Wiki: Gitlab" src="pics/ikon_Wiki_SMALL.png" border="0"/>
+				</a>
+			</center>
+		</td>
+		<td valign="middle" width="40">
+			<center>
+				<a href="https://fyren/mediawiki/index.php?title=Customer_Support" style="text-decoration:none" target="_blank">
+					<img title="Wiki: Support wiki" src="pics/ikon_Wiki_SMALL.png" border="0"/>
+				</a>
+			</center>
+		</td>
+		<td valign="middle" width="40">
+			<center>
+				<a href="https://fyren/mediawiki/index.php?title=Kundteam_AMF" style="text-decoration:none" target="_blank">
+					<img title="Wiki: Support wiki" src="pics/ikon_Wiki_SMALL.png" border="0"/>
+				</a>
+			</center>
+		</td>
+
+	</tr>
+	
+	<tr id="iconsRowText">
+		<td width="45PX"><center>Felsöka deadlock</center></td>
+		<td width="45PX"><center>FAQ G&B </center></td>
+		<td width="45PX"><center>BLI testinfo</center></td>
+		<td width="45PX"><center>Gitlab guide</center></td>
+		<td width="45PX"><center>Support wiki</center></td>
+		<td width="45PX"><center>Kundteam AMF</center></td>
+	</tr>
+
+</tr>
+</table>
+<h2><a href="\\itello\Document\" style="text-decoration:none" target="_blank"><font color="#444444">Mappar</font></a></h2>
+<table border="0" cellspacing="8" cellpadding="0">
+	<tr id="iconsRow">
+		<td valign="middle" width="45PX">
+			<center>
+				<a href="\\itello\Document\Produkt - Inca\Hela systemet\Test\" style="text-decoration:none" target="_blank">
+					<img title="Mapp: Test" src="pics/ikon_Mapp_liten.png" border="0"/>
+				</a>
+			</center>
+		</td>
+		<td valign="middle" width="45PX">
+			<center>
+				<a href="\\itello.se\Source\Itello\Inca\DBA\SQL - bra att ha\" style="text-decoration:none" target="_blank">
+					<img title="Mapp: 'Bra och ha'-SQL:er" src="pics/ikon_Mapp_liten.png" border="0"/>
+				</a>
+			</center>
+		</td>
+	
+		<td valign="middle" width="45PX">
+			<center>
+				<A href="\\itello\Temp2\Jenkins\TestDataExtractor\" target="_blank" style="text-decoration:none" target="_blank">
+					<img title="Mapp: Små databaser skapade av testdataextraktorn (ansvarig: oha)" src="pics/ikon_Mapp_liten.png" border="0"/>
+				</A>
+			</center>
+		</td>
+		<td valign="middle" width="45PX">
+				<center>
+					<A href="Q:\Produkt - Inca\Hela systemet\Test\Testplaner" target="_blank" style="text-decoration:none" target="_blank">
+						<img title="Mapp: Testplaner. Välj release i mappen" src="pics/ikon_Mapp_liten.png" border="0"/>
+					</A>
+				</center>
+		</td>
+		<td valign="middle" width="45PX">
+				<center>
+					<A href="Q:\Produkt - Inca\Hela systemet\Test\Rapporter\Testrapport" target="_blank" style="text-decoration:none" target="_blank">
+						<img title="Mapp: Kundinfo. Välj release i mappen. Här hittar du Lyft till test" src="pics/ikon_Mapp_liten.png" border="0"/>
+					</A>
+				</center>
+		</td>
+		<td valign="middle" width="45PX">
+				<center>
+					<A href="Q:\Produkt - Inca\Hela systemet\Test\Rapporter\Testrapport" target="_blank" style="text-decoration:none" target="_blank">
+						<img title="Mapp: Testrapporten. Välj release i mappen" src="pics/ikon_Mapp_liten.png" border="0"/>
+					</A>
+				</center>
+		</td>
+		<td valign="middle" width="45PX">
+				<center>
+					<A href="\\itello.se\Temp2\Jenkins\17.2_Maven\inca-ws\17.2-SNAPSHOT\" target="_blank" style="text-decoration:none" target="_blank">
+						<img title="Mapp: inca-ws-17.2-SNAPSHOT-resources.zip "" src="pics/ikon_Mapp_liten.png" border="0"/>
+					</A>
+				</center>
+		</td>
+	</tr>
+	
+	<tr id="iconsRowText">
+		<td width="40px"><center>Test</center></td>
+		<td width="40px"><center>SQL:er 'Bra att ha'</center></td>
+		<td width="40px"><center>Små DB</center></td>
+		<td width="40px"><center>Testplan</center></td>
+		<td width="40px"><center>Kundinfo</center></td>
+		<td width="40px"><center>Testrapport</center></td>
+		<td width="40px"><center>WS diffdokument</center></td>
+
+	</tr>
+</table>
+</br></br></br></br></br></br></br>
+
+
+
+<script type="text/JavaScript">
+	
+	function openUrl() {
+		var input = document.getElementById('gitInput').value
+		var n = input.length;
+		if (n != 6) {
+			window.open("https://malaco.itello.se/inca/inca/issues/" + input);
+		}
+		else {
+			window.open("https://taza.itello.se:8443/arsys/forms/10.18.1.40/02%3A01%3AAR/Default+Web+View/?eid=" + input);
+		}
+	}
+
+
+
+
+	function openXMLTestTool() {
+		try {
+			if (navigator.appName != 'Microsoft Internet Explorer'){
+				alert('Sorry, this browser is not supported by the tool, please try MS IE');
+			}
+			else {
+				var url = "/incaversions/qaHeaven/Inca_IIS_Tester/xmltool.php";
+				
+				var params = [
+				'height='+screen.height,
+				'width='+screen.width,
+				'fullscreen=yes'
+				].join(',');
+				var popup = window.open(url, 'popup_window', params); 
+				popup.moveTo(0,0);				
+			}
+		}
+		catch (err){
+			alert(err.description);
+		}
+	}
+	
+	function openTestTools() {
+		try {
+			if (navigator.appName != 'Microsoft Internet Explorer'){
+				alert('Sorry, this browser is not supported by the tool, please try MS IE');
+			}
+			else {
+				var url = "/intranet/itello/qualityassurance/test/TestTools/Index.html";
+				
+				var params = [
+				'height=500',
+				'width=500'
+				].join(',');
+				var popup = window.open(url, 'popup_window', params); 
+				popup.moveTo(0,0);				
+			}
+		}
+		catch (err){
+			alert(err.description);
+		}
+	}
+
+    /* Populate the list of recent blog posts */
+
+    $("#test-blog-comments ul").load("/blog/test #recentcomments li");
+    //$("#test-blog-news ul").load("/blog/test #recent-posts-3 li");
+
+    $("#test-blog-news ul").load("/blog/test #recent-posts-3 li", function(response, status) {
+        //Quick and dirty
+        var start = response.indexOf('<h3 class="widget-title">Aktuella inlägg</h3>');
+        var mytext = response.substring(start);
+        var stop = mytext.indexOf('</aside>');
+        mytext = mytext.substr(0, stop);
+        var end = mytext.indexOf('</ul>');
+        var str = mytext.substring(mytext.indexOf('<li'), end - 5);
+        document.getElementById("nu").innerHTML = str;        
+    });
+
+    if (isAdvancedUser(trim(getUserName()))) {        
+    }
+    else {
+        var d = document.getElementById('iconsRow');
+        var olddiv = document.getElementById("lync");
+        d.removeChild(olddiv);
+        d = document.getElementById('iconsRowText');
+        olddiv = document.getElementById("lyncText");
+        d.removeChild(olddiv);
+    }
+    
+    
+    function isAdvancedUser(user) {
+        var arrAdvancedUsers = ["asv", "mka", "afl", "cha", "cdy", "elu", "tla", "mwa", "pho", "kpa", "man", "igu", "sth", "jpe", "pob"];
+        for (i = 0; i <= arrAdvancedUsers.length - 1; i++) {
+            if (arrAdvancedUsers[i] == user) {
+                return true;
+            }
+        }
+        return false;
+    }	
+	
+</script>
+<script type="text/vbscript">
+Sub tc(intTC)
+strURL = "/intranet/itello/qualityassurance/test/incatc.html?" & intTC
+NewTCBrowser(strURL)
+End Sub
+
+Sub tt()
+strURL = "/intranet/itello/qualityassurance/test/TestTools/Index.html"
+Set oIE = CreateObject("InternetExplorer.Application") 
+oIE.AddressBar = False
+oIE.MenuBar = False
+oIE.StatusBar = False   
+oIE.ToolBar = False
+oIE.Top = 0
+oIE.Left = 0
+oIE.Navigate strURL
+oIE.Visible = true
+End Sub
+
+
+
+Function NewTCBrowser(strURL)
+Set oIE = CreateObject("InternetExplorer.Application") 
+oIE.AddressBar = False
+oIE.MenuBar = False
+oIE.StatusBar = False   
+oIE.ToolBar = False
+oIE.Width = 510
+oIE.Height = 505
+oIE.Top = 0
+oIE.Left = screen.width-oIE.Width
+oIE.Navigate strURL
+oIE.Visible = true
+End Function
+</script>
+  
+<!-- Old style
+<frameset cols="180,*">
+	<frame src="Menu.htm" name="Test_Menu">
+	<frame src="start.htm" name="Test_Main">
+</frameset>
+-->
+<!--            
+<table width="600" border="0" cellspacing="0" cellpadding="0">
+<tr>
+	<td>
+	<br />
+    <br />
+		<h4>Statistik Acceptanstest</h4>
+		<table border="1">
+			<tr>
+				<!--
+				<td width="200px" valign="top">					
+					<h6>Per månad</h6>			
+					<ul>			
+						<li>
+							<div>
+								<div onclick="ShowHideAreaDocs('T200901')" onmouseover="style.cursor='hand'" onmouseout="style.cursor='defualt'">2009</div>
+								<span id="T200901" style="display:'none'">
+									<a class="stat" href="statistik/T2009-011.html">Januari (87 st)</a><br>
+									<a class="stat" href="statistik/T2009-021.html">Februari (7 st)</a><br>
+									<a class="stat" href="statistik/T2009-031.html">Mars (42 st)</a><br>
+									<a class="stat" href="statistik/T2009-041.html">April (38 st)</a><br>
+									<a class="stat" href="statistik/T2009-051.html">Maj (41 st)</a><br>
+									<a class="stat" href="statistik/T2009-061.html">Juni (16 st)</a><br>
+									<a class="stat" href="statistik/T2009-071.html">Juli (2 st)</a><br>
+									<a class="stat" href="statistik/T2009-081.html">Augusti (68 st)</a><br>
+									<a class="stat" href="statistik/T2009-091.html">September (46 st)</a><br>
+								</span>
+							</div>
+						</li>			
+					</ul>			
+				</td>
+				-->
+				<!--
+				<td width="200px" valign="top">					
+					<h6>Per release</h6>			
+					<ul>
+						<li><a class="stat" href="statistik/T_R_4_1_21.html">4.1.2 (13 st)</a></li>
+						<li><a class="stat" href="statistik/T_R_4_1_11.html">4.1.1 (121 st)</a></li>
+						<li><a class="stat" href="statistik/T_R_4_11.html">4.1 (85 st)</a></li>						
+					</ul>			
+				</td>
+				
+				<td width="200px" valign="top">					
+					<h6>Aktuell release per 2009-09-10</h6>			
+					<ul>
+						<li><a class="stat" href="statistik/aktuell/aktuell1.html">4.2 (115 st)</a></li>				
+					</ul>			
+				</td>
+				
+			</tr>
+		</table>
+	</td>
+</tr>
+</table>
+-->
+<!-- Egen text fore denna kommentar -->
+<br />&copy;&nbsp;Test&nbsp;&mdash;&nbsp;<script src="../../../script/lastmod.js" type="text/javascript" language="JavaScript"></script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,75 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Fyren - Quality Assurance - Customer Support</title>
+<link rel="stylesheet" type="text/css" href="../../../css/Fyren.css">
+<base target="main">
+</head>
+
+<body class="body">
+	<!--<p>&nbsp;<IMG SRC="tomte.PNG" BORDER=0 ALT="" TITLE="God Jul och God Fortsättning">&nbsp;</p>-->
+<br /><br /><h3>Support</h3>
+<!--<p>H&auml;r hittar du information f&ouml;r <a href="internsupport.html">Intern Support</a>.</p>-->
+<p>H&auml;r hittar du information f&ouml;r <a href="externsupport.html">Extern Support</a>.</p>
+<!-- <p><a href="statistik/index.html">Statistik</a></p> -->
+<br/><br/>
+<b>Länkar</b>
+<br/><br/>
+ <table border="0" cellspacing="0" cellpadding="0">
+	<tr id="iconsRow">
+		<td valign="middle" width="60">
+			<center>
+				<a href="https://jerry.itello.se:8443/arsys/home" style="text-decoration:none" target="_blank">
+					<img title="Faveo-test" src="ikon_Faveo.JPG" border="0"/>
+				</a>
+			</center>
+		</td>
+		<td valign="middle" width="60">
+			<center>
+				<a href="/mediawiki/index.php?title=Customer_Support" style="text-decoration:none" target="_blank">
+					<img title="Wiki" src="ikon_W.JPG" border="0"/>
+				</a>
+			</center>
+		</td>
+<tr id="iconsRowText">
+		<td width="60px"><center>Faveo-test</center></td>
+		<td width="60px"><center>Wiki</center></td>
+	</tr>
+</table>
+
+	
+<script type="text/vbscript">
+Sub tc(intTC)
+strURL = "/intranet/itello/customerserviceotest/incatc.html?" & intTC
+NewTCBrowser(strURL)
+End Sub
+
+Function NewTCBrowser(strURL)
+Set oIE = CreateObject("InternetExplorer.Application") 
+oIE.AddressBar = False
+oIE.MenuBar = False
+oIE.StatusBar = False   
+oIE.ToolBar = False
+oIE.Width = 500
+oIE.Height = 500
+oIE.Top = 0
+oIE.Left = screen.width-oIE.Width
+oIE.Navigate strURL
+oIE.Visible = true
+End Function
+</script>
+<br/><br/>  
+<!-- Old style
+<frameset cols="180,*">
+	<frame src="Menu.htm" name="Test_Menu">
+	<frame src="start.htm" name="Test_Main">
+</frameset>
+-->
+<!-- Egen text fore denna kommentar -->
+
+<br>&copy;Customer Support&nbsp;&mdash;&nbsp;<script src="../../../script/lastmod.js" type="text/javascript" language="JavaScript"></script>
+</body>
+
+
+</html>
+

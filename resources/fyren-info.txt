@@ -1,0 +1,11 @@
+https://fyren/intranet/top.html
+https://fyren/intranet/itello/development/development.html
+https://fyren/intranet/itello/professionalservices/professionalservices.html
+https://fyren/intranet/itello/qualityassurance/customersupport/customersupport.html
+https://fyren/intranet/itello/qualityassurance/qualityassurance.html
+https://fyren/intranet/itello/qualityassurance/test/test_start.html
+https://fyren/intranet/itello/stab/SysAdmin/sysadmin.html
+https://fyren/intranet/itello/stab/personal/personal.html
+https://fyren/intranet/itello/stab/stab.html
+https://fyren/intranet/main.html
+https://fyren/intranet/navigation.html
