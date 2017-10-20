@@ -4,7 +4,7 @@ function getForm() {
     return {
 	"name": $("#name").val(),
 	"url": $("#url").val(),
-	"description": $("#description").val(),
+	"details": $("#details").val(),
 	"searchTerms": $("#searchTerms").val(),
 	"deeplink": {
 	    "url": $("#deeplink-url").val(),
@@ -17,7 +17,7 @@ function getForm() {
 function fillForm(target) {
     $("#name").val(target.name);
     $("#url").val(target.url);
-    $("#description").val(target.description);
+    $("#details").val(target.details);
     $("#searchTerms").val(target.searchTerms);
     $("#deeplink-url").val(target.deeplink.url);
     $("#deeplink-description").val(target.deeplink.description);
