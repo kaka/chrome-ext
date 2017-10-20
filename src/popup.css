@@ -85,3 +85,21 @@ td:nth-of-type(2) {
 .selected {
     background: rgba(0, 64, 48, 0.1);
 }
+
+span.matched-alternative {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 0.9em;
+}
+
+.selected span.matched-alternative {
+    color: black;
+}
+
+span.matched-part {
+    font-weight: bold;
+}
+
+.selected span.matched-part {
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.2);
+}

@@ -317,7 +317,7 @@ TargetLoader.add("staff", "https://fyren/intranet/itello/stab/whoswho.data.txt",
 	var args = e.slice(9, -2).split(/"\s*,\s*"/);
 	targets.push({
 	    name: args[1],
-	    searchTerms: args[0].toLowerCase() + "," + args[1] + "," + args[3] + "," + args[5],
+	    searchTerms: [args[1], args[0].toLowerCase(), args[3], args[5]].join(","),
 	    details: "<strong>" + args[1] + " (" + args[0].toLowerCase() + ")</strong>" +
 		"<br /><em>" + args[4] + "</em>" +
 		"<br />Började " + args[2] +
@@ -330,6 +330,25 @@ TargetLoader.add("staff", "https://fyren/intranet/itello/stab/whoswho.data.txt",
 });
 
 function buildTable(targets) {
+    function highlightMatch(match) {
+	if (match.indices.length == 0)
+	    return match.text;
+	var result = "";
+	var prevIncluded = false;
+	var included = false;
+	for (var i = 0; i < match.text.length; i++) {
+	    prevIncluded = included;
+	    included = match.indices.includes(i)
+	    if (included && !prevIncluded) {
+		result += '<span class="matched-part">';
+	    } else if (!included && prevIncluded) {
+		result += '</span>';
+	    }
+	    result += match.text[i];
+	}
+	return result + (included ? '</span>' : '');
+    }
+
     if (targets.length) {
 	var content = $("#list");
 	content.empty();
@@ -337,26 +356,19 @@ function buildTable(targets) {
 	var hrow = $("<tr />");
 	content.append(table);
 	table.append(hrow);
-	// hrow.append(
-    	//     $("<th>Milj&ouml;</th>"),
-       	//     // $("<th>Information</th>"),
-	//     // $("<th>Ansvarig</th>"),
-    	//     // $("<th>DB</th>"),
-    	//     // $("<th>App.</th>"),
-	// );
 	$.each(targets, function(i, e) {
 	    var tr = $("<tr />");
 	    if (e.details) {
 		tr.attr("title", e.details.replace(/\<br\s*\/?\>/g, "\n").replace(/\<.+?\>/g, ""));
 	    }
+	    var td = $("<td></td>");
 	    tr.append(
-		$("<td></td>").append('<a target="_blank" href="' + e.url + '">' + e.name + "</a>"),
+		td.append('<a target="_blank" href="' + e.url + '">' + (e.match && e.match.text == e.name ? highlightMatch(e.match) : e.name) + "</a>"),
 		$("<td align=right>" + (e.deeplink ? "&#9656;" : "") + "</td>"),
-		// $("<td>" + e.info + "</td>"),
-		// $("<td>" + e.mail + "</td>"),
-		// $("<td>" + e.data + "</td>"),
-		// $("<td>" + e.home + "</td>"),
 	    );
+	    if (e.match && e.match.text != e.name) { // Show the matching text, unless it's the same as the link
+		td.append(' <span class="matched-alternative">' + highlightMatch(e.match)) + '</span>';
+	    }
 	    table.append(tr);
 	});
     } else {
@@ -366,9 +378,15 @@ function buildTable(targets) {
 
 function filterTargets(text) {
     filteredTargets = $(allTargets).filter(function(i, e) {
+	e.match = null;
 	var terms = e.searchTerms.split(",");
 	for (var i = 0; i < terms.length; i++) {
-	    if (matches(text, terms[i])) return true;
+	    var indices = matches(text, terms[i]);
+	    if (indices) {
+		if (indices.length > 0)
+		    e.match = {text:terms[i], indices:indices};
+		return true;
+	    }
 	}
 	return false;
 //	return matches(text, e.name) || (e.search != undefined && matches(text, e.search));
@@ -385,52 +403,25 @@ function isBeginningOfWord(i, s) {
 function matches(search, text) {
     var s = search.trim().toLowerCase();
     var t = text.trim();
-    if (s.length > t.length) return false;
-    if (s.length == t.length) return s == t.toLowerCase();
+    if (s.length > t.length) return null;
+    if (s.length == t.length) return s == t.toLowerCase() ? Array.from(new Array(s.length).keys()) : null;
 
-    function recurse(si, ti, continuous) {
+    function recurse(si, ti, continuous, matchingIndices) {
 	if (si == s.length || ti == t.length) {
-	    return si == s.length;
+	    return si == s.length ? matchingIndices : null;
 	}
 	var matches = false;
 	if (s.charAt(si) == t.charAt(ti).toLowerCase() && (continuous ? true : isBeginningOfWord(ti, t))) {
-	    matches = recurse(si + 1, ti + 1, true);
+	    matchingIndices.push(ti);
+	    matches = recurse(si + 1, ti + 1, true, matchingIndices);
 	}
 	if (!matches) {
-	    matches = recurse(si, ti + 1, false);
+	    matches = recurse(si, ti + 1, false, matchingIndices);
 	}
 	return matches;
     }
 
-    return recurse(0, 0, false);
-}
-
-function matches_DEPRECATED(search, name) {
-    var s = search.trim().toLowerCase();
-    var n = name.trim();
-    if (s.length > n.length) return false;
-    if (s.length == n.length) return s == n.toLowerCase();
-    var si = 0;
-    var ni = 0;
-    outer: while (si < s.length && ni < n.length) {
-	if (s.charAt(si) == n.charAt(ni).toLowerCase()) {
-	    si++;
-	    ni++;
-	    continue;
-	} else {
-	    ni++;
-	    while (ni < n.length) {
-		if (s.charAt(si) == n.charAt(ni).toLowerCase() && isBeginningOfWord(ni, n)) {
-		    si++;
-		    ni++;
-		    continue outer;
-		}
-		ni++;
-	    }
-	    return false;
-	}
-    }
-    return si == s.length;
+    return recurse(0, 0, false, []);
 }
 
 function updateSelection(targetIndex) {
