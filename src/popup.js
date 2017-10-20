@@ -319,7 +319,7 @@ TargetLoader.add("staff", "https://fyren/intranet/itello/stab/whoswho.data.txt",
 		"<br />Började " + args[2] +
 		"<br />Roll: " + args[5] +
 		"<br />Avdelning: " + args[3] +
-		'<br /><br /><img alt="Foto saknas" src="https://fyren/intranet/itello/stab/images/' + args[0].toLowerCase() + '.jpg" />',
+		'<br /><br /><img style="max-width:100%" alt="Foto saknas" src="https://fyren/intranet/itello/stab/images/' + args[0].toLowerCase() + '.jpg" />',
 	});
     });
     return targets;
