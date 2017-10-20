@@ -50,6 +50,8 @@ var basicMode = new Mode({
 	window.open(target.url);
     },
     onAdvance: function() {
+	if (filteredTargets.length == 0)
+	    return true;
 	var target = filteredTargets[selectedTarget];
 	if (target.deeplink) {
 	    setDeepLinkMode(target);
