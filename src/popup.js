@@ -51,7 +51,7 @@ var basicMode = new Mode({
     },
     onAdvance: function() {
 	if (filteredTargets.length == 0)
-	    return true;
+	    return false;
 	var target = filteredTargets[selectedTarget];
 	if (target.deeplink) {
 	    setDeepLinkMode(target);
