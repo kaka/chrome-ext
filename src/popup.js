@@ -32,6 +32,9 @@ var mode;
 var basicMode = new Mode({
     onEnterMode: function() {
 	if (allTargets) {
+	    $(allTargets).each(function(i, e) { // Reset all matches
+		e.match = null;
+	    });
 	    filteredTargets = allTargets;
 	    buildTable(allTargets);
 	    updateSelection(0);
