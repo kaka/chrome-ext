@@ -8,6 +8,7 @@ function getForm() {
 	"searchTerms": $("#searchTerms").val(),
 	"deeplink": {
 	    "url": $("#deeplink-url").val(),
+	    "shorthand": $("#deeplink-shorthand").val(),
 	    "description": $("#deeplink-description").val(),
 	    "placeholder": $("#deeplink-placeholder").val(),
 	},
@@ -20,6 +21,7 @@ function fillForm(target) {
     $("#details").val(target.details);
     $("#searchTerms").val(target.searchTerms);
     $("#deeplink-url").val(target.deeplink.url);
+    $("#deeplink-shorthand").val(target.deeplink.shorthand);
     $("#deeplink-description").val(target.deeplink.description);
     $("#deeplink-placeholder").val(target.deeplink.placeholder);
 }
