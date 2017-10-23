@@ -31,6 +31,8 @@
     },
     "permissions": [
 	"storage",
+	"activeTab", // To get any selected text 
+	"clipboardRead",
 	"https://ajax.googleapis.com/",
 	"https://fyren/incaversions/testmiljoer.php"
     ]

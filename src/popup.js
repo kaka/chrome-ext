@@ -22,6 +22,10 @@ function Mode(args) {
 Mode.prototype.badge = null;
 Mode.prototype.text = "";
 Mode.prototype.placeholder = "Sök";
+Mode.prototype.setInput = function(text, event) {
+    this.text = text;
+    this.onInput(text, event);
+};
 
 const TARGET_VERSION = 1; // Increment when changing target structure
 
@@ -228,7 +232,7 @@ function addTargets(targets) {
     Array.prototype.push.apply(allTargets, targets);
     var text = $("#input").val().trim();
     if (text.length) {
-	filterTargets();
+	filterTargets(text);
 	buildTable(filteredTargets);
     } else {
 	filteredTargets = Array.from(allTargets);
@@ -467,6 +471,33 @@ function copyToClipboard(text) {
     temp.remove();
 }
 
+function insertSelectionOrClipboardIfShorthand() {
+    var input = $("#input");
+    function insertIfMatch(text) {
+	for (var i = 0; i < allTargets.length; i++) {
+	    var t = allTargets[i];
+	    if (t.deeplink && t.deeplink.shorthand && t.deeplink.shorthand.test(text)) {
+		input.val(text);
+		input.select()
+		mode.setInput(text, null);
+		return true;
+	    }
+	}
+	return false;
+    }
+    chrome.tabs.executeScript({
+	code: "window.getSelection().toString();"
+    }, function(selection) {
+	if (!insertIfMatch(selection[0].trim())) {
+	    input.focus();
+	    document.execCommand("paste");
+	    var text = input.val().trim();
+	    input.val("");
+	    insertIfMatch(text);
+	}
+    });
+}
+
 function navigate(delta) {
     var n = selectedTarget;
     var m = filteredTargets.length;
@@ -480,6 +511,7 @@ document.addEventListener('DOMContentLoaded', function() {
     buildTable(allTargets);
     updateSelection(0);
     loadCustomTargets();
+    insertSelectionOrClipboardIfShorthand();
     console.log(TargetLoader.loaders);
     $(TargetLoader.loaders).each(function(i, loader) {
 	console.log("loading " + loader.name);
@@ -499,9 +531,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // handle filtering
     $("#input").focus();
-    $("#input").on("input", function() {
-	mode.text = $("#input").val().trim();
-	mode.onInput(mode.text, event);
+    $("#input").on("input", function(event) {
+	mode.setInput($("#input").val().trim(), event);
     });
 
     // handle navigation
