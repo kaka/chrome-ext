@@ -147,7 +147,7 @@ function setupStaticTargets() {
 	    url: "https://taza.itello.se:8443/arsys/home",
 	    deeplink: {
 		url: "https://taza.itello.se:8443/arsys/forms/10.18.1.40/02%3A01%3AAR/?eid=<replace>",
-		shorthand: "^5[0-9]{5}$",
+		shorthand: "5[0-9]{5}",
 		placeholder: "Issue",
 	    },
 	}, {
@@ -155,7 +155,7 @@ function setupStaticTargets() {
 	    url: "https://taza.itello.se:8443/arsys/home",
 	    deeplink: {
 		url: "https://taza.itello.se:8443/arsys/forms/10.18.1.40/06%3A01%3ADefects/?eid=<replace>",
-		shorthand: "^1[0-9]{5}$",
+		shorthand: "1[0-9]{5}",
 		placeholder: "#",
 	    },
 	}, {
@@ -171,7 +171,7 @@ function setupStaticTargets() {
 	    url: "https://malaco",
 	    deeplink: {
 		url: "https://malaco/inca/inca/issues/<replace>",
-		shorthand: "^#?[1-9][0-9]*",
+		shorthand: "#?[1-9][0-9]*",
 		placeholder: "Issue",
 		description: "Öppnar ett issue i Inca-repot",
 	    }
@@ -223,7 +223,7 @@ function addTargets(targets) {
     $.each(targets, function(i, e) {
 	e.searchTerms = e.searchTerms || e.name;
 	if (e.deeplink && !e.deeplink.url) e.deeplink = undefined;
-	if (e.deeplink && e.deeplink.shorthand && typeof e.deeplink.shorthand === "string") e.deeplink.shorthand = new RegExp(e.deeplink.shorthand);
+	if (e.deeplink && e.deeplink.shorthand && typeof e.deeplink.shorthand === "string") e.deeplink.shorthand = new RegExp("^" + e.deeplink.shorthand + "$");
     });
     Array.prototype.push.apply(allTargets, targets);
     var text = $("#input").val().trim();
