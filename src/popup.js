@@ -155,7 +155,7 @@ function setupStaticTargets() {
 	    url: "https://taza.itello.se:8443/arsys/home",
 	    deeplink: {
 		url: "https://taza.itello.se:8443/arsys/forms/10.18.1.40/06%3A01%3ADefects/?eid=<replace>",
-		shorthand: "^6[0-9]{5}$",
+		shorthand: "^1[0-9]{5}$",
 		placeholder: "#",
 	    },
 	}, {
