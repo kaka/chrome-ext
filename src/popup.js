@@ -230,7 +230,7 @@ function addTargets(targets) {
 	if (e.deeplink && e.deeplink.shorthand && typeof e.deeplink.shorthand === "string") e.deeplink.shorthand = new RegExp("^" + e.deeplink.shorthand + "$");
     });
     Array.prototype.push.apply(allTargets, targets);
-    var text = $("#input").val().trim();
+    var text = ($("#input").val() || "").trim();
     if (text.length) {
 	filterTargets(text);
 	buildTable(filteredTargets);
@@ -491,7 +491,7 @@ function insertSelectionOrClipboardIfShorthand() {
 	if (!insertIfMatch(selection[0].trim())) {
 	    input.focus();
 	    document.execCommand("paste");
-	    var text = input.val().trim();
+	    var text = (input.val() || "").trim();
 	    input.val("");
 	    insertIfMatch(text);
 	}
