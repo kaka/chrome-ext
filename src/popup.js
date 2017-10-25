@@ -180,6 +180,13 @@ function setupStaticTargets() {
 		description: "Öppnar ett issue i Inca-repot",
 	    }
 	}, {
+	    name: "Itello Search",
+	    url: "https://skotte/default.aspx",
+	    deeplink: {
+		url: "https://skotte/results.aspx?k=<replace>",
+		description: "Sök efter dokument",
+	    }
+	}, {
 	    name: "Kanboard",
 	    url: "http://kallari/kanboard/",
 	    searchTerms: "KanBoard",
