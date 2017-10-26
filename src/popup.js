@@ -278,12 +278,14 @@ TargetLoader.prototype.fetch = function() {
 		.delay(3000)
 		.slideToggle();
 	}
-    }
+	Spinner.popTask();
+    };
     request.send();
 };
 
 TargetLoader.prototype.load = function() {
     console.log(this.name + ".load()");
+    Spinner.pushTask();
     var loader = this;
     chrome.storage.local.get([loader.name + "-version",
 			      loader.name + "-date",
@@ -292,6 +294,7 @@ TargetLoader.prototype.load = function() {
 	var date = items[loader.name + "-date"];
 	if (version == TARGET_VERSION && date && ((new Date().getTime() - date) / (1000 * loader.ttl)) < 1) {
 	    addTargets(items[loader.name + "-targets"]);
+	    Spinner.popTask();
 	} else {
 	    loader.fetch();
 	}
@@ -312,6 +315,20 @@ TargetLoader.add = function(name, url, parser, ttl=60*60*24) {
     console.log("Adding loader - " + name + " / " + url);
     TargetLoader.loaders.push(new TargetLoader(name, url, ttl, parser));
 };
+
+TargetLoader.loadAll = function(forceReload=false) {
+    console.log("TargetLoader.loadAll(forceReload=" + forceReload + ")");
+    console.log(TargetLoader.loaders);
+    $(TargetLoader.loaders).each(function(i, loader) {
+	console.log("loading " + loader.name);
+	if (forceReload) {
+	    Spinner.pushTask();
+	    loader.fetch();
+	} else {
+	    loader.load();
+	}
+    });
+}
 
 TargetLoader.add("environments", "https://fyren/incaversions/testmiljoer.php", function(text) {
     var targets = [];
@@ -513,17 +530,18 @@ function navigate(delta) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    // setup refresh button
+    Spinner.init($("#refresh"), function() {
+	TargetLoader.loadAll(true);
+    });
+
     setupHelp();
     setupStaticTargets();
     buildTable(allTargets);
     updateSelection(0);
     loadCustomTargets();
     insertSelectionOrClipboardIfShorthand();
-    console.log(TargetLoader.loaders);
-    $(TargetLoader.loaders).each(function(i, loader) {
-	console.log("loading " + loader.name);
-	loader.load();
-    });
+    TargetLoader.loadAll();
 
     $("#main").height(600 - $("#top").outerHeight()); // Fix what CSS can't
 
