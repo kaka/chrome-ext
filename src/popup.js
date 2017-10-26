@@ -264,12 +264,12 @@ TargetLoader.prototype.fetch = function() {
     request.onreadystatechange = function() {
 	if (request.readyState != 4) return;
 	if (request.status == 200) {
-	    console.log(loader.name + ".fetch() - loaded " + this.url);
+	    console.log(loader.name + ".fetch() - loaded " + loader.url);
 	    var targets = loader.parse(request.responseText);
 	    loader.save(targets);
 	    addTargets(targets);
 	} else {
-	    console.log(loader.name + ".fetch() - failed to load " + this.url);
+	    console.log(loader.name + ".fetch() - failed to load " + loader.url);
 	    $("<div>", {class: "notification error"})
 		.html("<p>Kunde inte hämta Inca-miljöerna :'(<p><pre>" + request.status + " " + request.statusText + "</pre>")
 		.appendTo(document.body)
