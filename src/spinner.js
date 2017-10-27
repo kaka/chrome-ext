@@ -16,7 +16,6 @@ Spinner.pushTask = function() {
 	this.element.addClass("rotation");
 	this.element.removeClass("clickable");
     }
-    console.log(this.counter);
 }
 
 Spinner.popTask = function() {
@@ -25,5 +24,4 @@ Spinner.popTask = function() {
 	this.element.removeClass("rotation");
 	this.element.addClass("clickable");
     }
-    console.log(this.counter);
 }
