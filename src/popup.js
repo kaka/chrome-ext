@@ -549,7 +549,11 @@ function navigate(delta) {
 document.addEventListener('DOMContentLoaded', function() {
     // setup refresh button
     Spinner.init($("#refresh"), function() {
+	allTargets = [];
+	setupStaticTargets();
+	loadCustomTargets();
 	TargetLoader.loadAll(true);
+	$("#input").focus();
     });
 
     setupHelp();
