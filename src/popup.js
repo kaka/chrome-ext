@@ -532,8 +532,6 @@ function navigate(delta) {
 document.addEventListener('DOMContentLoaded', function() {
     setupHelp();
     setupStaticTargets();
-    buildTable(allTargets);
-    updateSelection(0);
     loadCustomTargets();
     insertSelectionOrClipboardIfShorthand();
     console.log(TargetLoader.loaders);
