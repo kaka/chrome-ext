@@ -246,13 +246,14 @@ TargetLoader.prototype.fetch = function() {
 	    addTargets(targets);
 	} else {
 	    console.log(loader.name + ".fetch() - failed to load " + loader.url);
-	    $("<div>", {class: "notification error"})
+	    var div = $("<div>", {class: "notification error"})
 		.html("<p>Kunde inte hämta Inca-miljöerna :'(<p><pre>" + request.status + " " + request.statusText + "</pre>")
 		.appendTo(document.body)
 		.hide()
 		.slideToggle()
 		.delay(3000)
 		.slideToggle();
+	    setTimeout(function() { div.remove(); }, 3000);
 	}
 	Spinner.popTask();
     };
