@@ -10,6 +10,12 @@
 	"chrome_style": true
     },
 
+    "icons": {
+	"16": "img/icon.png",
+	"48": "img/icon.png",
+	"128": "img/icon.png"
+    },
+
     "commands": {
 	"_execute_browser_action": {
 	    "suggested_key": {"default": "Alt+O"}
@@ -25,7 +31,7 @@
     },
 
     "browser_action": {
-	"default_icon": "icon.png",
+	"default_icon": "img/icon.png",
 	"default_popup": "popup.html",
 	"default_title": "Inca-miljöer (Alt+O)"
     },
