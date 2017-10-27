@@ -23,6 +23,7 @@ Mode.prototype.badge = null;
 Mode.prototype.text = "";
 Mode.prototype.placeholder = "Sök";
 Mode.prototype.setInput = function(text, event) {
+    console.log("setInput('" + text + "', " + event + ")");
     this.text = text;
     this.onInput(text, event);
 };
@@ -35,6 +36,7 @@ var selectedTarget = 0;
 var mode;
 var basicMode = new Mode({
     onEnterMode: function() {
+	console.log("onEnterMode()");
 	if (allTargets) {
 	    $(allTargets).each(function(i, e) { // Reset all matches
 		e.match = null;
@@ -45,6 +47,7 @@ var basicMode = new Mode({
 	}
     },
     onInput: function(text, event) {
+	console.log("onInput('" + text + "')");
 	filterTargets(text);
 	buildTable(filteredTargets);
 	updateSelection(0);
@@ -76,6 +79,7 @@ var basicMode = new Mode({
 setMode(basicMode);
 
 function setMode(newMode) {
+    console.log("setMode()");
     if (mode) mode.onExitMode();
     mode = newMode;
     mode.onEnterMode();
@@ -136,6 +140,7 @@ function hideHelp() {
 }
 
 function setupStaticTargets() {
+    console.log("setupStaticTargets()");
     var staticTargets = [
 	{
 	    name: "Fyren",
@@ -222,6 +227,7 @@ function setupStaticTargets() {
 }
 
 function loadCustomTargets() {
+    console.log("loadCustomTargets()");
     chrome.storage.local.get(["custom-version", "custom-targets"], function(items) {
 	var version = items["custom-version"];
 	if (version == TARGET_VERSION) {
@@ -231,6 +237,7 @@ function loadCustomTargets() {
 }
 
 function addTargets(targets) {
+    console.log("addTargets(Array(" + targets.length + "))");
     $.each(targets, function(i, e) {
 	e.searchTerms = e.searchTerms || e.name;
 	if (e.deeplink && !e.deeplink.url) e.deeplink = undefined;
@@ -239,6 +246,7 @@ function addTargets(targets) {
     Array.prototype.push.apply(allTargets, targets);
     var text = ($("#input").val() || "").trim();
     if (text.length) {
+	console.log("text.length - '" + text + "'");
 	filterTargets(text);
 	buildTable(filteredTargets);
     } else {
@@ -291,6 +299,7 @@ TargetLoader.prototype.load = function() {
 	var version = items[loader.name + "-version"];
 	var date = items[loader.name + "-date"];
 	if (version == TARGET_VERSION && date && ((new Date().getTime() - date) / (1000 * loader.ttl)) < 1) {
+	    console.log("adding targets for " + loader.name);
 	    addTargets(items[loader.name + "-targets"]);
 	} else {
 	    loader.fetch();
@@ -299,6 +308,7 @@ TargetLoader.prototype.load = function() {
 };
 
 TargetLoader.prototype.save = function(targets) {
+    console.log(this.name + ".save()");
     var args = {};
     args[this.name + "-version"] = TARGET_VERSION;
     args[this.name + "-date"] = new Date().getTime();
@@ -354,6 +364,7 @@ TargetLoader.add("staff", "https://fyren/intranet/itello/stab/whoswho.data.txt",
 });
 
 function buildTable(targets) {
+    console.log("buildTable(Array(" + targets.length + "))");
     function highlightMatch(match) {
 	if (match.indices.length == 0)
 	    return match.text;
@@ -418,6 +429,7 @@ function filterTargets(text) {
 	return false;
 //	return matches(text, e.name) || (e.search != undefined && matches(text, e.search));
     });
+    console.log("filterTargets('" + text + "') -> " + filteredTargets.length);
 }
 
 function isBeginningOfWord(i, s) {
@@ -452,6 +464,7 @@ function matches(search, text) {
 }
 
 function updateSelection(targetIndex) {
+    console.log("updateSelection(" + targetIndex + ")");
     selectedTarget = targetIndex;
     $("table tr").removeClass("selected");
     $("table tr").eq(selectedTarget + 1).addClass("selected");
@@ -479,11 +492,13 @@ function copyToClipboard(text) {
 }
 
 function insertSelectionOrClipboardIfShorthand() {
+    console.log("insertSelectionOrClipboardIfShorthand()");
     var input = $("#input");
     function insertIfMatch(text) {
 	for (var i = 0; i < allTargets.length; i++) {
 	    var t = allTargets[i];
 	    if (t.deeplink && t.deeplink.shorthand && t.deeplink.shorthand.test(text)) {
+		console.log("shorthand " + t.deeplink.shorthand + " matches '" + text + "'");
 		input.val(text);
 		input.select()
 		mode.setInput(text, null);
@@ -541,6 +556,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // handle filtering
     $("#input").focus();
     $("#input").on("input", function(event) {
+	console.log("#input onInput");
+	console.log(event);
 	mode.setInput($("#input").val().trim(), event);
     });
 
