@@ -452,21 +452,23 @@ function insertSelectionOrClipboardIfShorthand() {
     });
 }
 
+function loadTargets(forceReload=false) {
+    basicMode.targets = [];
+    setupStaticTargets();
+    loadCustomTargets();
+    TargetLoader.loadAll(forceReload);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // setup refresh button
     Spinner.init($("#refresh"), function() {
-	basicMode.targets = [];
-	setupStaticTargets();
-	loadCustomTargets();
-	TargetLoader.loadAll(true);
+	loadTargets(true);
 	$("#input").focus();
     });
 
     setupHelp();
-    setupStaticTargets();
-    loadCustomTargets();
+    loadTargets();
     insertSelectionOrClipboardIfShorthand();
-    TargetLoader.loadAll();
 
     $("#main").height(600 - $("#top").outerHeight()); // Fix what CSS can't
 
