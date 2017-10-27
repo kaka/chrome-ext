@@ -9,56 +9,32 @@
  */
 
 
-function Mode(args) {
-    this.onEnterMode = args.onEnterMode || function() {};
-    this.onExitMode = args.onExitMode || function() {};
-    this.onInput = args.onInput || function(text, event) {};
-    this.onNavigate = args.onNavigate || function(direction) {};
-    this.onSelect = args.onSelect || function() {};
-    this.onAdvance = args.onAdvance || function() { return false; }; // Return whether the mode was advanced or not
-    this.onBack = args.onBack || function() {};
-}
-
-Mode.prototype.badge = null;
-Mode.prototype.text = "";
-Mode.prototype.placeholder = "Sök";
-Mode.prototype.setInput = function(text, event) {
-    console.log("setInput('" + text + "', " + event + ")");
-    this.text = text;
-    this.onInput(text, event);
-};
-
 const TARGET_VERSION = 1; // Increment when changing target structure
 
-var allTargets = [];
-var filteredTargets;
-var selectedTarget = 0;
 var mode;
 var basicMode = new Mode({
     onEnterMode: function() {
 	console.log("onEnterMode()");
-	if (allTargets) {
-	    $(allTargets).each(function(i, e) { // Reset all matches
+	if (this.targets) {
+	    $(this.targets).each(function(i, e) { // Reset all matches
 		e.match = null;
 	    });
-	    filteredTargets = allTargets;
-	    buildTable(allTargets);
+	    buildTable(this.getTargets());
 	    updateSelection(0);
 	}
     },
     onInput: function(text, event) {
 	console.log("onInput('" + text + "')");
-	filterTargets(text);
-	buildTable(filteredTargets);
+	buildTable(this.getTargets());
 	updateSelection(0);
     },
-    onNavigate: function(direction) {
-	navigate(direction);
+    onNavigate: function(newIndex) {
+	updateSelection(newIndex);
     },
     onSelect: function() {
-	if (filteredTargets.length == 0)
+	var target = this.getCurrentTarget();
+	if (!target)
 	    return false;
-	var target = filteredTargets[selectedTarget];
 	if (target.deeplink && target.deeplink.shorthand && target.deeplink.shorthand.test(this.text)) {
 	    window.open(target.deeplink.url.replace("<replace>", this.text)); // TODO: replace with call to deeplink mode, for saving history
 	} else {
@@ -66,9 +42,9 @@ var basicMode = new Mode({
 	}
     },
     onAdvance: function() {
-	if (filteredTargets.length == 0)
+	var target = this.getCurrentTarget();
+	if (!target)
 	    return false;
-	var target = filteredTargets[selectedTarget];
 	if (target.deeplink) {
 	    setDeepLinkMode(target);
 	    return true;
@@ -243,16 +219,8 @@ function addTargets(targets) {
 	if (e.deeplink && !e.deeplink.url) e.deeplink = undefined;
 	if (e.deeplink && e.deeplink.shorthand && typeof e.deeplink.shorthand === "string") e.deeplink.shorthand = new RegExp("^" + e.deeplink.shorthand + "$");
     });
-    Array.prototype.push.apply(allTargets, targets);
-    var text = ($("#input").val() || "").trim();
-    if (text.length) {
-	console.log("text.length - '" + text + "'");
-	filterTargets(text);
-	buildTable(filteredTargets);
-    } else {
-	filteredTargets = Array.from(allTargets);
-	buildTable(allTargets);
-    }
+    basicMode.addTargets(targets);
+    buildTable(basicMode.getTargets());
     updateSelection(0);
 }
 
@@ -426,66 +394,13 @@ function buildTable(targets) {
     }
 }
 
-function filterTargets(text) {
-    filteredTargets = $(allTargets).filter(function(i, e) {
-	e.match = null;
-	var terms = e.searchTerms.split(",");
-	for (var i = 0; i < terms.length; i++) {
-	    var indices = matches(text, terms[i]);
-	    if (indices) {
-		if (indices.length > 0)
-		    e.match = {text:terms[i], indices:indices};
-		return true;
-	    }
-	}
-	if (e.deeplink && e.deeplink.shorthand) {
-	    return e.deeplink.shorthand.test(text);
-	}
-	return false;
-//	return matches(text, e.name) || (e.search != undefined && matches(text, e.search));
-    });
-    console.log("filterTargets('" + text + "') -> " + filteredTargets.length);
-}
-
-function isBeginningOfWord(i, s) {
-    return i == 0
-	|| ((s.charAt(i) == s.charAt(i).toUpperCase()))// && (s.charAt(i-1) == s.charAt(i-1).toLowerCase()))
-	|| "_- ([<>])/\\'\"".includes(s.charAt(i-1))
-	|| !isNaN(s.charAt(i));
-}
-
-function matches(search, text) {
-    var s = search.trim().toLowerCase();
-    var t = text.trim();
-    if (s.length > t.length) return null;
-    if (s.length == t.length) return s == t.toLowerCase() ? Array.from(new Array(s.length).keys()) : null;
-
-    function recurse(si, ti, continuous, matchingIndices) {
-	if (si == s.length || ti == t.length) {
-	    return si == s.length ? matchingIndices : null;
-	}
-	var matches = false;
-	if (s.charAt(si) == t.charAt(ti).toLowerCase() && (continuous ? true : isBeginningOfWord(ti, t))) {
-	    matchingIndices.push(ti);
-	    matches = recurse(si + 1, ti + 1, true, matchingIndices);
-	}
-	if (!matches) {
-	    matches = recurse(si, ti + 1, false, matchingIndices);
-	}
-	return matches;
-    }
-
-    return recurse(0, 0, false, []);
-}
-
 function updateSelection(targetIndex) {
     console.log("updateSelection(" + targetIndex + ")");
-    selectedTarget = targetIndex;
     $("table tr").removeClass("selected");
-    $("table tr").eq(selectedTarget + 1).addClass("selected");
+    $("table tr").eq(targetIndex + 1).addClass("selected");
     $("#details").empty();
-    if (filteredTargets.length) {
-	var target = filteredTargets[selectedTarget];
+    var target = mode.getCurrentTarget();
+    if (target) {
 	if (target.details) {
 	    $("#details").html("<hr />" + target.details);
 	} else {
@@ -510,8 +425,8 @@ function insertSelectionOrClipboardIfShorthand() {
     console.log("insertSelectionOrClipboardIfShorthand()");
     var input = $("#input");
     function insertIfMatch(text) {
-	for (var i = 0; i < allTargets.length; i++) {
-	    var t = allTargets[i];
+	for (var i = 0; i < mode.targets.length; i++) {
+	    var t = mode.targets[i];
 	    if (t.deeplink && t.deeplink.shorthand && t.deeplink.shorthand.test(text)) {
 		console.log("shorthand " + t.deeplink.shorthand + " matches '" + text + "'");
 		input.val(text);
@@ -537,17 +452,10 @@ function insertSelectionOrClipboardIfShorthand() {
     });
 }
 
-function navigate(delta) {
-    var n = selectedTarget;
-    var m = filteredTargets.length;
-    var initialValue = delta > 0 ? -1 : 0;
-    updateSelection((((n == null ? initialValue : n) + delta) + m) % m);
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     // setup refresh button
     Spinner.init($("#refresh"), function() {
-	allTargets = [];
+	basicMode.targets = [];
 	setupStaticTargets();
 	loadCustomTargets();
 	TargetLoader.loadAll(true);
@@ -610,17 +518,17 @@ document.addEventListener('DOMContentLoaded', function() {
 	    }
 	}
 	if ([38, 40].includes(event.keyCode)) { // up, down
-	    mode.onNavigate({38: -1, 40: 1}[event.keyCode]);
+	    mode.navigate({38: -1, 40: 1}[event.keyCode]);
 	    return false;
 	}
 	return true;
     }
     chrome.commands.onCommand.addListener(function(cmd) {
 	if (cmd == "navigate-up") {
-	    mode.onNavigate(-1);
+	    mode.navigate(-1)
 	}
 	if (cmd == "navigate-down") {
-	    mode.onNavigate(1);
+	    mode.navigate(1)
 	}
     });
 });
