@@ -497,10 +497,12 @@ function insertSelectionOrClipboardIfShorthand() {
     }, function(selection) {
 	if (!insertIfMatch(selection[0].trim())) {
 	    input.focus();
-	    document.execCommand("paste");
+	    document.execCommand("paste"); // This triggers an onInput event, filtering by what's pasted and rebuilding the list
 	    var text = (input.val() || "").trim();
 	    input.val("");
-	    insertIfMatch(text);
+	    if (!insertIfMatch(text)) {
+		mode.setInput("", null);
+	    }
 	}
     });
 }
