@@ -342,7 +342,8 @@ TargetLoader.loadAll = function(forceReload=false) {
 
 TargetLoader.add("environments", "https://fyren/incaversions/testmiljoer.php", function(text) {
     var targets = [];
-    $("<div>", {style: "display:none"})
+    var div = $("<div>", {style: "display:none"});
+    div
 	.appendTo(document.body)
 	.html(text)
 	.find("table tr").each(function(i, e) {
@@ -359,6 +360,7 @@ TargetLoader.add("environments", "https://fyren/incaversions/testmiljoer.php", f
 		});
 	    }
 	});
+    div.remove();
     return targets;
 });
 
