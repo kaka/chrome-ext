@@ -272,12 +272,12 @@ TargetLoader.prototype.fetch = function() {
     request.onreadystatechange = function() {
 	if (request.readyState != 4) return;
 	if (request.status == 200) {
-	    console.log(loader.name + ".fetch() - loaded " + this.url);
+	    console.log(loader.name + ".fetch() - loaded " + loader.url);
 	    var targets = loader.parse(request.responseText);
 	    loader.save(targets);
 	    addTargets(targets);
 	} else {
-	    console.log(loader.name + ".fetch() - failed to load " + this.url);
+	    console.log(loader.name + ".fetch() - failed to load " + loader.url);
 	    $("<div>", {class: "notification error"})
 		.html("<p>Kunde inte hämta Inca-miljöerna :'(<p><pre>" + request.status + " " + request.statusText + "</pre>")
 		.appendTo(document.body)
@@ -286,12 +286,14 @@ TargetLoader.prototype.fetch = function() {
 		.delay(3000)
 		.slideToggle();
 	}
-    }
+	Spinner.popTask();
+    };
     request.send();
 };
 
 TargetLoader.prototype.load = function() {
     console.log(this.name + ".load()");
+    Spinner.pushTask();
     var loader = this;
     chrome.storage.local.get([loader.name + "-version",
 			      loader.name + "-date",
@@ -301,6 +303,7 @@ TargetLoader.prototype.load = function() {
 	if (version == TARGET_VERSION && date && ((new Date().getTime() - date) / (1000 * loader.ttl)) < 1) {
 	    console.log("adding targets for " + loader.name);
 	    addTargets(items[loader.name + "-targets"]);
+	    Spinner.popTask();
 	} else {
 	    loader.fetch();
 	}
@@ -322,6 +325,20 @@ TargetLoader.add = function(name, url, parser, ttl=60*60*24) {
     console.log("Adding loader - " + name + " / " + url);
     TargetLoader.loaders.push(new TargetLoader(name, url, ttl, parser));
 };
+
+TargetLoader.loadAll = function(forceReload=false) {
+    console.log("TargetLoader.loadAll(forceReload=" + forceReload + ")");
+    console.log(TargetLoader.loaders);
+    $(TargetLoader.loaders).each(function(i, loader) {
+	console.log("loading " + loader.name);
+	if (forceReload) {
+	    Spinner.pushTask();
+	    loader.fetch();
+	} else {
+	    loader.load();
+	}
+    });
+}
 
 TargetLoader.add("environments", "https://fyren/incaversions/testmiljoer.php", function(text) {
     var targets = [];
@@ -530,15 +547,16 @@ function navigate(delta) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    // setup refresh button
+    Spinner.init($("#refresh"), function() {
+	TargetLoader.loadAll(true);
+    });
+
     setupHelp();
     setupStaticTargets();
     loadCustomTargets();
     insertSelectionOrClipboardIfShorthand();
-    console.log(TargetLoader.loaders);
-    $(TargetLoader.loaders).each(function(i, loader) {
-	console.log("loading " + loader.name);
-	loader.load();
-    });
+    TargetLoader.loadAll();
 
     $("#main").height(600 - $("#top").outerHeight()); // Fix what CSS can't
 
