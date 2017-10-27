@@ -26,25 +26,20 @@ body {
     font-size: 80%;
 }
 
-#options {
-    float: right;
-    font-size: small;
-}
-
-#refresh {
+.icon {
     float: right;
     width: 1em;
-    height: 1em;
+    height: 1.2em;
     margin-right: 0.25em;
-    opacity: 0.25;
+    opacity: 0.3;
 }
-#refresh.clickable:hover {
+.icon.clickable:hover {
     opacity: 1;
     cursor: pointer;
 }
 
 .rotation {
-    opacity: 0.1;
+    opacity: 0.2;
     animation:rotate 1s linear infinite;
 }
 @keyframes rotate { 100% { transform:rotate(360deg); } }
