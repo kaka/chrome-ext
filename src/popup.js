@@ -280,12 +280,9 @@ TargetLoader.add({
     url: "https://fyren/intranet/main.html",
     parser: function(text) {
 	var targets = [];
-	console.log("PARSING FYREN");
 	$("<div>").html(text)
 	    .find("#inca-release article").each(function(i, e) {
 		var article = $(e);
-		console.log(article);
-		console.log(article.html());
 		targets.push({
 		    name: "Release " + article.find("h4").text(),
 		    url: "https://fyren/intranet/main.html",
