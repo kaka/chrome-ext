@@ -292,7 +292,7 @@ TargetLoader.add({
 	return targets;
     },
     onLoadError: function(request) {
-	notifyError("<p>Kunde inte h√§mta fyren</p>");
+	notifyError("<p>Kunde inte h‰mta fyren</p>");
     }
 });
 
