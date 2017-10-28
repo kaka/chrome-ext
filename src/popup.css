@@ -44,26 +44,30 @@ body {
 }
 @keyframes rotate { 100% { transform:rotate(360deg); } }
 
-.notification {
+#notifications {
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    float: left;
+    position: fixed;
+}
+#notifications > div {
     background: white;
     box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 2px;
     border-radius: 2px;
     padding: 8px;
     color: #444;
     margin: 8px;
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
+    position: relative;
 }
-.notification p:first-child {
+#notifications > div p:first-child {
     margin-top: 0px;
 }
-.notification p:last-child {
+#notifications > div p:last-child {
     margin-bottom: 0px;
 }
 
-.error {
+#notifications > .error {
     background: #fdd;
 }
 
