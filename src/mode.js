@@ -6,14 +6,14 @@ function Mode(args) {
     this.onSelect = args.onSelect || function() {};
     this.onAdvance = args.onAdvance || function() { return false; }; // Return whether the mode was advanced or not
     this.onBack = args.onBack || function() {};
-}
 
-Mode.prototype.targets = [];
-Mode.prototype.filteredTargets = [];
-Mode.prototype.selectedTarget = 0;
-Mode.prototype.badge = null;
-Mode.prototype.text = "";
-Mode.prototype.placeholder = "Sök";
+    this.targets = [];
+    this.filteredTargets = [];
+    this.selectedTarget = 0;
+    this.badge = null;
+    this.text = "";
+    this.placeholder = "Sök";
+}
 
 Mode.prototype.setInput = function(text, event) {
     console.log("setInput('" + text + "', " + event + ")");
