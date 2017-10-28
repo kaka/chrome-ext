@@ -77,6 +77,8 @@ function setMode(newMode) {
 
 function setDeepLinkMode(target) {
     var newMode = new Mode({
+	badge: target.name,
+	placeholder: target.deeplink.placeholder,
 	onEnterMode: function() {
 	    $("#list").empty();
 	    if (target.deeplink.description)
@@ -89,8 +91,6 @@ function setDeepLinkMode(target) {
 	    window.open(target.deeplink.url.replace("<replace>", this.text));
 	}
     });
-    newMode.badge = target.name;
-    newMode.placeholder = target.deeplink.placeholder;
     setMode(newMode);
 }
 

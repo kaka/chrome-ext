@@ -10,9 +10,9 @@ function Mode(args) {
     this.targets = [];
     this.filteredTargets = [];
     this.selectedTarget = 0;
-    this.badge = null;
+    this.badge = args.badge;
     this.text = "";
-    this.placeholder = "Sök";
+    this.placeholder = args.placeholder || "Sök";
 }
 
 Mode.prototype.setInput = function(text, event) {
