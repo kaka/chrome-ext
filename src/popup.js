@@ -13,6 +13,7 @@ var mode;
 var basicMode = new Mode({
     onEnterMode: function() {
 	console.log("onEnterMode()");
+	this.text = "";
 	if (this.targets) {
 	    $(this.targets).each(function(i, e) { // Reset all matches
 		e.match = null;
