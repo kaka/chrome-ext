@@ -28,7 +28,7 @@ Mode.prototype.setInput = function(text, event) {
     console.log("setInput('" + text + "', " + event + ")");
     this.text = text;
     this.onTargetsChanged(this.getTargets());
-    this.onSelectionChanged(0);
+    this.onSelectionChanged(this.selectedTarget = 0);
 };
 
 Mode.prototype.addTargets = function(targets) {
