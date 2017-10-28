@@ -285,6 +285,7 @@ TargetLoader.add({
 		var article = $(e);
 		targets.push({
 		    name: "Release " + article.find("h4").text(),
+		    searchTerms: "Release " + article.find("h4").text() + ",fyren,inca",
 		    url: "https://fyren/intranet/main.html",
 		    details: article.html(),
 		});
