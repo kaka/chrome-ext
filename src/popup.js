@@ -224,43 +224,68 @@ function addTargets(targets) {
 
 TargetLoader.defaultTargetReceiver = addTargets;
 
-TargetLoader.add("environments", "https://fyren/incaversions/testmiljoer.php", function(text) {
-    var targets = [];
-    $("<div>").html(text)
-	.find("table tr").each(function(i, e) {
-	    if (i > 0) {
-		var td = $(e).children("td");
-		targets.push({
-		    name: td.eq(0).text(),
-		    searchTerms: td.eq(0).text(),
-		    url: td.eq(0).find("a").eq(0).attr("href"),
-		    details: td.eq(1).html() + "<br />"
-			+ "<br /><b>Ansvarig</b>: " + td.eq(2).html()
-			+ "<br /><b>App</b>: " + td.eq(3).html()
-			+ "<br /><b>Databas</b>: " + td.eq(4).text()
-		});
-	    }
-	});
-    return targets;
+TargetLoader.add({
+    name: "environments",
+    url: "https://fyren/incaversions/testmiljoer.php",
+    parser: function(text) {
+	var targets = [];
+	$("<div>").html(text)
+	    .find("table tr").each(function(i, e) {
+		if (i > 0) {
+		    var td = $(e).children("td");
+		    targets.push({
+			name: td.eq(0).text(),
+			searchTerms: td.eq(0).text(),
+			url: td.eq(0).find("a").eq(0).attr("href"),
+			details: td.eq(1).html() + "<br />"
+			    + "<br /><b>Ansvarig</b>: " + td.eq(2).html()
+			    + "<br /><b>App</b>: " + td.eq(3).html()
+			    + "<br /><b>Databas</b>: " + td.eq(4).text()
+		    });
+		}
+	    });
+	return targets;
+    },
+    onLoadError: function(request) {
+	notifyError("<p>Kunde inte hämta Inca-miljöerna :'(<p><pre>" + request.status + " " + request.statusText + "</pre>");
+    }
 });
 
-TargetLoader.add("staff", "https://fyren/intranet/itello/stab/whoswho.data.txt", function(text) {
-    var targets = [];
-    $.each(text.match(/addUser\((".*?"(,\s.*)?)+\)/g), function(i, e) {
-	var args = e.slice(9, -2).split(/"\s*,\s*"/);
-	targets.push({
-	    name: args[1],
-	    searchTerms: [args[1], args[0].toLowerCase(), args[3], args[5]].join(","),
-	    details: "<strong>" + args[1] + " (" + args[0].toLowerCase() + ")</strong>" +
-		"<br /><em>" + args[4] + "</em>" +
-		"<br />Började " + args[2] +
-		"<br />Roll: " + args[5] +
-		"<br />Avdelning: " + args[3] +
-		'<br /><br /><img style="max-width:100%" alt="Foto saknas" src="https://fyren/intranet/itello/stab/images/' + args[0].toLowerCase() + '.jpg" />',
+TargetLoader.add({
+    name: "staff",
+    url: "https://fyren/intranet/itello/stab/whoswho.data.txt",
+    parser: function(text) {
+	var targets = [];
+	$.each(text.match(/addUser\((".*?"(,\s.*)?)+\)/g), function(i, e) {
+	    var args = e.slice(9, -2).split(/"\s*,\s*"/);
+	    targets.push({
+		name: args[1],
+		searchTerms: [args[1], args[0].toLowerCase(), args[3], args[5]].join(","),
+		details: "<strong>" + args[1] + " (" + args[0].toLowerCase() + ")</strong>" +
+		    "<br /><em>" + args[4] + "</em>" +
+		    "<br />Började " + args[2] +
+		    "<br />Roll: " + args[5] +
+		    "<br />Avdelning: " + args[3] +
+		    '<br /><br /><img style="max-width:100%" alt="Foto saknas" src="https://fyren/intranet/itello/stab/images/' + args[0].toLowerCase() + '.jpg" />',
+	    });
 	});
-    });
-    return targets;
+	return targets;
+    },
+    onLoadError: function(request) {
+	notifyError("<p>Kunde inte hämta personalinfo</p>");
+    }
 });
+
+function notifyError(html) {
+    var div = $("<div>", {class: "error"})
+	.html(html)
+	.appendTo($("#notifications"))
+	.hide()
+	.slideToggle()
+	.delay(3000)
+	.slideToggle();
+    setTimeout(function() { div.remove(); }, 4000);
+}
 
 function buildTable(targets) {
     console.log("buildTable(Array(" + targets.length + "))");

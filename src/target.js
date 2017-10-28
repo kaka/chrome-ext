@@ -1,11 +1,12 @@
 const TARGET_VERSION = 1; // Increment when changing target structure
 
 /* Used for fetching and caching targets from a resource */
-function TargetLoader(name, url, ttl, parserFunction, targetReceiver) {
+function TargetLoader(name, url, ttl, parserFunction, onLoadError, targetReceiver) {
     this.name = name;
     this.url = url;
     this.ttl = ttl;
     this.parse = parserFunction; // called with request.responseText
+    this.onLoadError = onLoadError;
     this.targetReceiver = targetReceiver;
 }
 
@@ -23,14 +24,8 @@ TargetLoader.prototype.fetch = function() {
 	    loader.targetReceiver(targets);
 	} else {
 	    console.log(loader.name + ".fetch() - failed to load " + loader.url);
-	    var div = $("<div>", {class: "error"})
-		.html("<p>Kunde inte hämta Inca-miljöerna :'(<p><pre>" + request.status + " " + request.statusText + "</pre>")
-		.appendTo($("#notifications"))
-		.hide()
-		.slideToggle()
-		.delay(3000)
-		.slideToggle();
-	    setTimeout(function() { div.remove(); }, 4000);
+	    if (loader.onLoadError)
+		loader.onLoadError(request);
 	}
 	Spinner.popTask();
     };
@@ -67,9 +62,16 @@ TargetLoader.prototype.save = function(targets) {
 
 TargetLoader.loaders = [];
 
-TargetLoader.add = function(name, url, parser, targetReceiver=null, ttl=60*60*24) {
-    console.log("Adding loader - " + name + " / " + url);
-    TargetLoader.loaders.push(new TargetLoader(name, url, ttl, parser, targetReceiver || TargetLoader.defaultTargetReceiver));
+TargetLoader.add = function(args) {
+    console.log("Adding loader - " + args.name + " / " + args.url);
+    TargetLoader.loaders.push(new TargetLoader(
+	args.name,
+	args.url,
+	args.ttl || 60*60*24,
+	args.parser,
+	args.onLoadError,
+	args.targetReceiver || TargetLoader.defaultTargetReceiver
+    ));
 };
 
 TargetLoader.loadAll = function(forceReload=false) {
