@@ -247,7 +247,9 @@ TargetLoader.add({
 	return targets;
     },
     onLoadError: function(request) {
-	notifyError("<p>Kunde inte hämta Inca-miljöerna :'(<p><pre>" + request.status + " " + request.statusText + "</pre>");
+	notifyError("<b>Kunde inte hämta Inca-miljöerna :'(</b><pre>" + request.status + " " + request.statusText + "</pre>" +
+		    "<p>Det kan bero på att din session på Fyren har gått ut. Klicka här för att testa.</p>",
+		    "https://fyren/incaversions/testmiljoer.php");
     }
 });
 
@@ -276,15 +278,25 @@ TargetLoader.add({
     }
 });
 
-function notifyError(html) {
+function notifyError(html, urlOnClick) {
     var div = $("<div>", {class: "error"})
 	.html(html)
 	.appendTo($("#notifications"))
 	.hide()
-	.slideToggle()
-	.delay(3000)
 	.slideToggle();
-    setTimeout(function() { div.remove(); }, 4000);
+    if (urlOnClick) {
+	div
+	    .addClass("clickable")
+	    .click(function() {
+		window.open(urlOnClick);
+	    });
+    } else {
+	div
+	    .delay(3000)
+	    .slideToggle();
+	setTimeout(function() { div.remove(); }, 4000);
+    }
+    return div;
 }
 
 function buildTable(targets) {
@@ -394,6 +406,9 @@ function insertSelectionOrClipboardIfShorthand() {
 }
 
 function loadTargets(forceReload=false) {
+    $("#notifications > .error").each(function(i, e) {
+	e.remove();
+    });
     basicMode.targets = [];
     setupStaticTargets();
     loadCustomTargets();

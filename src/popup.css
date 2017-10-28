@@ -33,7 +33,8 @@ body {
     margin-left: 0.25em;
     opacity: 0.3;
 }
-.icon.clickable:hover {
+
+.clickable:hover {
     opacity: 1;
     cursor: pointer;
 }
