@@ -22,6 +22,9 @@ var basicMode = new Mode({
 	    updateSelection(0);
 	}
     },
+    onExitMode: function() {
+	clearNotifications();
+    },
     onInput: function(text, event) {
 	console.log("onInput('" + text + "')");
 	buildTable(this.getTargets());
@@ -406,10 +409,14 @@ function insertSelectionOrClipboardIfShorthand() {
     });
 }
 
-function loadTargets(forceReload=false) {
+function clearNotifications() {
     $("#notifications > .error").each(function(i, e) {
 	e.remove();
     });
+}
+
+function loadTargets(forceReload=false) {
+    clearNotifications();
     basicMode.targets = [];
     setupStaticTargets();
     loadCustomTargets();
