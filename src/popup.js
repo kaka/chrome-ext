@@ -14,24 +14,9 @@ var basicMode = new Mode({
     onEnterMode: function() {
 	console.log("onEnterMode()");
 	this.text = "";
-	if (this.targets) {
-	    $(this.targets).each(function(i, e) { // Reset all matches
-		e.match = null;
-	    });
-	    buildTable(this.getTargets());
-	    updateSelection(0);
-	}
     },
     onExitMode: function() {
 	clearNotifications();
-    },
-    onInput: function(text, event) {
-	console.log("onInput('" + text + "')");
-	buildTable(this.getTargets());
-	updateSelection(0);
-    },
-    onNavigate: function(newIndex) {
-	updateSelection(newIndex);
     },
     onSelect: function() {
 	var target = this.getCurrentTarget();
@@ -52,7 +37,15 @@ var basicMode = new Mode({
 	    return true;
 	}
 	return false;
-    }
+    },
+    onTargetsChanged: function(targets) {
+	if (mode === basicMode)
+	    buildTable(targets);
+    },
+    onSelectionChanged: function(index) {
+	if (mode === basicMode)
+	    updateSelection(index);
+    },
 });
 setMode(basicMode);
 
@@ -60,7 +53,7 @@ function setMode(newMode) {
     console.log("setMode()");
     if (mode) mode.onExitMode();
     mode = newMode;
-    mode.onEnterMode();
+    mode.enterMode();
     if (mode.badge) {
 	$("#mode")
 	    .text(mode.badge)
@@ -89,7 +82,9 @@ function setDeepLinkMode(target) {
 	},
 	onSelect: function() {
 	    window.open(target.deeplink.url.replace("<replace>", this.text));
-	}
+	},
+	onTargetsChanged: buildTable,
+	onSelectionChanged: updateSelection,
     });
     setMode(newMode);
 }
@@ -222,8 +217,6 @@ function addTargets(targets) {
 	if (e.deeplink && e.deeplink.shorthand && typeof e.deeplink.shorthand === "string") e.deeplink.shorthand = new RegExp("^" + e.deeplink.shorthand + "$");
     });
     basicMode.addTargets(targets);
-    buildTable(basicMode.getTargets());
-    updateSelection(0);
 }
 
 TargetLoader.defaultTargetReceiver = addTargets;

@@ -1,11 +1,11 @@
 function Mode(args) {
     this.onEnterMode = args.onEnterMode || function() {};
     this.onExitMode = args.onExitMode || function() {};
-    this.onInput = args.onInput || function(text, event) {};
-    this.onNavigate = args.onNavigate || function(newIndex) {};
     this.onSelect = args.onSelect || function() {};
     this.onAdvance = args.onAdvance || function() { return false; }; // Return whether the mode was advanced or not
     this.onBack = args.onBack || function() {};
+    this.onTargetsChanged = args.onTargetsChanged || function() {};
+    this.onSelectionChanged = args.onSelectionChanged || function() {};
 
     this.targets = [];
     this.filteredTargets = [];
@@ -15,14 +15,26 @@ function Mode(args) {
     this.placeholder = args.placeholder || "Sök";
 }
 
+Mode.prototype.enterMode = function() {
+    this.onEnterMode();
+    if (this.targets) {
+	resetMatches(this.targets);
+	this.onTargetsChanged(this.getTargets());
+	this.onSelectionChanged(0);
+    }
+};
+
 Mode.prototype.setInput = function(text, event) {
     console.log("setInput('" + text + "', " + event + ")");
     this.text = text;
-    this.onInput(text, event);
+    this.onTargetsChanged(this.getTargets());
+    this.onSelectionChanged(0);
 };
 
 Mode.prototype.addTargets = function(targets) {
     Array.prototype.push.apply(this.targets, targets);
+    this.onTargetsChanged(this.getTargets());
+    this.onSelectionChanged(0);
 };
 
 Mode.prototype.getCurrentTarget = function() {
@@ -32,7 +44,7 @@ Mode.prototype.getCurrentTarget = function() {
 Mode.prototype.navigate = function(delta) {
     var n = this.filteredTargets.length;
     this.selectedTarget = n == 0 ? 0 : ((this.selectedTarget + delta + n) % n);
-    this.onNavigate(this.selectedTarget);
+    this.onSelectionChanged(this.selectedTarget);
 };
 
 Mode.prototype.filterTargets = function(text) {
@@ -55,6 +67,7 @@ Mode.prototype.filterTargets = function(text) {
 	    //	return matches(text, e.name) || (e.search != undefined && matches(text, e.search));
 	});
     } else {
+	resetMatches(this.targets);
 	this.filteredTargets = Array.from(this.targets);
     }
     console.log("filterTargets('" + text + "') -> " + this.filteredTargets.length);
@@ -64,6 +77,12 @@ Mode.prototype.filterTargets = function(text) {
 Mode.prototype.getTargets = function() {
     return this.filterTargets(this.text);
 };
+
+function resetMatches(targets) {
+    $(targets).each(function(i, e) {
+	e.match = null;
+    });
+}
 
 function isBeginningOfWord(i, s) {
     return i == 0
