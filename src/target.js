@@ -67,7 +67,7 @@ TargetLoader.add = function(args) {
     TargetLoader.loaders.push(new TargetLoader(
 	args.name,
 	args.url,
-	args.ttl || 60*60*24,
+	args.ttl === undefined ? 60*60*24 : args.ttl,
 	args.parser,
 	args.onLoadError,
 	args.targetReceiver || TargetLoader.defaultTargetReceiver
