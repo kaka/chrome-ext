@@ -379,6 +379,10 @@ function updateSelection(targetIndex) {
 	    $("#details").html("<hr />" + target.url);
 	}
     }
+    var selected = $("table tr.selected")[0];
+    if (selected) {
+	selected.scrollIntoView({block: "center"});
+    }
 }
 
 function copyToClipboard(text) {
