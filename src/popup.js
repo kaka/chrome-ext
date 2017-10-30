@@ -506,6 +506,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	    mode.navigate({38: -1, 40: 1}[event.keyCode]);
 	    return false;
 	}
+	$("#input").focus();
 	return true;
     }
     chrome.commands.onCommand.addListener(function(cmd) {
