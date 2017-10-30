@@ -364,6 +364,8 @@ function buildTable(targets) {
     } else {
 	$("#list").html("<br />Inga matchingar");
     }
+
+    $("#item-count").text(targets.length);
 }
 
 function updateSelection(targetIndex) {

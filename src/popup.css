@@ -83,8 +83,21 @@ body {
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px;
 }
 
-input {
+#input-container {
+    position: relative;
+    display: inline-block;
+}
+
+#input {
     border-radius: 3px;
+}
+
+#item-count {
+    position: absolute;
+    top: 0.3em;
+    right: 0.3em;
+    font-size: 0.75em;
+    color: #bbbbbb;
 }
 
 table {
