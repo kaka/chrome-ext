@@ -105,6 +105,9 @@ function matches(search, text) {
 	if (s.charAt(si) == t.charAt(ti).toLowerCase() && (continuous ? true : isBeginningOfWord(ti, t))) {
 	    matchingIndices.push(ti);
 	    matches = recurse(si + 1, ti + 1, true, matchingIndices);
+	    if (!matches) {
+		matchingIndices.pop();
+	    }
 	}
 	if (!matches) {
 	    matches = recurse(si, ti + 1, false, matchingIndices);
