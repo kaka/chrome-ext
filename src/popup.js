@@ -275,10 +275,8 @@ TargetLoader.add({
     }
 });
 
-TargetLoader.add({
-    name: "fyren-main",
-    url: "https://fyren/intranet/main.html",
-    parser: function(text) {
+function parseIncaReleases(url) {
+    return function(text) {
 	var targets = [];
 	$("<div>").html(text)
 	    .find("#inca-release article").each(function(i, e) {
@@ -286,14 +284,29 @@ TargetLoader.add({
 		targets.push({
 		    name: "Release " + article.find("h4").text(),
 		    searchTerms: "Release " + article.find("h4").text() + ",fyren,inca",
-		    url: "https://fyren/intranet/main.html",
+		    url: url,
 		    details: article.html(),
 		});
 	    });
 	return targets;
-    },
+    }
+}
+
+TargetLoader.add({
+    name: "fyren-main",
+    url: "https://fyren/intranet/main.html",
+    parser: parseIncaReleases("https://fyren/intranet/main.html"),
     onLoadError: function(request) {
-	notifyError("<p>Kunde inte hämta fyren</p>");
+	notifyError("<p>Kunde inte läsa från Fyren</p>");
+    }
+});
+
+TargetLoader.add({
+    name: "fyren-qualityassurance",
+    url: "https://fyren/intranet/itello/qualityassurance/qualityassurance.html",
+    parser: parseIncaReleases("https://fyren/intranet/itello/qualityassurance/qualityassurance.html"),
+    onLoadError: function(request) {
+	notifyError("<p>Kunde inte läsa från Quality Assurance</p>");
     }
 });
 
