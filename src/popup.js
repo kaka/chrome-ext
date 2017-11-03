@@ -251,6 +251,30 @@ TargetLoader.add({
 });
 
 TargetLoader.add({
+    name: "fyren-navigation",
+    url: "https://fyren/intranet/navigation.html",
+    parser: function(text) {
+	var targets = [];
+	$("<div>").html(text)
+	    .find("a").each(function(i, e) {
+		var a = $(e);
+		var url = a.attr("href");
+		if (!url.startsWith("http")) {
+		    url = "https://fyren/intranet/" + url;
+		}
+		targets.push({
+		    name: a.text(),
+		    url: url,
+		});
+	    });
+	return targets;
+    },
+    onLoadError: function(request) {
+	notifyError("<p>Kunde inte läsa från Fyrens vänstermeny</p>");
+    }
+});
+
+TargetLoader.add({
     name: "staff",
     url: "https://fyren/intranet/itello/stab/whoswho.data.txt",
     parser: function(text) {
