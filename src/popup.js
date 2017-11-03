@@ -182,7 +182,7 @@ function setupStaticTargets() {
 	}, {
 	    name: "Lion Bar",
 	    url: "http://lionbar.se/",
-	    details: '<img src="http://lionbar.se/wp-content/uploads/2014/10/rest2.png" alt="HAPPY HOUR EVERY HOUR!" style="float: right" />' +
+	    details: '<img src="http://lionbar.se/wp-content/uploads/2014/10/rest2.png" title="HAPPY HOUR EVERY HOUR!" style="float: right" />' +
 		'<h2>Lion Bar</h2>' +
 		'<p><em>"Vår strävan att ge våra gäster en exceptionell upplevelse och ge stort utrymme för glädje och humor."</em></p>' +
 		'<ul>' +
