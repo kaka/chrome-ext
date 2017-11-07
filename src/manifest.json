@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
 
-    "name": "Inca-miljöer",
-    "description": "Tillåter en att snabbt söka fram och öppna Inca-miljöer",
+    "name": "Fast AMF03 finder and more",
+    "description": "Tillåter en att snabbt söka fram och öppna AMF03 och mer",
     "version": "1.0",
 
     "options_ui": {
@@ -33,7 +33,7 @@
     "browser_action": {
 	"default_icon": "img/icon.png",
 	"default_popup": "popup.html",
-	"default_title": "Inca-miljöer (Alt+O)"
+	"default_title": "Fast AMF03 finder and more (Alt+O)"
     },
     "permissions": [
 	"storage",

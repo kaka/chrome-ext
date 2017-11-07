@@ -95,7 +95,7 @@ function setupHelp() {
 	$(cmds).each(function(i, cmd) {
 	    commands[cmd.name] = cmd;
 	});
-	chrome.browserAction.setTitle({title: "Inca-miljöer (" + commands["_execute_browser_action"].shortcut + ")"});
+	chrome.browserAction.setTitle({title: chrome.runtime.getManifest().name + " (" + commands["_execute_browser_action"].shortcut + ")"});
 	$("#help").hover(function() {
 	    hideHelp();
 	});
