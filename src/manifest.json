@@ -3,7 +3,7 @@
 
     "name": "Fast AMF03 finder and more",
     "description": "Tillåter en att snabbt söka fram och öppna AMF03 och mer",
-    "version": "1.0",
+    "version": "0.1",
 
     "options_ui": {
 	"page": "options.html",
@@ -37,7 +37,7 @@
     },
     "permissions": [
 	"storage",
-	"activeTab", // To get any selected text 
+	"activeTab",
 	"clipboardRead",
 	"https://ajax.googleapis.com/",
 	"https://fyren/incaversions/testmiljoer.php"
