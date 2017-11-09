@@ -1,0 +1,37 @@
+/* Bodacious Brown */
+
+body {
+    background: -webkit-linear-gradient(top, #673913 0%, #381701 100%);
+}
+
+#list, #list a {
+    color: #ccb488;
+}
+
+#details {
+    color: #ccbba0; /* Slightly less saturated than text color*/
+}
+#details a {
+    color: #99a;
+}
+
+.selected {
+    /* background: rgba(204, 180, 136, 0.2); /\* Same as text color *\/ */
+    background: rgba(0, 0, 0, 0.2);
+}
+
+span.matched-alternative {
+    color: rgba(204, 180, 136, 0.2); /* Same as text color */
+}
+
+.selected span.matched-alternative {
+    color: #ccb488;
+}
+
+.selected span.matched-part {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+td:nth-of-type(2) {
+    color: rgba(204, 180, 136, 0.3); /* Same as text color */
+}

@@ -1,0 +1,37 @@
+/* Dazzling Dark */
+
+body {
+    background: -webkit-linear-gradient(top, #444 0%, #222 100%);
+}
+
+#list, #list a {
+    color: #aa9;
+}
+
+#details {
+    color: #ba9; /* Slightly more red than text color*/
+}
+#details a {
+    color: #99a;
+}
+
+.selected {
+    /* background: rgba(170, 170, 153, 0.2); /* Same as text color */
+    background: rgba(0, 0, 0, 0.2);
+}
+
+span.matched-alternative {
+    color: rgba(170, 170, 153, 0.5); /* Same as text color */
+}
+
+.selected span.matched-alternative {
+    color: #aa9;
+}
+
+.selected span.matched-part {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+td:nth-of-type(2) {
+    color: rgba(170, 170, 153, 0.3); /* Same as text color */
+}
