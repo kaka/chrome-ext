@@ -232,7 +232,7 @@ TargetLoader.add({
 		    var td = $(e).children("td");
 		    targets.push({
 			name: td.eq(0).text(),
-			searchTerms: td.eq(0).text(),
+			searchTerms: td.eq(0).text() + "," + td.eq(4).text(),
 			url: td.eq(0).find("a").eq(0).attr("href"),
 			details: td.eq(1).html() + "<br />"
 			    + "<br /><b>Ansvarig</b>: " + td.eq(2).html()
