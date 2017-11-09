@@ -9,6 +9,11 @@ body {
     height: 600px; // max for chrome extension popup
 }
 
+#list, #list a {
+    color: #465;
+    text-decoration: none;
+}
+
 #top {
     padding: 8px;
 }
@@ -24,6 +29,9 @@ body {
 
 #details {
     font-size: 80%;
+}
+#details img {
+    border-radius: 2px;
 }
 
 .icon {
