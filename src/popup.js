@@ -234,33 +234,14 @@ function loadBookmarkTargets() {
     });
 }
 
-var urlToTarget = new Map(); // Used to avoid duplicates when adding more targets
-function addTargets(newTargets) {
-    console.log("addTargets(Array(" + newTargets.length + "))");
-    var uniqueTargets = [];
-    $.each(newTargets, function(i, e) {
-	var normalizedUrl = e.url ? e.url.replace(/(^https?:\/\/)|(\/$)/g, "") : null;
-	if (urlToTarget.has(normalizedUrl)) {
-	    var tgt = urlToTarget.get(normalizedUrl);
-	    if (tgt.searchTerms) {
-		if (!tgt.searchTerms.toLowerCase().includes(e.name.toLowerCase()))
-		    tgt.searchTerms += "," + e.name;
-	    } else {
-		if (tgt.name.toLowerCase() != e.name.toLowerCase())
-		    tgt.searchTerms = tgt.name + "," + e.name;
-	    }
-	} else {
-	    e.searchTerms = e.searchTerms || e.name;
-	    if (e.deeplink && !e.deeplink.url) e.deeplink = undefined;
-	    if (e.deeplink && e.deeplink.shorthand && typeof e.deeplink.shorthand === "string") e.deeplink.shorthand = new RegExp("^" + e.deeplink.shorthand + "$");
-	    if (normalizedUrl) {
-		urlToTarget.set(normalizedUrl, e);
-		console.log(urlToTarget);
-	    }
-	    uniqueTargets.push(e);
-	}
+function addTargets(targets) {
+    console.log("addTargets(Array(" + targets.length + "))");
+    $.each(targets, function(i, e) {
+	e.searchTerms = e.searchTerms || e.name;
+	if (e.deeplink && !e.deeplink.url) e.deeplink = undefined;
+	if (e.deeplink && e.deeplink.shorthand && typeof e.deeplink.shorthand === "string") e.deeplink.shorthand = new RegExp("^" + e.deeplink.shorthand + "$");
     });
-    basicMode.addTargets(uniqueTargets);
+    basicMode.addTargets(targets);
 }
 
 TargetLoader.defaultTargetReceiver = addTargets;
@@ -352,7 +333,7 @@ function parseIncaReleases(url) {
 		targets.push({
 		    name: "Release " + article.find("h4").text(),
 		    searchTerms: "Release " + article.find("h4").text() + ",fyren,inca",
-		    url: url,
+		    url: url + "#release" + article.find("h4").text(),
 		    details: article.html(),
 		});
 	    });
@@ -519,8 +500,7 @@ function clearNotifications() {
 
 function loadTargets(forceReload=false) {
     clearNotifications();
-    basicMode.targets = [];
-    urlToTarget.clear();
+    basicMode.clearTargets();
     setupStaticTargets();
     loadCustomTargets();
     TargetLoader.loadAll(forceReload);

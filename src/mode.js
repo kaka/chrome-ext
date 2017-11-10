@@ -13,6 +13,7 @@ function Mode(args) {
     this.badge = args.badge;
     this.text = "";
     this.placeholder = args.placeholder || "Sök";
+    this.urlToTarget = new Map(); // Used to avoid duplicates when adding more targets
 }
 
 Mode.prototype.enterMode = function() {
@@ -31,10 +32,38 @@ Mode.prototype.setInput = function(text, event) {
     this.onSelectionChanged(this.selectedTarget = 0);
 };
 
+Mode.prototype.filterDuplicates = function(newTargets) {
+    var urlToTarget = this.urlToTarget;
+    return newTargets.filter(function(target) {
+	var normalizedUrl = target.url ? target.url.replace(/(^https?:\/\/)|(\/$)/g, "") : null;
+	if (urlToTarget.has(normalizedUrl)) {
+	    var originalTarget = urlToTarget.get(normalizedUrl);
+	    if (originalTarget.searchTerms) {
+		if (!originalTarget.searchTerms.toLowerCase().includes(target.name.toLowerCase()))
+		    originalTarget.searchTerms += "," + target.name;
+	    } else {
+		if (originalTarget.name.toLowerCase() != target.name.toLowerCase())
+		    originalTarget.searchTerms = originalTarget.name + "," + target.name;
+	    }
+	    return false;
+	} else {
+	    if (normalizedUrl) {
+		urlToTarget.set(normalizedUrl, target);
+	    }
+	    return true;
+	}
+    });
+}
+
 Mode.prototype.addTargets = function(targets) {
-    Array.prototype.push.apply(this.targets, targets);
+    Array.prototype.push.apply(this.targets, this.filterDuplicates(targets));
     this.onTargetsChanged(this.getTargets());
     this.onSelectionChanged(0);
+};
+
+Mode.prototype.clearTargets = function() {
+    this.targets = [];
+    this.urlToTarget.clear();
 };
 
 Mode.prototype.getCurrentTarget = function() {
