@@ -209,6 +209,31 @@ function loadCustomTargets() {
     });
 }
 
+function loadBookmarkTargets() {
+    console.log("loadBookmarkTargets()");
+    chrome.bookmarks.getTree(function(bookmarkTreeNodes) {
+	var targets = [];
+	var breadcrumbs = [];
+	function traverse(nodes) {
+	    $(nodes).each(function(i, node) {
+		if (node.url) {
+		    targets.push({
+			name: node.title,
+			url: node.url,
+			searchTerms: node.title + "," + breadcrumbs.join(","),
+		    });
+		} else {
+		    breadcrumbs.push(node.title);
+		    traverse(node.children);
+		    breadcrumbs.pop();
+		}
+	    });
+	}
+	traverse(bookmarkTreeNodes);
+	addTargets(targets);
+    });
+}
+
 function addTargets(targets) {
     console.log("addTargets(Array(" + targets.length + "))");
     $.each(targets, function(i, e) {
@@ -479,6 +504,7 @@ function loadTargets(forceReload=false) {
     setupStaticTargets();
     loadCustomTargets();
     TargetLoader.loadAll(forceReload);
+    loadBookmarkTargets();
 }
 
 document.addEventListener('DOMContentLoaded', function() {
