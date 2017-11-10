@@ -234,14 +234,33 @@ function loadBookmarkTargets() {
     });
 }
 
-function addTargets(targets) {
-    console.log("addTargets(Array(" + targets.length + "))");
-    $.each(targets, function(i, e) {
-	e.searchTerms = e.searchTerms || e.name;
-	if (e.deeplink && !e.deeplink.url) e.deeplink = undefined;
-	if (e.deeplink && e.deeplink.shorthand && typeof e.deeplink.shorthand === "string") e.deeplink.shorthand = new RegExp("^" + e.deeplink.shorthand + "$");
+var urlToTarget = new Map(); // Used to avoid duplicates when adding more targets
+function addTargets(newTargets) {
+    console.log("addTargets(Array(" + newTargets.length + "))");
+    var uniqueTargets = [];
+    $.each(newTargets, function(i, e) {
+	var normalizedUrl = e.url ? e.url.replace(/(^https?:\/\/)|(\/$)/g, "") : null;
+	if (urlToTarget.has(normalizedUrl)) {
+	    var tgt = urlToTarget.get(normalizedUrl);
+	    if (tgt.searchTerms) {
+		if (!tgt.searchTerms.toLowerCase().includes(e.name.toLowerCase()))
+		    tgt.searchTerms += "," + e.name;
+	    } else {
+		if (tgt.name.toLowerCase() != e.name.toLowerCase())
+		    tgt.searchTerms = tgt.name + "," + e.name;
+	    }
+	} else {
+	    e.searchTerms = e.searchTerms || e.name;
+	    if (e.deeplink && !e.deeplink.url) e.deeplink = undefined;
+	    if (e.deeplink && e.deeplink.shorthand && typeof e.deeplink.shorthand === "string") e.deeplink.shorthand = new RegExp("^" + e.deeplink.shorthand + "$");
+	    if (normalizedUrl) {
+		urlToTarget.set(normalizedUrl, e);
+		console.log(urlToTarget);
+	    }
+	    uniqueTargets.push(e);
+	}
     });
-    basicMode.addTargets(targets);
+    basicMode.addTargets(uniqueTargets);
 }
 
 TargetLoader.defaultTargetReceiver = addTargets;
@@ -501,6 +520,7 @@ function clearNotifications() {
 function loadTargets(forceReload=false) {
     clearNotifications();
     basicMode.targets = [];
+    urlToTarget.clear();
     setupStaticTargets();
     loadCustomTargets();
     TargetLoader.loadAll(forceReload);
