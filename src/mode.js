@@ -35,7 +35,7 @@ Mode.prototype.setInput = function(text, event) {
 Mode.prototype.filterDuplicates = function(newTargets) {
     var urlToTarget = this.urlToTarget;
     return newTargets.filter(function(target) {
-	var normalizedUrl = target.url ? target.url.replace(/(^https?:\/\/)|(\/$)/g, "") : null;
+	var normalizedUrl = target.getNormalizedUrl();
 	if (urlToTarget.has(normalizedUrl)) {
 	    var originalTarget = urlToTarget.get(normalizedUrl);
 	    if (originalTarget.searchTerms) {
@@ -56,6 +56,9 @@ Mode.prototype.filterDuplicates = function(newTargets) {
 }
 
 Mode.prototype.addTargets = function(targets) {
+    for (var i = 0; i < targets.length; i++) {
+	targets[i] = new Target(targets[i]);
+    }
     Array.prototype.push.apply(this.targets, this.filterDuplicates(targets));
     this.onTargetsChanged(this.getTargets());
     this.onSelectionChanged(0);
@@ -85,7 +88,7 @@ Mode.prototype.filterTargets = function(text) {
 		var indices = matches(text, terms[i]);
 		if (indices) {
 		    if (indices.length > 0)
-			e.match = {text:terms[i], indices:indices};
+			e.match = new Match({text:terms[i], indices:indices});
 		    return true;
 		}
 	    }

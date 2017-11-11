@@ -1,5 +1,3 @@
-const TARGET_VERSION = 1; // Increment when changing target structure
-
 /* Used for fetching and caching targets from a resource */
 function TargetLoader(name, url, ttl, parserFunction, onLoadError, targetReceiver) {
     this.name = name;

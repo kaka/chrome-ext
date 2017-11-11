@@ -22,8 +22,8 @@ var basicMode = new Mode({
 	var target = this.getCurrentTarget();
 	if (!target)
 	    return false;
-	if (target.deeplink && target.deeplink.shorthand && target.deeplink.shorthand.test(this.text)) {
-	    window.open(target.deeplink.url.replace("<replace>", this.text)); // TODO: replace with call to deeplink mode, for saving history
+	if (target.deeplinkShorthandMatches(this.text)) {
+	    window.open(target.getDeeplinkUrl(this.text)); // TODO: replace with call to deeplink mode, for saving history
 	} else {
 	    window.open(target.url);
 	}
@@ -81,7 +81,7 @@ function setDeepLinkMode(target) {
 	    setMode(basicMode);
 	},
 	onSelect: function() {
-	    window.open(target.deeplink.url.replace("<replace>", this.text));
+	    window.open(target.getDeeplinkUrl(this.text));
 	},
 	onTargetsChanged: buildTable,
 	onSelectionChanged: updateSelection,
