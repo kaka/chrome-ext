@@ -143,7 +143,7 @@ function setupStaticTargets() {
 	}, {
 	    name: "UNIT4 Agresso",
 	    url: "https://unit4/",
-	    searchTerms: "Unit4 Agresso,tid",
+	    searchTerms: "UNIT4 Agresso,tid",
 	}, {
 	    name: "Mattermost",
 	    url: "https://mattermost.itello.se/",
