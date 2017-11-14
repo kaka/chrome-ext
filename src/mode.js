@@ -1,18 +1,18 @@
-function Mode(args) {
-    this.onEnterMode = args.onEnterMode || function() {};
-    this.onExitMode = args.onExitMode || function() {};
-    this.onSelect = args.onSelect || function() {};
-    this.onAdvance = args.onAdvance || function() { return false; }; // Return whether the mode was advanced or not
-    this.onBack = args.onBack || function() {};
-    this.onTargetsChanged = args.onTargetsChanged || function() {};
-    this.onSelectionChanged = args.onSelectionChanged || function() {};
+function Mode({onEnterMode, onExitMode, onSelect, onAdvance, onBack, onTargetsChanged, onSelectionChanged, badge, placeholder}) {
+    this.onEnterMode = onEnterMode || function() {};
+    this.onExitMode = onExitMode || function() {};
+    this.onSelect = onSelect || function() {};
+    this.onAdvance = onAdvance || function() { return false; }; // Return whether the mode was advanced or not
+    this.onBack = onBack || function() {};
+    this.onTargetsChanged = onTargetsChanged || function() {};
+    this.onSelectionChanged = onSelectionChanged || function() {};
 
     this.targets = [];
     this.filteredTargets = [];
     this.selectedTarget = 0;
-    this.badge = args.badge;
+    this.badge = badge;
     this.text = "";
-    this.placeholder = args.placeholder || "Sök";
+    this.placeholder = placeholder || "Sök";
     this.urlToTarget = new Map(); // Used to avoid duplicates when adding more targets
 }
 

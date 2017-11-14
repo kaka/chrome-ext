@@ -1,11 +1,11 @@
 const TARGET_VERSION = 1; // Increment when changing target structure
 
-function Target(args) {
-    this.name = args.name;
-    this.url = args.url;
-    this.searchTerms = args.searchTerms || null;
-    this.details = args.details || null;
-    this.deeplink = args.deeplink ? new Deeplink(args.deeplink) : null;
+function Target({name, url, searchTerms, details, deeplink}) {
+    this.name = name;
+    this.url = url;
+    this.searchTerms = searchTerms || null;
+    this.details = details || null;
+    this.deeplink = deeplink ? new Deeplink(deeplink) : null;
     this.match = null;
 }
 
@@ -22,11 +22,11 @@ Target.prototype.getNormalizedUrl = function() {
     return url ? url.replace(/(^https?:\/\/)|(\/$)/g, "") : null;
 }
 
-function Deeplink(args) {
-    this.url = args.url;
-    this.shorthand = args.shorthand || null;
-    this.placeholder = args.placeholder || null;
-    this.description = args.description || null;
+function Deeplink({url, shorthand, placeholder, description}) {
+    this.url = url;
+    this.shorthand = shorthand || null;
+    this.placeholder = placeholder || null;
+    this.description = description || null;
 }
 
 Deeplink.prototype.shorthandMatches = function(text) {
