@@ -250,9 +250,10 @@ TargetLoader.add({
 	    .find("table tr").each(function(i, e) {
 		if (i > 0) {
 		    var td = $(e).children("td");
+		    var name = td.eq(0).text().replace("&nbsp;");
 		    targets.push({
-			name: td.eq(0).text(),
-			searchTerms: td.eq(0).text() + "," + td.eq(4).text(),
+			name: name,
+			searchTerms: name + "," + td.eq(4).text(),
 			url: td.eq(0).find("a").eq(0).attr("href"),
 			details: td.eq(1).html() + "<br />"
 			    + "<br /><b>Ansvarig</b>: " + td.eq(2).html()
@@ -283,7 +284,7 @@ TargetLoader.add({
 		    url = "https://fyren/intranet/" + url;
 		}
 		targets.push({
-		    name: a.text(),
+		    name: a.text().replace("&nbsp;"),
 		    url: url,
 		});
 	    });
