@@ -236,11 +236,6 @@ function loadBookmarkTargets() {
 
 function addTargets(targets) {
     console.log("addTargets(Array(" + targets.length + "))");
-    $.each(targets, function(i, e) {
-	e.searchTerms = e.searchTerms || e.name;
-	if (e.deeplink && !e.deeplink.url) e.deeplink = undefined;
-	if (e.deeplink && e.deeplink.shorthand && typeof e.deeplink.shorthand === "string") e.deeplink.shorthand = new RegExp("^" + e.deeplink.shorthand + "$");
-    });
     basicMode.addTargets(targets);
 }
 

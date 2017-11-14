@@ -3,10 +3,11 @@ const TARGET_VERSION = 1; // Increment when changing target structure
 function Target({name, url, searchTerms, details, deeplink}) {
     this.name = name;
     this.url = url;
-    this.searchTerms = searchTerms || null;
+    this.searchTerms = searchTerms || name;
     this.details = details || null;
     this.deeplink = deeplink ? new Deeplink(deeplink) : null;
     this.match = null;
+    if (this.deeplink && !this.deeplink.url) this.deeplink = undefined;
 }
 
 Target.prototype.deeplinkShorthandMatches = function(text) {
@@ -27,6 +28,7 @@ function Deeplink({url, shorthand, placeholder, description}) {
     this.shorthand = shorthand || null;
     this.placeholder = placeholder || null;
     this.description = description || null;
+    if (this.shorthand && typeof this.shorthand === "string") this.shorthand = new RegExp("^" + this.shorthand + "$");
 }
 
 Deeplink.prototype.shorthandMatches = function(text) {
