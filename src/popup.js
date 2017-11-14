@@ -250,7 +250,7 @@ TargetLoader.add({
 	    .find("table tr").each(function(i, e) {
 		if (i > 0) {
 		    var td = $(e).children("td");
-		    var name = td.eq(0).text().replace("&nbsp;");
+		    var name = td.eq(0).text();
 		    targets.push({
 			name: name,
 			searchTerms: name + "," + td.eq(4).text(),
@@ -284,7 +284,7 @@ TargetLoader.add({
 		    url = "https://fyren" + (url.startsWith("/") ? "" : "/intranet/") + url;
 		}
 		targets.push({
-		    name: a.text().replace("&nbsp;"),
+		    name: a.text(),
 		    url: url,
 		});
 	    });

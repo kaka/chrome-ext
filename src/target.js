@@ -1,9 +1,9 @@
 const TARGET_VERSION = 1; // Increment when changing target structure
 
 function Target({name, url, searchTerms, details, deeplink}) {
-    this.name = name;
+    this.name = name.replace(/\s+/g, " ");
     this.url = url;
-    this.searchTerms = searchTerms || name;
+    this.searchTerms = (searchTerms && searchTerms.replace(/\s+/g, " ")) || this.name;
     this.details = details || null;
     this.deeplink = deeplink ? new Deeplink(deeplink) : null;
     this.match = null;
