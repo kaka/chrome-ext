@@ -143,7 +143,7 @@ function setupStaticTargets() {
 	}, {
 	    name: "UNIT4 Agresso",
 	    url: "https://unit4/",
-	    searchTerms: "Unit4 Agresso,tid",
+	    searchTerms: "UNIT4 Agresso,tid",
 	}, {
 	    name: "Mattermost",
 	    url: "https://mattermost.itello.se/",
@@ -153,7 +153,7 @@ function setupStaticTargets() {
 	    url: "https://malaco",
 	    deeplink: {
 		url: "https://malaco/inca/inca/issues/<replace>",
-		shorthand: "#?[1-9][0-9]*",
+		shorthand: "#?[1-9][0-9]{0,6}",
 		placeholder: "Issue",
 		description: "Öppnar ett issue i Inca-repot",
 	    }
