@@ -281,7 +281,7 @@ TargetLoader.add({
 		var a = $(e);
 		var url = a.attr("href");
 		if (!url.startsWith("http")) {
-		    url = "https://fyren/intranet/" + url;
+		    url = "https://fyren" + (url.startsWith("/") ? "" : "/intranet/") + url;
 		}
 		targets.push({
 		    name: a.text().replace("&nbsp;"),
