@@ -142,3 +142,19 @@ span.matched-part {
     border-radius: 3px;
     background-color: rgba(0, 0, 0, 0.2);
 }
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+/* ::-webkit-scrollbar-track { */
+/*     border-radius: 3px; */
+/*     background: rgba(0, 0, 0, 0.1); */
+/* } */
+::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-corner {
+    background: none;
+}
