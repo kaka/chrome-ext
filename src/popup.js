@@ -494,13 +494,19 @@ function clearNotifications() {
     });
 }
 
+function async(func) {
+    setTimeout(func, 0);
+}
+
 function loadTargets(forceReload=false) {
-    clearNotifications();
-    basicMode.clearTargets();
-    setupStaticTargets();
-    loadCustomTargets();
-    TargetLoader.loadAll(forceReload);
-    loadBookmarkTargets();
+    async(function() {
+	clearNotifications();
+	basicMode.clearTargets();
+	setupStaticTargets();
+	loadCustomTargets();
+	TargetLoader.loadAll(forceReload);
+	loadBookmarkTargets();
+    });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
