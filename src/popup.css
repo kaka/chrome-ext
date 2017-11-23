@@ -158,3 +158,9 @@ span.matched-part {
 ::-webkit-scrollbar-corner {
     background: none;
 }
+
+/* Fyren */
+
+.installed {
+    color: green !important;
+}
