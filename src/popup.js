@@ -182,6 +182,13 @@ function setupStaticTargets() {
 	    name: "Inca ReleaseNotes",
 	    url: "file://itello.se/Versions/Itello/Inca/ReleaseNotes/",
 	}, {
+	    name: "AccuRev",
+	    url: "https://accurev:8443/accurev/WebGui.jsp",
+	}, {
+	    name: "Inca History",
+	    url: "https://malaco.itello.se/inca/inca-history",
+	    searchTerms: "Inca History,AccuRev",
+	}, {
 	    name: "Skumbanan",
 	    url: "http://skumbanan.itello.se/",
 	    searchTerms: "SkumBanan",
