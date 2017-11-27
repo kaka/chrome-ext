@@ -499,12 +499,20 @@ function async(func) {
 }
 
 function loadTargets(forceReload=false) {
+    function tryToInsertSelectionOrClipboard() {
+	var isFirstTime = !forceReload; // i.e. not manually reloaded
+	var inputIsEmpty = !$.trim($("#input").val());
+	if (isFirstTime && inputIsEmpty) {
+	    insertSelectionOrClipboardIfShorthand();
+	}
+    }
+
     async(function() {
 	clearNotifications();
 	basicMode.clearTargets();
-	setupStaticTargets();
-	loadCustomTargets();
-	TargetLoader.loadAll(forceReload);
+	setupStaticTargets();			tryToInsertSelectionOrClipboard();
+	loadCustomTargets();			tryToInsertSelectionOrClipboard();
+	TargetLoader.loadAll(forceReload);	tryToInsertSelectionOrClipboard();
 	loadBookmarkTargets();
     });
 }
@@ -518,7 +526,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     setupHelp();
     loadTargets();
-    insertSelectionOrClipboardIfShorthand();
 
     $("#main").height(600 - $("#top").outerHeight()); // Fix what CSS can't
 
