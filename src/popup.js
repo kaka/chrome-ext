@@ -176,6 +176,12 @@ function setupStaticTargets() {
 	    name: "Jenkins",
 	    url: "https://marabou/",
 	}, {
+	    name: "Inca Changelog",
+	    url: "file://itello.se/Versions/Itello/Inca/Changelog/",
+	}, {
+	    name: "Inca ReleaseNotes",
+	    url: "file://itello.se/Versions/Itello/Inca/ReleaseNotes/",
+	}, {
 	    name: "Skumbanan",
 	    url: "http://skumbanan.itello.se/",
 	    searchTerms: "SkumBanan",
