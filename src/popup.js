@@ -23,9 +23,9 @@ var basicMode = new Mode({
 	if (!target)
 	    return false;
 	if (target.deeplinkShorthandMatches(this.text)) {
-	    window.open(target.getDeeplinkUrl(this.text)); // TODO: replace with call to deeplink mode, for saving history
+	    target.openDeeplink(this.text);
 	} else {
-	    window.open(target.url);
+	    target.activate();
 	}
     },
     onAdvance: function() {
@@ -81,7 +81,7 @@ function setDeepLinkMode(target) {
 	    setMode(basicMode);
 	},
 	onSelect: function() {
-	    window.open(target.getDeeplinkUrl(this.text));
+	    target.openDeeplink(this.text);
 	},
 	onTargetsChanged: buildTable,
 	onSelectionChanged: updateSelection,

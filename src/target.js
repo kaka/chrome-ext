@@ -18,6 +18,18 @@ Target.prototype.getDeeplinkUrl = function(text) {
     return this.deeplink.url.replace("<replace>", text);
 }
 
+Target.prototype.openDeeplink = function(text) {
+    window.open(this.getDeeplinkUrl(text));
+}
+
+Target.prototype.activate = function() {
+    if (this.url) {
+	window.open(this.url);
+    } else {
+	notifyError("<p>Den här posten går inte att öppna</p>"); // TODO remove this reference to popup.js
+    }
+}
+
 Target.prototype.getNormalizedUrl = function() {
     var url = this.deeplink ? this.deeplink.url : (this.url ? this.url : null);
     return url ? url.replace(/(^https?:\/\/)|(\/$)/g, "") : null;
