@@ -9,7 +9,7 @@ body {
     height: 600px; // max for chrome extension popup
 }
 
-#list, #list a {
+#list-container, #list-container a {
     color: #465;
     text-decoration: none;
 }
@@ -19,16 +19,13 @@ body {
 }
 
 #main {
-    padding-left: 8px;
-    padding-right: 8px;
     overflow-y: auto;
-}
-
-#list {
 }
 
 #details {
     font-size: 80%;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 #details img {
     border-radius: 2px;
@@ -108,16 +105,23 @@ body {
     color: #bbbbbb;
 }
 
-table {
-    border-collapse: collapse;
+#list-container > ul {
+    list-style: none;
     width: 100%;
+    margin: 0px;
+    padding: 0px;
+    position: relative;
 }
 
-td {
-    padding-left: 3px;
-    padding-right: 3px;
+#list-container > ul > li {
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 1px;
+    padding-bottom: 1px;
 }
-td:nth-of-type(2) {
+#list-container > ul > li > span.arrow {
+    position: absolute;
+    right: 8px;
     color: rgba(0, 0, 0, 0.3);
 }
 
@@ -128,6 +132,7 @@ td:nth-of-type(2) {
 span.matched-alternative {
     color: rgba(0, 0, 0, 0.5);
     font-size: 0.9em;
+    padding-left: 4px;
 }
 
 .selected span.matched-alternative {
