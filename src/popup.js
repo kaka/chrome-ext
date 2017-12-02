@@ -198,6 +198,24 @@ function setupStaticTargets() {
 	    name: "Inca History",
 	    url: "https://malaco.itello.se/inca/inca-history",
 	    searchTerms: "Inca History,AccuRev",
+	    details: `
+		<em>https://malaco.itello.se/inca/inca-history</em>
+		<h1>Inca-history</h1>
+		<p>Versionshanteringshistoriken ifrån Accurev (med reservation för eventuella konverteringsfel)</p>
+		<h2>Begränsningar</h2>
+		<ul>
+		<li>Inkluderar endast promotes till huvudströmmen (motsvarar att "squash" alltid har varit ikryssad i GitLab)
+		<ul>
+		<li>Behöver man mer detaljer får man titta i Accurev</li>
+		</ul>
+		</li>
+		<li>Accurev har problem med att särskilja issues när overlap har uppstått, ibland listas därför flera ar-nummer i commit-meddelanden</li>
+		<li>ThirdParty och Interfaces är exkluderat eftersom dessa tidigare innehöll symlänkar
+		<ul>
+		<li>Detta gör att det troligtvis inte går att starta en historisk Inca-miljö</li>
+		</ul>
+		</li>
+		</ul>`,
 	}, {
 	    name: "Skumbanan",
 	    url: "http://skumbanan.itello.se/",
