@@ -12,7 +12,7 @@
 var mode;
 var basicMode = new Mode({
     onEnterMode: function() {
-	console.log("onEnterMode()");
+	log("onEnterMode()");
 	this.text = "";
     },
     onExitMode: function() {
@@ -50,7 +50,7 @@ var basicMode = new Mode({
 setMode(basicMode);
 
 function setMode(newMode) {
-    console.log("setMode()");
+    log("setMode()");
     if (mode) mode.onExitMode();
     mode = newMode;
     mode.enterMode();
@@ -123,7 +123,7 @@ function hideHelp() {
 }
 
 function setupStaticTargets() {
-    console.log("setupStaticTargets()");
+    log("setupStaticTargets()");
     var staticTargets = [
 	{
 	    name: "Fyren",
@@ -223,7 +223,7 @@ function setupStaticTargets() {
 }
 
 function loadCustomTargets() {
-    console.log("loadCustomTargets()");
+    log("loadCustomTargets()");
     chrome.storage.local.get(["custom-version", "custom-targets"], function(items) {
 	var version = items["custom-version"];
 	if (version == TARGET_VERSION) {
@@ -233,7 +233,7 @@ function loadCustomTargets() {
 }
 
 function loadBookmarkTargets() {
-    console.log("loadBookmarkTargets()");
+    log("loadBookmarkTargets()");
     chrome.bookmarks.getTree(function(bookmarkTreeNodes) {
 	var targets = [];
 	var breadcrumbs = [];
@@ -258,7 +258,7 @@ function loadBookmarkTargets() {
 }
 
 function addTargets(targets) {
-    console.log("addTargets(Array(" + targets.length + "))");
+    log("addTargets(Array(" + targets.length + "))");
     basicMode.addTargets(targets);
 }
 
@@ -400,7 +400,7 @@ function notifyError(html, urlOnClick) {
 }
 
 function updateTargets(targets) {
-    console.log("updateTargets(Array(" + targets.length + "))");
+    log("updateTargets(Array(" + targets.length + "))");
     function highlightMatch(match) {
 	if (match.indices.length == 0)
 	    return match.text;
@@ -449,7 +449,7 @@ function updateTargets(targets) {
 }
 
 function updateSelection(targetIndex) {
-    console.log("updateSelection(" + targetIndex + ")");
+    log("updateSelection(" + targetIndex + ")");
     $("#list-container > ul > li").removeClass("selected");
     $("#list-container > ul > li").eq(targetIndex).addClass("selected");
     $("#details").empty();
@@ -480,13 +480,13 @@ function copyToClipboard(text) {
 }
 
 function insertSelectionOrClipboardIfShorthand() {
-    console.log("insertSelectionOrClipboardIfShorthand()");
+    log("insertSelectionOrClipboardIfShorthand()");
     var input = $("#input");
     function insertIfMatch(text) {
 	for (var i = 0; i < mode.targets.length; i++) {
 	    var t = mode.targets[i];
 	    if (t.deeplink && t.deeplink.shorthand && t.deeplink.shorthand.test(text)) {
-		console.log("shorthand " + t.deeplink.shorthand + " matches '" + text + "'");
+		log("shorthand " + t.deeplink.shorthand + " matches '" + text + "'");
 		input.val(text);
 		input.select()
 		mode.setInput(text, null);
@@ -563,8 +563,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // handle filtering
     $("#input").focus();
     $("#input").on("input", function(event) {
-	console.log("#input onInput");
-	console.log(event);
+	log("#input onInput");
+	log(event);
 	mode.setInput($("#input").val().trim(), event);
     });
 

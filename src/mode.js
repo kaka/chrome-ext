@@ -26,7 +26,7 @@ Mode.prototype.enterMode = function() {
 };
 
 Mode.prototype.setInput = function(text, event) {
-    console.log("setInput('" + text + "', " + event + ")");
+    log("setInput('" + text + "', " + event + ")");
     this.text = text;
     this.onTargetsChanged(this.getTargets());
     this.onSelectionChanged(this.selectedTarget = 0);
@@ -102,7 +102,7 @@ Mode.prototype.filterTargets = function(text) {
 	resetMatches(this.targets);
 	this.filteredTargets = Array.from(this.targets);
     }
-    console.log("filterTargets('" + text + "') -> " + this.filteredTargets.length);
+    log("filterTargets('" + text + "') -> " + this.filteredTargets.length);
     return this.filteredTargets;
 }
 
