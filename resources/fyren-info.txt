@@ -5,6 +5,8 @@ https://fyren/intranet/itello/qualityassurance/customersupport/customersupport.h
 https://fyren/intranet/itello/qualityassurance/qualityassurance.html
 https://fyren/intranet/itello/qualityassurance/test/test_start.html
 https://fyren/intranet/itello/stab/SysAdmin/sysadmin.html
+https://fyren/intranet/itello/stab/halsoportal/halsa.html
+https://fyren/intranet/itello/stab/personal/Itello.html
 https://fyren/intranet/itello/stab/personal/personal.html
 https://fyren/intranet/itello/stab/stab.html
 https://fyren/intranet/main.html
