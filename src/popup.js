@@ -12,7 +12,7 @@
 var mode;
 var basicMode = new Mode({
     onEnterMode: function() {
-	console.log("onEnterMode()");
+	log("onEnterMode()");
 	this.text = "";
     },
     onExitMode: function() {
@@ -40,7 +40,7 @@ var basicMode = new Mode({
     },
     onTargetsChanged: function(targets) {
 	if (mode === basicMode)
-	    buildTable(targets);
+	    updateTargets(targets);
     },
     onSelectionChanged: function(index) {
 	if (mode === basicMode)
@@ -50,7 +50,7 @@ var basicMode = new Mode({
 setMode(basicMode);
 
 function setMode(newMode) {
-    console.log("setMode()");
+    log("setMode()");
     if (mode) mode.onExitMode();
     mode = newMode;
     mode.enterMode();
@@ -73,9 +73,9 @@ function setDeepLinkMode(target) {
 	badge: target.name,
 	placeholder: target.deeplink.placeholder,
 	onEnterMode: function() {
-	    $("#list").empty();
+	    $("#list-container").empty();
 	    if (target.deeplink.description)
-		$("#list").html(target.deeplink.description);
+		$("#list-container").html(target.deeplink.description);
 	},
 	onBack: function() {
 	    setMode(basicMode);
@@ -83,7 +83,7 @@ function setDeepLinkMode(target) {
 	onSelect: function() {
 	    target.openDeeplink(this.text);
 	},
-	onTargetsChanged: buildTable,
+	onTargetsChanged: updateTargets,
 	onSelectionChanged: updateSelection,
     });
     chrome.history.search({text:target.deeplink.url.split("<replace>")[0]}, function(historyItems) {
@@ -123,7 +123,7 @@ function hideHelp() {
 }
 
 function setupStaticTargets() {
-    console.log("setupStaticTargets()");
+    log("setupStaticTargets()");
     var staticTargets = [
 	{
 	    name: "Fyren",
@@ -241,7 +241,7 @@ function setupStaticTargets() {
 }
 
 function loadCustomTargets() {
-    console.log("loadCustomTargets()");
+    log("loadCustomTargets()");
     chrome.storage.local.get(["custom-version", "custom-targets"], function(items) {
 	var version = items["custom-version"];
 	if (version == TARGET_VERSION) {
@@ -251,7 +251,7 @@ function loadCustomTargets() {
 }
 
 function loadBookmarkTargets() {
-    console.log("loadBookmarkTargets()");
+    log("loadBookmarkTargets()");
     chrome.bookmarks.getTree(function(bookmarkTreeNodes) {
 	var targets = [];
 	var breadcrumbs = [];
@@ -276,7 +276,7 @@ function loadBookmarkTargets() {
 }
 
 function addTargets(targets) {
-    console.log("addTargets(Array(" + targets.length + "))");
+    log("addTargets(Array(" + targets.length + "))");
     basicMode.addTargets(targets);
 }
 
@@ -417,8 +417,8 @@ function notifyError(html, urlOnClick) {
     return div;
 }
 
-function buildTable(targets) {
-    console.log("buildTable(Array(" + targets.length + "))");
+function updateTargets(targets) {
+    log("updateTargets(Array(" + targets.length + "))");
     function highlightMatch(match) {
 	if (match.indices.length == 0)
 	    return match.text;
@@ -438,39 +438,38 @@ function buildTable(targets) {
 	return result + (included ? '</span>' : '');
     }
 
+    var container = $("#list-container");
     if (targets.length) {
-	var content = $("#list");
-	content.empty();
-	var table = $("<table />");
-	var hrow = $("<tr />");
-	content.append(table);
-	table.append(hrow);
+	container.empty();
+	var ul = $("<ul />");
+	container.append(ul);
 	$.each(targets, function(i, e) {
-	    var tr = $("<tr />");
+	    var li = $("<li />");
 	    if (e.details) {
-		tr.attr("title", e.details.replace(/\<br\s*\/?\>/g, "\n").replace(/\<.+?\>/g, ""));
+		li.attr("title", e.details.replace(/\<br\s*\/?\>/g, "\n").replace(/\<.+?\>/g, ""));
 	    }
-	    var td = $("<td></td>");
-	    tr.append(
-		td.append('<a target="_blank" href="' + e.url + '">' + (e.match && e.match.text == e.name ? highlightMatch(e.match) : e.name) + "</a>"),
-		$("<td align=right>" + (e.deeplink ? "&#9656;" : "") + "</td>"),
-	    );
+	    var span = $('<span class="match"></span>');
+	    span.append($('<a target="_blank" href="' + e.url + '">' + (e.match && e.match.text == e.name ? highlightMatch(e.match) : e.name) + "</a>"));
+	    li.append(span);
 	    if (e.match && e.match.text != e.name) { // Show the matching text, unless it's the same as the link
-		td.append(' <span class="matched-alternative">' + highlightMatch(e.match)) + '</span>';
+		span.append('<span class="matched-alternative">' + highlightMatch(e.match)) + '</span>';
 	    }
-	    table.append(tr);
+	    if (e.deeplink) {
+		li.append('<span class="arrow">&#9656;</span>');
+	    }
+	    ul.append(li);
 	});
     } else {
-	$("#list").html("<br />Inga matchingar");
+	container.html("<br />Inga matchingar");
     }
 
     $("#item-count").text(targets.length);
 }
 
 function updateSelection(targetIndex) {
-    console.log("updateSelection(" + targetIndex + ")");
-    $("table tr").removeClass("selected");
-    $("table tr").eq(targetIndex + 1).addClass("selected");
+    log("updateSelection(" + targetIndex + ")");
+    $("#list-container > ul > li").removeClass("selected");
+    $("#list-container > ul > li").eq(targetIndex).addClass("selected");
     $("#details").empty();
     var target = mode.getCurrentTarget();
     if (target) {
@@ -480,7 +479,7 @@ function updateSelection(targetIndex) {
 	    $("#details").html("<hr />" + target.url);
 	}
     }
-    var selected = $("table tr.selected")[0];
+    var selected = $("#list-container > ul > li.selected")[0];
     if (selected) {
 	selected.scrollIntoView({block: "center"});
     }
@@ -499,13 +498,13 @@ function copyToClipboard(text) {
 }
 
 function insertSelectionOrClipboardIfShorthand() {
-    console.log("insertSelectionOrClipboardIfShorthand()");
+    log("insertSelectionOrClipboardIfShorthand()");
     var input = $("#input");
     function insertIfMatch(text) {
 	for (var i = 0; i < mode.targets.length; i++) {
 	    var t = mode.targets[i];
 	    if (t.deeplink && t.deeplink.shorthand && t.deeplink.shorthand.test(text)) {
-		console.log("shorthand " + t.deeplink.shorthand + " matches '" + text + "'");
+		log("shorthand " + t.deeplink.shorthand + " matches '" + text + "'");
 		input.val(text);
 		input.select()
 		mode.setInput(text, null);
@@ -582,8 +581,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // handle filtering
     $("#input").focus();
     $("#input").on("input", function(event) {
-	console.log("#input onInput");
-	console.log(event);
+	log("#input onInput");
+	log(event);
 	mode.setInput($("#input").val().trim(), event);
     });
 

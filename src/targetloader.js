@@ -9,19 +9,19 @@ function TargetLoader(name, url, ttl, parserFunction, onLoadError, targetReceive
 }
 
 TargetLoader.prototype.fetch = function() {
-    console.log(this.name + ".fetch() - requesting " + this.url);
+    log(this.name + ".fetch() - requesting " + this.url);
     var loader = this;
     var request = new XMLHttpRequest();
     request.open("GET", this.url, true);
     request.onreadystatechange = function() {
 	if (request.readyState != 4) return;
 	if (request.status == 200) {
-	    console.log(loader.name + ".fetch() - loaded " + loader.url);
+	    log(loader.name + ".fetch() - loaded " + loader.url);
 	    var targets = loader.parse(request.responseText);
 	    loader.save(targets);
 	    loader.targetReceiver(targets);
 	} else {
-	    console.log(loader.name + ".fetch() - failed to load " + loader.url);
+	    log(loader.name + ".fetch() - failed to load " + loader.url);
 	    if (loader.onLoadError)
 		loader.onLoadError(request);
 	}
@@ -31,7 +31,7 @@ TargetLoader.prototype.fetch = function() {
 };
 
 TargetLoader.prototype.load = function() {
-    console.log(this.name + ".load()");
+    log(this.name + ".load()");
     Spinner.pushTask();
     var loader = this;
     chrome.storage.local.get([loader.name + "-version",
@@ -40,7 +40,7 @@ TargetLoader.prototype.load = function() {
 	var version = items[loader.name + "-version"];
 	var date = items[loader.name + "-date"];
 	if (version == TARGET_VERSION && date && ((new Date().getTime() - date) / (1000 * loader.ttl)) < 1) {
-	    console.log("adding targets for " + loader.name);
+	    log("adding targets for " + loader.name);
 	    loader.targetReceiver(items[loader.name + "-targets"]);
 	    Spinner.popTask();
 	} else {
@@ -50,7 +50,7 @@ TargetLoader.prototype.load = function() {
 };
 
 TargetLoader.prototype.save = function(targets) {
-    console.log(this.name + ".save()");
+    log(this.name + ".save()");
     var args = {};
     args[this.name + "-version"] = TARGET_VERSION;
     args[this.name + "-date"] = new Date().getTime();
@@ -61,7 +61,7 @@ TargetLoader.prototype.save = function(targets) {
 TargetLoader.loaders = [];
 
 TargetLoader.add = function(args) {
-    console.log("Adding loader - " + args.name + " / " + args.url);
+    log("Adding loader - " + args.name + " / " + args.url);
     TargetLoader.loaders.push(new TargetLoader(
 	args.name,
 	args.url,
@@ -73,10 +73,10 @@ TargetLoader.add = function(args) {
 };
 
 TargetLoader.loadAll = function(forceReload=false) {
-    console.log("TargetLoader.loadAll(forceReload=" + forceReload + ")");
-    console.log(TargetLoader.loaders);
+    log("TargetLoader.loadAll(forceReload=" + forceReload + ")");
+    log(TargetLoader.loaders);
     $(TargetLoader.loaders).each(function(i, loader) {
-	console.log("loading " + loader.name);
+	log("loading " + loader.name);
 	if (forceReload) {
 	    Spinner.pushTask();
 	    loader.fetch();

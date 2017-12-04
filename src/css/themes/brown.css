@@ -4,7 +4,7 @@ body {
     background: -webkit-linear-gradient(top, #673913 0%, #381701 100%);
 }
 
-#list, #list a {
+#list-container, #list-container a {
     color: #ccb488;
 }
 
@@ -32,7 +32,7 @@ span.matched-alternative {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-td:nth-of-type(2) {
+#list-container > ul > li > span.arrow {
     color: rgba(204, 180, 136, 0.3); /* Same as text color */
 }
 
