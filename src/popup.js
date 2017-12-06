@@ -217,6 +217,10 @@ function setupStaticTargets() {
 		</li>
 		</ul>`,
 	}, {
+	    name: "ProductStudio - System text",
+	    url: chrome.runtime.getURL("translate.html"),
+	    searchTerms: "ProductStudio - System text,translate,översätt",
+	}, {
 	    name: "Skumbanan",
 	    url: "http://skumbanan.itello.se/",
 	    searchTerms: "SkumBanan",
