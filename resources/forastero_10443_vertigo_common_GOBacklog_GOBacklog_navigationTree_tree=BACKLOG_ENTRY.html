@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<!-- Start file to be included first of all on all pages. Normally included from normal.jinc or frameset.jinc. -->
+<!-- Opens the elements "html" and "head", but does not close them. -->
+<!-- The including file must define the variable pageTitle, holding the title of the page. -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<!-- Start file to be included first of all on all pages-->
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1" />
+<title></title>
+
+
+
+
+
+
+
+
+
+    
+
+    <link rel="shortcut icon" href="/vertigo/static/img/favicon.ico" type="image/x-icon" />
+    <script src="../../../static/jquery/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="../../../static/jquery/js/jquery.hotkeys.js" type="text/javascript"></script>
+    
+
+
+
+
+
+<link rel="stylesheet" href="../../../static/navigationMenu.css"/>
+<script type="text/javascript" src="../../../static/jstree/ua.js"></script>
+<script type="text/javascript" src="../../../static/jstree/ftiens4x.js"></script>
+
+</head>
+<body id="navigationtree" class="dront">
+<DIV style="position:absolute;display:none;"><TABLE border=0><TR><TD><FONT size=-2><A style="font-size:7pt;text-decoration:none;color:white" href="http://www.treemenu.net/" target=_blank>Javascript Tree Menu</A></FONT></TD></TR></TABLE></DIV>
+<script type="text/javascript">
+        
+        foldersTree = folderWithIcon("Product backlog", "javascript:parent.op()", "", "avtal.gif")
+aux1 = insFld(foldersTree, folderWithIcon("Hantera team", "../../../common/GOBacklog/GOBacklog/viewObjectList?ItemClassName=TEAM", "", "note.gif"))
+aux1 = insFld(foldersTree, folderWithIcon("Hantera klienter", "../../../common/GOBacklog/GOBacklog/viewObjectList?ItemClassName=CLIENT", "", "note.gif"))
+aux1 = insFld(foldersTree, folderWithIcon("Backlogs", "javascript:parent.op()", "", "ftv2folderopen.gif"))
+aux2 = insFld(aux1, folderWithIcon("BLI", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=9&UPDATE_COUNTER=49", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Daim", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=1&UPDATE_COUNTER=19", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Daim - Småplock", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=6&UPDATE_COUNTER=5", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Daim Pros", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=12&UPDATE_COUNTER=58", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Dev Environment", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=18&UPDATE_COUNTER=98", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("EQS - Dev", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=14&UPDATE_COUNTER=103", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("EQS - Förvaltning", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=25&UPDATE_COUNTER=107", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("EQS - Product", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=24&UPDATE_COUNTER=36", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Flux", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=22&UPDATE_COUNTER=119", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Flux - Förvaltning", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=28&UPDATE_COUNTER=96", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Fora", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=34&UPDATE_COUNTER=2", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Gott & Blandat - 1 - Sprint", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=2&UPDATE_COUNTER=61", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Gott & Blandat - 2 - Grooming", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=33&UPDATE_COUNTER=109", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Gott & Blandat - 3 - Backlog", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=13&UPDATE_COUNTER=65", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Infra", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=31&UPDATE_COUNTER=98", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Infra - old", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=23&UPDATE_COUNTER=86", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Listerine", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=21&UPDATE_COUNTER=47", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Listerine - Förvaltning", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=29&UPDATE_COUNTER=86", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Planeringsverktyget", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=7&UPDATE_COUNTER=22", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Produktsupport", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=26&UPDATE_COUNTER=116", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Produktägare", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=16&UPDATE_COUNTER=7", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Pythagoras", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=4&UPDATE_COUNTER=70", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Pythagoras parkerade", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=32&UPDATE_COUNTER=34", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Pythagoras PS", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=15&UPDATE_COUNTER=42", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Ramverksgruppen", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=8&UPDATE_COUNTER=47", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Softiplex - 1 - Sprint", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=3&UPDATE_COUNTER=42", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Softiplex - 2 - Grooming", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=30&UPDATE_COUNTER=11", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Softiplex - 3 - Backlog", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=10&UPDATE_COUNTER=26", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Strategiskt PDB", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=27&UPDATE_COUNTER=86", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Summer Exception(s)", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=20&UPDATE_COUNTER=31", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Tesla", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=11&UPDATE_COUNTER=76", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Tesla Pros", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=17&UPDATE_COUNTER=98", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Test", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=5&UPDATE_COUNTER=86", "", "note.gif"))
+aux2 = insFld(aux1, folderWithIcon("Testverktyg", "../../../common/GOBacklog/GOBacklog/../GOViewTeamWithBacklog/viewTeamWithNonFinishedBacklog?&ItemClassName=TEAM&TEAM_ID=19&UPDATE_COUNTER=62", "", "note.gif"))
+aux1 = insFld(foldersTree, folderWithIcon("Alla uppgifter", "../../../common/GOBacklog/GOBacklog/viewObjectList?ItemClassName=BACKLOG_ENTRY", "", "note.gif"))
+
+        initializeDocument();
+        
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,49 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<title>Itello Kundmiljöer</title>
+<link rel="stylesheet" type="text/css" href="http://fyren/intranet/css/Fyren.css">
+<style>
+input {font-family: verdana; font-size: 8pt; font-weight: 500;}
+textarea {font-family: verdana; font-size: 8pt; font-weight: 500;}
+
+
+</style>
+<script>
+	function deleteItem(id){
+		var conf = confirm("Är du säker på att du vill ta bort denna miljö från listan?");
+		
+		if(conf){
+			window.location="?do=delete&id="+id;
+		}
+	}
+	
+	function deleteHistory(history_id){
+		var conf = confirm("Är du säker på att du vill ta bort denna installation från listan?");
+		
+		if(conf){
+			window.location="?do=edit&id=&do2=deleteHistory&history_id="+history_id;
+		}
+	}
+</script>
+</head>
+<body>
+<img title="Kundmiljöer" src="/intranet/itello/qualityassurance/test/piggy.PNG"  style="float:left; position:relative; top:14px;" border="0"/><p>&nbsp;</p> <h3>Kundmiljöer - Prod</h3>
+
+	<font style="font-size:8pt;">Klicka på en rad för att ändra.</font>
+	<table cellpadding="5" cellspacing="0" border="1">
+		
+<tr><td><b>Kund</b></td><td><b>Inca</b></td><td><b>BLI</b></td><td><b>PAF</b></td><td><b>Info</b></td><td><b>Aktuellt</b></td></tr><tr title="Ändra" onClick="window.location='?do=edit&id=5'" onmouseover="this.style.backgroundColor='#FAFAD2'; this.style.cursor='hand';" onmouseout="this.style.backgroundColor='#FFFFFF';"><td>Robur&nbsp;</td><td>Inca_17.4.0.1002&nbsp;</td><td>BLI_7.6.0&nbsp;</td><td>&nbsp;</td><td>Fyra batchexekverare, Aktiv-Aktiv
+Kryptering aktiverad i prod&nbsp;</td><td>&nbsp;</td></tr><tr title="Ändra" onClick="window.location='?do=edit&id=2'" onmouseover="this.style.backgroundColor='#FAFAD2'; this.style.cursor='hand';" onmouseout="this.style.backgroundColor='#FFFFFF';"><td>Nordnet&nbsp;</td><td>Inca_17.4.0.11&nbsp;</td><td>BLI_3.15.0&nbsp;</td><td>&nbsp;</td><td>En batchexekverare&nbsp;</td><td>&nbsp;</td></tr><tr title="Ändra" onClick="window.location='?do=edit&id=6'" onmouseover="this.style.backgroundColor='#FAFAD2'; this.style.cursor='hand';" onmouseout="this.style.backgroundColor='#FFFFFF';"><td>Nordea&nbsp;</td><td>Inca_16.2.0.16&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>En batchexekverare.&nbsp;</td><td>&nbsp;</td></tr><tr title="Ändra" onClick="window.location='?do=edit&id=1'" onmouseover="this.style.backgroundColor='#FAFAD2'; this.style.cursor='hand';" onmouseout="this.style.backgroundColor='#FFFFFF';"><td>Movestic&nbsp;</td><td>Inca_17.4.0.09&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>En batchexekverare&nbsp;</td><td>&nbsp;</td></tr><tr title="Ändra" onClick="window.location='?do=edit&id=13'" onmouseover="this.style.backgroundColor='#FAFAD2'; this.style.cursor='hand';" onmouseout="this.style.backgroundColor='#FFFFFF';"><td>AMF&nbsp;</td><td>Inca_17.2.0.1202&nbsp;</td><td>BLI_4.24.0&nbsp;</td><td>&nbsp;</td><td>Fyra batchexekverare&nbsp;</td><td>&nbsp;</td></tr><tr title="Ändra" onClick="window.location='?do=edit&id=14'" onmouseover="this.style.backgroundColor='#FAFAD2'; this.style.cursor='hand';" onmouseout="this.style.backgroundColor='#FFFFFF';"><td>Brummer&nbsp;</td><td>Inca_17.4.0.09&nbsp;</td><td>BLI_6.12.0&nbsp;</td><td>&nbsp;</td><td>En batchexekverare
+En nod&nbsp;</td><td>&nbsp;</td></tr><tr title="Ändra" onClick="window.location='?do=edit&id=15'" onmouseover="this.style.backgroundColor='#FAFAD2'; this.style.cursor='hand';" onmouseout="this.style.backgroundColor='#FFFFFF';"><td>Folksam&nbsp;</td><td>Inca_17.3.0.23&nbsp;</td><td>BLI_6.21.0&nbsp;</td><td>&nbsp;</td><td>Två batchexekverare,  
+Aktiv-aktiv&nbsp;</td><td>&nbsp;</td></tr><tr title="Ändra" onClick="window.location='?do=edit&id=16'" onmouseover="this.style.backgroundColor='#FAFAD2'; this.style.cursor='hand';" onmouseout="this.style.backgroundColor='#FFFFFF';"><td>SPP&nbsp;</td><td>Inca_17.3.0.20&nbsp;</td><td>BLI_6.12.0&nbsp;</td><td>PAF_17.2.2.166&nbsp;</td><td>Två batchexekverare,  
+Aktiv-aktiv&nbsp;</td><td>&nbsp;</td></tr>	</table>
+	<br />
+		<br /><br />
+	<input type="button" value="Ny miljö" onClick="window.location='?do=edit'" />
+		
+	
+</body>
+</html>
+	

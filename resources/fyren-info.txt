@@ -11,3 +11,6 @@ https://fyren/intranet/itello/stab/personal/personal.html
 https://fyren/intranet/itello/stab/stab.html
 https://fyren/intranet/main.html
 https://fyren/intranet/navigation.html
+https://forastero/vertigo/maintenanceps/ #PS-strömmar
+https://forastero:10443/vertigo/common/GOBacklog/GOBacklog/navigationTree?tree=BACKLOG_ENTRY #Planeringsverktyget - menyn
+https://fyren/incaversions/kundmiljoer.php
