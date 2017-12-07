@@ -86,16 +86,16 @@ function setDeepLinkMode(target) {
 	onTargetsChanged: updateTargets,
 	onSelectionChanged: updateSelection,
     });
-    chrome.history.search({text:target.deeplink.url.split("<replace>")[0]}, function(historyItems) {
-	let targets = [];
-	$(historyItems).each(function(i, item) {
-	    targets.push({
-		name: item.title,
-		url: item.url,
-	    });
-	});
-	newMode.addTargets(targets);
-    });
+    // chrome.history.search({text:target.deeplink.url.split("<replace>")[0]}, function(historyItems) {
+    // 	let targets = [];
+    // 	$(historyItems).each(function(i, item) {
+    // 	    targets.push({
+    // 		name: item.title,
+    // 		url: item.url,
+    // 	    });
+    // 	});
+    // 	newMode.addTargets(targets);
+    // });
     setMode(newMode);
 }
 
