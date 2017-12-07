@@ -220,6 +220,7 @@ function setupStaticTargets() {
 	    name: "ProductStudio - System text",
 	    url: chrome.runtime.getURL("translate.html"),
 	    searchTerms: "ProductStudio - System text,translate,översätt",
+	    details: "Sök i systemtexttabellen",
 	    deeplink: {
 		url: chrome.runtime.getURL("translate.html") + "?search=<replace>",
 	    },
