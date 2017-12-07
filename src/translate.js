@@ -87,11 +87,15 @@ class SearchPart {
     startSearch() {
 	let s = this;
 	spinner.pushTask()
-	fetchTranslation(this.url, function(r) { s.onResponse(r); });
+	fetchTranslation(this.url, function(r) {
+	    spinner.popTask()
+	    if (r) {
+		s.onResponse(r);
+	    }
+	});
     }
 
     onResponse(response) {
-	spinner.popTask()
 	let properJSON = response.replace(/(['"])?([a-zA-ZÂ‰ˆ≈ƒ÷_]+)(['"])?:/g, '"$2":'); // Doesn't work with ':' in the value
 	let obj = JSON.parse(properJSON);
 	this.search.addResults(obj.objects);
@@ -136,21 +140,26 @@ function fetchUrl(url, callback) {
 	if (request.status == 200) {
 	    callback(request.responseText);
 	} else {
+	    callback(null);
 	}
     };
     request.send();
 }
 
 class PSStreams {
-    static load(callback) {
-	this.fetch(callback);
+    static load(callbacks) {
+	this.fetch(callbacks);
     }
 
-    static fetch(callback) {
+    static fetch(callbacks) {
 	fetchUrl("https://forastero/vertigo/maintenanceps/", function(response) {
-//	    let streams = this.parse(fakeStreams);
-	    let streams = PSStreams.parse(response);
-	    callback(streams);
+	    if (response) {
+//		let streams = this.parse(fakeStreams);
+		let streams = PSStreams.parse(response);
+		callbacks.onLoad(streams);
+	    } else {
+		callbacks.onError();
+	    }
 	});
     }
 
@@ -182,16 +191,21 @@ document.addEventListener('DOMContentLoaded', function() {
 	input.focus();
     }
 
-    PSStreams.load(function(streams) {
-	button.removeAttr("disabled");
-	let select = $("#stream");
-	select.empty();
-	for(let i = 0; i < streams.length; i++) {
-	    select.append($("<option>").append(streams[i].name));
-	}
-	if (params.has("search")) {
-	    search(params.get("search"), streams[0].name);
-	}
+    PSStreams.load({
+	onLoad: function(streams) {
+	    button.removeAttr("disabled");
+	    let select = $("#stream");
+	    select.empty();
+	    for(let i = 0; i < streams.length; i++) {
+		select.append($("<option>").append(streams[i].name));
+	    }
+	    if (params.has("search")) {
+		search(params.get("search"), streams[0].name);
+	    }
+	},
+	onError: function() {
+	    // TODO
+	},
     });
 
     $("form").submit(function(event) {
