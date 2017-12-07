@@ -3,6 +3,29 @@
 // https://forastero/vertigo/maintenanceps-api/getObjects?className=SYSTEM_TEXT_TABLE&itemCount=30&streamName=Inca+17.3&attr[]=TEXT_OBJECT_VALUE&attr[]=TEXT_OBJECT_TYPE&attr[]=LANGUAGE&value[]=address&value[]=CONSTANT&value[]=35509
 // https://forastero/vertigo/maintenanceps-api/getObjects?className=SYSTEM_TEXT_TABLE&itemCount=30&streamName=Inca+17.3&attr[]=TEXT_OBJECT&attr[]=TEXT_OBJECT_TYPE&attr[]=LANGUAGE&value[]=address&value[]=CONSTANT&value[]=35509
 
+var spinner;
+
+class Spinner {
+    constructor(element) {
+	this.element = element;
+	this.counter = 0;
+    }
+
+    pushTask() {
+	this.counter++;
+	if (this.counter > 0) {
+	    this.element.show();
+	}
+    }
+
+    popTask() {
+	this.counter--;
+	if (this.counter == 0) {
+	    this.element.hide();
+	}
+    }
+}
+
 class Search {
     constructor(text, streamName, onAddResults) {
 	this.text = text;
@@ -63,22 +86,24 @@ class SearchPart {
 
     startSearch() {
 	let s = this;
+	spinner.pushTask()
 	fetchTranslation(this.url, function(r) { s.onResponse(r); });
     }
 
     onResponse(response) {
-	let properJSON = response.replace(/(['"])?([a-zA-ZÂ‰ˆ≈ƒ÷_]+)(['"])?:/g, '"$2":');
+	spinner.popTask()
+	let properJSON = response.replace(/(['"])?([a-zA-ZÂ‰ˆ≈ƒ÷_]+)(['"])?:/g, '"$2":'); // Doesn't work with ':' in the value
 	let obj = JSON.parse(properJSON);
 	this.search.addResults(obj.objects);
 	if (obj.meta.moreRowsAvailable) {
 	    this.startIndex += this.itemCount;
-	    this.start();
+	    this.startSearch();
 	}
     }
 }
 
 function search(text, incaVersion) {
-    let table = $("table.table");
+    let table = $("#results");
     table.empty();
     let s = new Search(text, incaVersion, onAddResults);
     s.startSearch();
@@ -86,10 +111,11 @@ function search(text, incaVersion) {
 }
 
 function onAddResults(results) {
-    let table = $("table.table");
+    let table = $("#results");
     for (let i = 0; i < results.length; i++) {
 	let r = results[i];
 	let tr = $("<tr>");
+	log(r);
 	tr.append($("<td>").append(r.TEXT_OBJECT));
 	tr.append($("<td>").append(r.TEXT_OBJECT_VALUE));
 	tr.append($("<td>").append(r.TEXT_STRING));
@@ -98,17 +124,21 @@ function onAddResults(results) {
 }
 
 function fetchTranslation(url, callback) {
-    // let request = new XMLHttpRequest();
-    // let url = "url";
-    // request.open("GET", url, true);
-    // request.onreadystatechange = function() {
-    // 	if (request.readyState != 4) return;
-    // 	if (request.status == 200) {
-    callback(fakeResponse);
-    // 	} else {
-    // 	}
-    // };
-    // request.send();
+//    callback(fakeResponse);
+    fetchUrl(url, callback);
+}
+
+function fetchUrl(url, callback) {
+    let request = new XMLHttpRequest();
+    request.open("GET", url, true);
+    request.onreadystatechange = function() {
+	if (request.readyState != 4) return;
+	if (request.status == 200) {
+	    callback(request.responseText);
+	} else {
+	}
+    };
+    request.send();
 }
 
 class PSStreams {
@@ -117,8 +147,11 @@ class PSStreams {
     }
 
     static fetch(callback) {
-	let streams = this.parse(fakeStreams);
-	callback(streams);
+	fetchUrl("https://forastero/vertigo/maintenanceps/", function(response) {
+//	    let streams = this.parse(fakeStreams);
+	    let streams = PSStreams.parse(response);
+	    callback(streams);
+	});
     }
 
     static parse(html) {
@@ -139,11 +172,14 @@ class PSStreams {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    spinner = new Spinner($("#spinner"));
     let input = $("#input");
     let button = $("button");
     let params = new URL(document.location).searchParams;
     if (params.has("search")) {
 	input.val(params.get("search"));
+    } else {
+	input.focus();
     }
 
     PSStreams.load(function(streams) {
@@ -158,7 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
     });
 
-    input.focus();
     $("form").submit(function(event) {
 	let text = input.val().trim();
 	if (text) {

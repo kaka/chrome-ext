@@ -12,6 +12,14 @@
     <script src="jquery.min.js"></script>
     <script src="log.js"></script>
     <script src="translate.js"></script>
+    <style>
+      #spinner {
+        width: 30px;
+        opacity: 0.2;
+        animation:rotate 1s linear infinite;
+      }
+      @keyframes rotate { 100% { transform:rotate(360deg); } }
+    </style>
   </head>
   <body>
     <div class="container-fluid">
@@ -20,9 +28,7 @@
 	  <form class="form-inline">
 	    <input class="form-control" id="input" type="text"></input>
 	    <select class="form-control" id="stream">
-	      <option>Inca 18.1</option>
-	      <option>Inca 17.4</option>
-	      <option>Inca 17.3</option>
+	      <option>...</option>
 	    </select>
 	    <button class="btn btn-primary" type="submit" id="search" disabled>Sök</button>
 	  </form>
@@ -31,8 +37,14 @@
 
       <div class="row">
 	<div class="col">
-	  <table class="table">
+	  <table class="table table-sm table-hover" id="results">
 	  </table>
+	</div>
+      </div>
+
+      <div class="row justify-content-center">
+	<div class="col-auto">
+	  <img id="spinner" class="icon" style="display: none" src="img/refresh.svg" />
 	</div>
       </div>
     </div>
