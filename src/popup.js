@@ -9,7 +9,11 @@
  */
 
 
-var mode;
+var modes = [];
+function mode() {
+    return modes[modes.length - 1];
+}
+
 var basicMode = new Mode({
     onEnterMode: function() {
 	log("onEnterMode()");
@@ -39,24 +43,38 @@ var basicMode = new Mode({
 	return false;
     },
     onTargetsChanged: function(targets) {
-	if (mode === basicMode)
+	if (mode() === basicMode)
 	    updateTargets(targets);
     },
     onSelectionChanged: function(index) {
-	if (mode === basicMode)
+	if (mode() === basicMode)
 	    updateSelection(index);
     },
 });
-setMode(basicMode);
+pushMode(basicMode);
 
-function setMode(newMode) {
-    log("setMode()");
-    if (mode) mode.onExitMode();
-    mode = newMode;
-    mode.enterMode();
-    if (mode.badge) {
+function pushMode(newMode) {
+    log("pushMode()");
+    mode.previous = mode()
+    modes.push(newMode);
+    changeMode(newMode);
+}
+
+function popMode() {
+    log("popMode()");
+    if (modes.length > 1) {
+	mode.previous = modes.pop();
+	changeMode(mode());
+    }
+}
+
+function changeMode(newMode) {
+    log("changeMode()");
+    if (mode.previous) mode.previous.onExitMode();
+    newMode.enterMode();
+    if (newMode.badge) {
 	$("#mode")
-	    .text(mode.badge)
+	    .text(newMode.badge)
 	    .show();
     } else {
 	$("#mode")
@@ -64,7 +82,7 @@ function setMode(newMode) {
     }
     $("#input")
 	.val("")
-	.attr("placeholder", mode.placeholder)
+	.attr("placeholder", newMode.placeholder)
 	.focus();
 }
 
@@ -78,7 +96,7 @@ function setDeepLinkMode(target) {
 		$("#list-container").html(target.deeplink.description);
 	},
 	onBack: function() {
-	    setMode(basicMode);
+	    popMode();
 	},
 	onSelect: function() {
 	    target.openDeeplink(this.text);
@@ -96,7 +114,7 @@ function setDeepLinkMode(target) {
     // 	});
     // 	newMode.addTargets(targets);
     // });
-    setMode(newMode);
+    pushMode(newMode);
 }
 
 function setupHelp() {
@@ -482,7 +500,7 @@ function updateSelection(targetIndex) {
     $("#list-container > ul > li").removeClass("selected");
     $("#list-container > ul > li").eq(targetIndex).addClass("selected");
     $("#details").empty();
-    var target = mode.getCurrentTarget();
+    var target = mode().getCurrentTarget();
     if (target) {
 	if (target.details) {
 	    $("#details").html("<hr />" + target.details);
@@ -512,13 +530,13 @@ function insertSelectionOrClipboardIfShorthand() {
     log("insertSelectionOrClipboardIfShorthand()");
     var input = $("#input");
     function insertIfMatch(text) {
-	for (var i = 0; i < mode.targets.length; i++) {
-	    var t = mode.targets[i];
+	for (var i = 0; i < mode().targets.length; i++) {
+	    var t = mode().targets[i];
 	    if (t.deeplink && t.deeplink.shorthand && t.deeplink.shorthand.test(text)) {
 		log("shorthand " + t.deeplink.shorthand + " matches '" + text + "'");
 		input.val(text);
 		input.select()
-		mode.setInput(text, null);
+		mode().setInput(text, null);
 		return true;
 	    }
 	}
@@ -533,7 +551,7 @@ function insertSelectionOrClipboardIfShorthand() {
 	    var text = (input.val() || "").trim();
 	    input.val("");
 	    if (!insertIfMatch(text)) {
-		mode.setInput("", null);
+		mode().setInput("", null);
 	    }
 	}
     });
@@ -594,41 +612,41 @@ document.addEventListener('DOMContentLoaded', function() {
     $("#input").on("input", function(event) {
 	log("#input onInput");
 	log(event);
-	mode.setInput($("#input").val().trim(), event);
+	mode().setInput($("#input").val().trim(), event);
     });
 
     // handle navigation
     document.onkeydown = function(event) {
 	hideHelp();
 	if (event.keyCode == 13) { // enter
-	    mode.onSelect();
+	    mode().onSelect();
 	    return false;
 	}
 	if (event.keyCode == 8) { // backspace
 	    if ($("#input").val() == "") {
-		mode.onBack();
+		mode().onBack();
 		return false;
 	    }
 	}
 	if ([9, 32].includes(event.keyCode)) { // tab, space
-	    return !mode.onAdvance() && event.keyCode == 32; // Allow spaces to be inserted
+	    return !mode().onAdvance() && event.keyCode == 32; // Allow spaces to be inserted
 	}
 	if (event.keyCode == 37) { // left
 	    var input = document.getElementById("input");
 	    if (input.value == "") {
-		mode.onBack();
+		mode().onBack();
 		return false;
 	    }
 	}
 	if (event.keyCode == 39) { // right
 	    var input = document.getElementById("input");
 	    if (input.selectionStart == input.value.length) {
-		mode.onAdvance();
+		mode().onAdvance();
 		return false;
 	    }
 	}
 	if ([38, 40].includes(event.keyCode)) { // up, down
-	    mode.navigate({38: -1, 40: 1}[event.keyCode]);
+	    mode().navigate({38: -1, 40: 1}[event.keyCode]);
 	    return false;
 	}
 	$("#input").focus();
@@ -636,10 +654,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     chrome.commands.onCommand.addListener(function(cmd) {
 	if (cmd == "navigate-up") {
-	    mode.navigate(-1)
+	    mode().navigate(-1)
 	}
 	if (cmd == "navigate-down") {
-	    mode.navigate(1)
+	    mode().navigate(1)
 	}
     });
 });
