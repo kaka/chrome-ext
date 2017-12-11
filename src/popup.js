@@ -43,15 +43,32 @@ var basicMode = new Mode({
 	return false;
     },
     onTargetsChanged: function(targets) {
-	if (mode() === basicMode)
+	if (mode() === this)
 	    updateTargets(targets);
     },
     onSelectionChanged: function(index) {
-	if (mode() === basicMode)
+	if (mode() === this)
 	    updateSelection(index);
     },
 });
 pushMode(basicMode);
+
+function pushModeWithFilteredTargets() {
+    log("pushModeWithFilteredTargets()");
+    if (mode().filteredTargets.length > 1 && mode().filteredTargets.length < mode().targets.length) {
+	pushMode(getModeFromCurrentSearch());
+	return true;
+    }
+    return false;
+}
+
+function getModeFromCurrentSearch() {
+    let copy = $.extend(true, {}, mode());
+    copy.targets = mode().filteredTargets;
+    copy.badge = mode().text;
+    copy.onBack = popMode;
+    return copy;
+}
 
 function pushMode(newMode) {
     log("pushMode()");
@@ -72,13 +89,12 @@ function changeMode(newMode) {
     log("changeMode()");
     if (mode.previous) mode.previous.onExitMode();
     newMode.enterMode();
-    if (newMode.badge) {
-	$("#mode")
-	    .text(newMode.badge)
-	    .show();
-    } else {
-	$("#mode")
-	    .hide();
+    $("#mode").empty();
+    for (let i = 0; i < modes.length; i++) {
+	let m = modes[i];
+	if (m.badge) {
+	    $("#mode").append($("<span>").addClass("label").text(m.badge));
+	}
     }
     $("#input")
 	.val("")
@@ -629,7 +645,13 @@ document.addEventListener('DOMContentLoaded', function() {
 	    }
 	}
 	if ([9, 32].includes(event.keyCode)) { // tab, space
-	    return !mode().onAdvance() && event.keyCode == 32; // Allow spaces to be inserted
+	    if (mode().onAdvance()) {
+		return false;
+	    } else if (event.keyCode == 9) {
+		pushModeWithFilteredTargets();
+		return false;
+	    }
+	    return event.keyCode == 32; // Allow spaces to be inserted
 	}
 	if (event.keyCode == 37) { // left
 	    var input = document.getElementById("input");
@@ -648,6 +670,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	if ([38, 40].includes(event.keyCode)) { // up, down
 	    mode().navigate({38: -1, 40: 1}[event.keyCode]);
 	    return false;
+	}
+	if (event.keyCode == 191) { // forward slash
+	    return !pushModeWithFilteredTargets();
 	}
 	$("#input").focus();
 	return true;

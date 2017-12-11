@@ -86,6 +86,7 @@ body {
     border-radius: 3px;
     padding: 3px 4px 3px 3px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px;
+    margin-right: 2px;
 }
 
 #input-container {
