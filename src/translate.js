@@ -27,9 +27,10 @@ class Spinner {
 }
 
 class Search {
-    constructor(text, streamName, onAddResults) {
+    constructor(text, streamName, language, onAddResults) {
 	this.text = text;
 	this.streamName = streamName;
+	this.language = language;
 	this.onAddResults = onAddResults;
 	this.parts = [
 	    this.newSearchPart(["TEXT_STRING"], ["%25"+text+"%25"]),
@@ -42,7 +43,7 @@ class Search {
 
     newSearchPart(attrs, values) {
 	attrs.push("LANGUAGE");
-	values.push("35509");
+	values.push(this.language);
 	return new SearchPart(this, this.streamName, attrs, values);
     }
 
@@ -105,10 +106,10 @@ class SearchPart {
     }
 }
 
-function search(text, incaVersion) {
+function search(text, incaVersion, language) {
     let table = $("#results");
     table.empty();
-    let s = new Search(text, incaVersion, onAddResults);
+    let s = new Search(text, incaVersion, language, onAddResults);
     s.startSearch();
     log(s);
 }
@@ -203,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		select.append($("<option>").append(streams[i].name));
 	    }
 	    if (params.has("search")) {
-		search(params.get("search"), streams[0].name);
+		search(params.get("search"), streams[0].name, $("#language").val());
 	    }
 	},
 	onError: function() {
@@ -214,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
     $("form").submit(function(event) {
 	let text = input.val().trim();
 	if (text) {
-	    search(text, $("#stream").val());
+	    search(text, $("#stream").val(), $("#language").val());
 	}
 	return false;
     });
