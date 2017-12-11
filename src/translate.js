@@ -32,11 +32,11 @@ class Search {
 	this.streamName = streamName;
 	this.language = language;
 	this.onAddResults = onAddResults;
+	let encodedText = encodeURI(text);
 	this.parts = [
-	    this.newSearchPart(["TEXT_STRING"], ["%25"+text+"%25"]),
-	    this.newSearchPart(["TEXT_OBJECT", "TEXT_OBJECT_TYPE"], ["%25"+text+"%25", "ATTRIBUTE"]),
-	    this.newSearchPart(["TEXT_OBJECT", "TEXT_OBJECT_TYPE"], ["%25"+text+"%25", "CONSTANT"]),
-	    this.newSearchPart(["TEXT_OBJECT_VALUE", "TEXT_OBJECT_TYPE"], [text, "CONSTANT"]),
+	    this.newSearchPart(["TEXT_STRING"], ["%25"+encodedText+"%25"]),
+	    this.newSearchPart(["TEXT_OBJECT"], ["%25"+encodedText+"%25"]),
+	    this.newSearchPart(["TEXT_OBJECT_VALUE", "TEXT_OBJECT_TYPE"], [encodedText, "CONSTANT"]),
 	];
 	this.results = [];
     }
