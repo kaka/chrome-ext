@@ -60,7 +60,7 @@ class Search {
 	Array.prototype.push.apply(this.results, results);
 	let s = this;
 	setTimeout(function() {
-	    s.onAddResults(results);
+	    s.onAddResults(s.text, results);
 	}, 0);
     }
 }
@@ -114,7 +114,11 @@ function search(text, incaVersion, language) {
     log(s);
 }
 
-function onAddResults(results) {
+function onAddResults(searchText, results) {
+    function highlight(text) {
+	return $("<span>").html(text.replace(new RegExp(searchText, "gi"), "<mark>$&</mark>"));
+    }
+
     let table = $("#results");
     for (let i = 0; i < results.length; i++) {
 	let r = results[i];
@@ -124,9 +128,9 @@ function onAddResults(results) {
 		  .append($("<span>").addClass("badge badge-secondary").append(r.TEXT_OBJECT_TYPE))
 		  .append(" / ")
 		  .append($("<span>").addClass("badge badge-secondary").append(r.TEXT_TYPE)));
-	tr.append($("<td>").append(r.TEXT_OBJECT));
-	tr.append($("<td>").append(r.TEXT_OBJECT_VALUE));
-	tr.append($("<td>").append(r.TEXT_STRING));
+	tr.append($("<td>").append(highlight(r.TEXT_OBJECT)));
+	tr.append($("<td>").append(highlight(r.TEXT_OBJECT_VALUE)));
+	tr.append($("<td>").append(highlight(r.TEXT_STRING)));
 	table.append(tr);
     }
 }
