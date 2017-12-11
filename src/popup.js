@@ -372,6 +372,7 @@ TargetLoader.add({
 		targets.push({
 		    name: a.text(),
 		    url: url,
+		    searchTerms: a.text() + ",fyren",
 		});
 	    });
 	return targets;
@@ -438,6 +439,53 @@ TargetLoader.add({
     parser: parseIncaReleases("https://fyren/intranet/itello/qualityassurance/qualityassurance.html"),
     onLoadError: function(request) {
 	notifyError("<p>Kunde inte läsa från Quality Assurance</p>");
+    }
+});
+
+TargetLoader.add({
+    name: "personal",
+    url: "https://fyren/intranet/itello/stab/personal/personal.html",
+    parser: function(text) {
+	var targets = [];
+	$("<div>").html(text)
+	    .find(".personalLink").each(function(i, e) {
+		var a = $(e);
+		targets.push({
+		    name: a.text(),
+		    url: "https://fyren/intranet/itello/stab/personal/" + a.attr("href"),
+		    searchTerms: a.text() + ",fyren,personal",
+		});
+	    });
+	return targets;
+    },
+    onLoadError: function(request) {
+	notifyError("<p>Kunde inte hämta personalsidan</p>");
+    }
+});
+
+TargetLoader.add({
+    name: "personal-halsa",
+    url: "https://fyren/intranet/itello/stab/halsoportal/halsa.html",
+    parser: function(text) {
+	var targets = [];
+	$("<div>").html(text)
+	    .find("td").each(function(i, e) {
+		var td = $(e);
+		log(td);
+		log(td.find("h2").text());
+		log(td.html());
+		targets.push({
+		    name: td.find("h2").text(),
+		    url: "https://fyren/intranet/itello/stab/halsoportal/halsa.html" + "#" + td.find("h2").text(),
+		    searchTerms: td.find("h2").text() + ",fyren,personal,hälsa",
+		    details: td.html(),
+		});
+	    });
+	log(targets);
+	return targets;
+    },
+    onLoadError: function(request) {
+	notifyError("<p>Kunde inte hämta personalsidan</p>");
     }
 });
 
