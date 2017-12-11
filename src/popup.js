@@ -186,6 +186,9 @@ function setupStaticTargets() {
 	    name: "Jenkins",
 	    url: "https://marabou/",
 	}, {
+	    name: "JFrog Artifactory",
+	    url: "https://artifactory.itello.se/artifactory/webapp",
+	}, {
 	    name: "Inca Changelog",
 	    url: "file://itello.se/Versions/Itello/Inca/Changelog/",
 	}, {
