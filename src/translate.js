@@ -119,6 +119,10 @@ function onAddResults(results) {
 	let r = results[i];
 	let tr = $("<tr>");
 	log(r);
+	tr.append($("<td>")
+		  .append($("<span>").addClass("badge badge-secondary").append(r.TEXT_OBJECT_TYPE))
+		  .append(" / ")
+		  .append($("<span>").addClass("badge badge-secondary").append(r.TEXT_TYPE)));
 	tr.append($("<td>").append(r.TEXT_OBJECT));
 	tr.append($("<td>").append(r.TEXT_OBJECT_VALUE));
 	tr.append($("<td>").append(r.TEXT_STRING));
