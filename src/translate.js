@@ -96,10 +96,9 @@ class SearchPart {
     }
 
     onResponse(response) {
-	let properJSON = response.replace(/(['"])?([a-zA-ZÂ‰ˆ≈ƒ÷_]+)(['"])?:/g, '"$2":'); // Doesn't work with ':' in the value
-	let obj = JSON.parse(properJSON);
-	this.search.addResults(obj.objects);
-	if (obj.meta.moreRowsAvailable) {
+	let json = JSON.parse(response);
+	this.search.addResults(json.objects);
+	if (json.meta.moreRowsAvailable) {
 	    this.startIndex += this.itemCount;
 	    this.startSearch();
 	}
