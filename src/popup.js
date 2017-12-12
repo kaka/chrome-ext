@@ -384,7 +384,7 @@ TargetLoader.add({
 
 TargetLoader.add({
     name: "staff",
-    url: "https://fyren/intranet/itello/stab/whoswho.data.txt",
+    file: "Q:\\Intranet\\itello\\stab\\whoswho.data.txt",
     parser: function(text) {
 	var targets = [];
 	$.each(text.match(/addUser\((".*?"(,\s.*)?)+\)/g), function(i, e) {

@@ -1,33 +1,60 @@
 /* Used for fetching and caching targets from a resource */
-function TargetLoader(name, url, ttl, parserFunction, onLoadError, targetReceiver) {
+function TargetLoader(type, name, uri, ttl, parserFunction, onLoadError, targetReceiver) {
     this.name = name;
-    this.url = url;
+    this.uri = uri;
     this.ttl = ttl;
     this.parse = parserFunction; // called with request.responseText
     this.onLoadError = onLoadError;
     this.targetReceiver = targetReceiver;
+    this.fetch = type == "web" ? this.fetchFromWeb : this.fetchFromFile;
 }
 
-TargetLoader.prototype.fetch = function() {
-    log(this.name + ".fetch() - requesting " + this.url);
+TargetLoader.prototype.fetchFromWeb = function() {
+    log(this.name + ".fetchFromWeb() - requesting " + this.uri);
     var loader = this;
     var request = new XMLHttpRequest();
-    request.open("GET", this.url, true);
+    request.open("GET", this.uri, true);
+    request.overrideMimeType("application/x-www-form-urlencoded; charset=iso-8859-1");
     request.onreadystatechange = function() {
 	if (request.readyState != 4) return;
 	if (request.status == 200) {
-	    log(loader.name + ".fetch() - loaded " + loader.url);
-	    var targets = loader.parse(request.responseText);
-	    loader.save(targets);
-	    loader.targetReceiver(targets);
+	    loader.onXHRLoad(request.responseText);
 	} else {
-	    log(loader.name + ".fetch() - failed to load " + loader.url);
-	    if (loader.onLoadError)
-		loader.onLoadError(request);
+	    loader.onXHRError(request);
 	}
 	Spinner.popTask();
     };
     request.send();
+};
+
+TargetLoader.prototype.fetchFromFile = function() {
+    log(this.name + ".fetchFromFile() - requesting " + this.uri);
+    var loader = this;
+    var request = new XMLHttpRequest();
+    request.open("GET", this.uri, true);
+    request.overrideMimeType("application/x-www-form-urlencoded; charset=iso-8859-1");
+    request.onload = function(e) {
+	loader.onXHRLoad(request.responseText);
+	Spinner.popTask();
+    };
+    request.onerror = function(e) {
+	loader.onXHRError(request);
+	Spinner.popTask();
+    };
+    request.send();
+};
+
+TargetLoader.prototype.onXHRLoad = function(responseText) {
+    log(this.name + ".fetch() - loaded " + this.uri);
+    var targets = this.parse(responseText);
+    this.save(targets);
+    this.targetReceiver(targets);
+};
+
+TargetLoader.prototype.onXHRError = function(request) {
+    log(this.name + ".fetch() - failed to load " + this.uri);
+    if (this.onLoadError)
+	this.onLoadError(request);
 };
 
 TargetLoader.prototype.load = function() {
@@ -61,10 +88,11 @@ TargetLoader.prototype.save = function(targets) {
 TargetLoader.loaders = [];
 
 TargetLoader.add = function(args) {
-    log("Adding loader - " + args.name + " / " + args.url);
+    log("Adding loader - " + args.name + " / " + (args.url || args.file));
     TargetLoader.loaders.push(new TargetLoader(
+	args.url ? "web" : "file",
 	args.name,
-	args.url,
+	args.url || args.file,
 	args.ttl === undefined ? 60*60*24 : args.ttl,
 	args.parser,
 	args.onLoadError,
