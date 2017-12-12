@@ -471,9 +471,6 @@ TargetLoader.add({
 	$("<div>").html(text)
 	    .find("td").each(function(i, e) {
 		var td = $(e);
-		log(td);
-		log(td.find("h2").text());
-		log(td.html());
 		targets.push({
 		    name: td.find("h2").text(),
 		    url: "https://fyren/intranet/itello/stab/halsoportal/halsa.html" + "#" + td.find("h2").text(),
