@@ -394,7 +394,7 @@ TargetLoader.add({
 	    var args = e.slice(9, -2).split(/"\s*,\s*"/);
 	    targets.push({
 		name: args[1],
-		searchTerms: [args[1], args[0].toLowerCase(), args[3], args[5], "personal"].join(","),
+		searchTerms: [args[1], args[0].toLowerCase(), args[3], args[5]].join(","),
 		details: "<strong>" + args[1] + " (" + args[0].toLowerCase() + ")</strong>" +
 		    "<br /><em>" + args[4] + "</em>" +
 		    "<br />Började " + args[2] +
