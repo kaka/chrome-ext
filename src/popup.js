@@ -262,6 +262,9 @@ function setupStaticTargets() {
 		url: chrome.runtime.getURL("translate.html") + "?search=<replace>",
 	    },
 	}, {
+	    name: "Instruktioner Release Notes",
+	    url: "https://fyren/intranet/itello/productmanagement/Instruktioner%20Release%20Notes.pdf",
+	}, {
 	    name: "Skumbanan",
 	    url: "http://skumbanan.itello.se/",
 	    searchTerms: "SkumBanan",
