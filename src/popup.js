@@ -228,6 +228,7 @@ function setupStaticTargets() {
 	}, {
 	    name: "Inca ReleaseNotes",
 	    url: "file://itello.se/Versions/Itello/Inca/ReleaseNotes/",
+	    searchTerms: "Inca ReleaseNotes,RS",
 	}, {
 	    name: "AccuRev",
 	    url: "https://accurev:8443/accurev/WebGui.jsp",
@@ -264,6 +265,7 @@ function setupStaticTargets() {
 	}, {
 	    name: "Instruktioner Release Notes",
 	    url: "https://fyren/intranet/itello/productmanagement/Instruktioner%20Release%20Notes.pdf",
+	    searchTerms: "Instruktioner Release Notes,RS",
 	}, {
 	    name: "Skumbanan",
 	    url: "http://skumbanan.itello.se/",
