@@ -123,9 +123,19 @@ function isBeginningOfWord(i, s) {
 	|| !isNaN(s.charAt(i));
 }
 
+function removeDiacritics(str) {
+    return str
+	.replace(/[ÅÄÁÀÂÃ]/g, "A")
+	.replace(/[åäáàâã]/g, "a")
+	.replace(/[ÉÈËÊ]/g, "E")
+	.replace(/[éèëê]/g, "e")
+	.replace(/[ÖÓÒÔÕ]/g, "O")
+	.replace(/[öóòôõ]/g, "o");
+}
+
 function matches(search, text) {
-    var s = search.trim().toLowerCase();
-    var t = text.trim();
+    var s = removeDiacritics(search.trim()).toLowerCase();
+    var t = removeDiacritics(text.trim());
     if (s.length > t.length) return null;
     if (s.length == t.length) return s == t.toLowerCase() ? Array.from(new Array(s.length).keys()) : null;
 
@@ -134,7 +144,7 @@ function matches(search, text) {
 	    return si == s.length ? matchingIndices : null;
 	}
 	var matches = false;
-	if (s.charAt(si) == t.charAt(ti).toLowerCase() && (continuous ? true : isBeginningOfWord(ti, t))) {
+	if (s.charAt(si) == t.charAt(ti).toLowerCase() && (continuous || isBeginningOfWord(ti, t))) {
 	    matchingIndices.push(ti);
 	    matches = recurse(si + 1, ti + 1, true, matchingIndices);
 	    if (!matches) {
