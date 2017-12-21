@@ -195,6 +195,7 @@ function setupStaticTargets() {
 	}, {
 	    name: "Gitlab",
 	    url: "https://gitlab",
+	    searchTerms: "Gitlab,malaco",
 	    deeplink: {
 		url: "https://gitlab/inca/inca/issues/<replace>",
 		shorthand: "#?[1-9][0-9]{0,6}",
@@ -204,6 +205,7 @@ function setupStaticTargets() {
 	}, {
 	    name: "Itello Search",
 	    url: "https://skotte/default.aspx",
+	    searchTerms: "Itello Search,skotte",
 	    deeplink: {
 		url: "https://skotte/results.aspx?k=<replace>",
 		description: "Sök efter dokument",
@@ -211,7 +213,7 @@ function setupStaticTargets() {
 	}, {
 	    name: "Kanboard",
 	    url: "http://kallari/kanboard/",
-	    searchTerms: "KanBoard",
+	    searchTerms: "KanBoard,kallari",
 	    // http://kallari/kanboard/?controller=DocumentationController&action=show&file=api-project-procedures  - se getAllProjects
 	}, {
 	    name: "BlameFactory",
@@ -219,6 +221,7 @@ function setupStaticTargets() {
 	}, {
 	    name: "Jenkins",
 	    url: "https://jenkins/",
+	    searchTerms: "Jenkins,marabou",
 	}, {
 	    name: "JFrog Artifactory",
 	    url: "https://artifactory.itello.se/artifactory/webapp",
@@ -267,9 +270,13 @@ function setupStaticTargets() {
 	    url: "https://fyren/intranet/itello/productmanagement/Instruktioner%20Release%20Notes.pdf",
 	    searchTerms: "Instruktioner Release Notes,RS",
 	}, {
+	    name: "Benify",
+	    url: "https://www.benify.se/fps/public/public.do",
+	    searchTerms: "Benify,friskvård,förmånsportalen",
+	}, {
 	    name: "Skumbanan",
 	    url: "http://skumbanan.itello.se/",
-	    searchTerms: "SkumBanan",
+	    searchTerms: "SkumBanan,Testla",
 	}, {
 	    name: "Lion Bar",
 	    url: "http://lionbar.se/",
