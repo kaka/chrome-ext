@@ -194,9 +194,9 @@ function setupStaticTargets() {
 	    searchTerms: "MatterMost",
 	}, {
 	    name: "Gitlab",
-	    url: "https://malaco",
+	    url: "https://gitlab",
 	    deeplink: {
-		url: "https://malaco/inca/inca/issues/<replace>",
+		url: "https://gitlab/inca/inca/issues/<replace>",
 		shorthand: "#?[1-9][0-9]{0,6}",
 		placeholder: "Issue",
 		description: "Öppnar ett issue i Inca-repot",
@@ -218,7 +218,7 @@ function setupStaticTargets() {
 	    url: "https://fyren/intranet/itello/development/testtools/BlameFactory/blame-factory.html",
 	}, {
 	    name: "Jenkins",
-	    url: "https://marabou/",
+	    url: "https://jenkins/",
 	}, {
 	    name: "JFrog Artifactory",
 	    url: "https://artifactory.itello.se/artifactory/webapp",
@@ -234,10 +234,10 @@ function setupStaticTargets() {
 	    url: "https://accurev:8443/accurev/WebGui.jsp",
 	}, {
 	    name: "Inca History",
-	    url: "https://malaco.itello.se/inca/inca-history",
+	    url: "https://gitlab/inca/inca-history",
 	    searchTerms: "Inca History,AccuRev",
 	    details: `
-		<em>https://malaco.itello.se/inca/inca-history</em>
+		<em>https://gitlab/inca/inca-history</em>
 		<h1>Inca-history</h1>
 		<p>Versionshanteringshistoriken ifrån Accurev (med reservation för eventuella konverteringsfel)</p>
 		<h2>Begränsningar</h2>
