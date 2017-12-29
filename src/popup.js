@@ -275,7 +275,7 @@ function setupStaticTargets() {
 	    searchTerms: "Benify,friskvård,förmånsportalen",
 	}, {
 	    name: "Skumbanan",
-	    url: "http://skumbanan.itello.se/",
+	    url: "http://skumbanan/",
 	    searchTerms: "SkumBanan,Testla",
 	}, {
 	    name: "Lion Bar",
