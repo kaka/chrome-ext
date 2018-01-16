@@ -322,7 +322,7 @@ function loadBookmarkTargets() {
 		    targets.push({
 			name: node.title,
 			url: node.url,
-			searchTerms: node.title + "," + breadcrumbs.join(","),
+			searchTerms: node.title + "," + breadcrumbs.join(",") + ",bokmärken",
 		    });
 		} else {
 		    breadcrumbs.push(node.title);
