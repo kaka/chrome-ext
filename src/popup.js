@@ -266,6 +266,10 @@ function setupStaticTargets() {
 		url: chrome.runtime.getURL("translate.html") + "?search=<replace>",
 	    },
 	}, {
+	    name: "Kundmiljöer - Prod",
+	    url: "https://fyren/incaversions/kundmiljoer.php",
+	    searchTerms: "Kundmiljöer - Prod,grisen",
+	}, {
 	    name: "Instruktioner Release Notes",
 	    url: "https://fyren/intranet/itello/productmanagement/Instruktioner%20Release%20Notes.pdf",
 	    searchTerms: "Instruktioner Release Notes,RS",
