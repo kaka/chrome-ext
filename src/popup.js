@@ -164,9 +164,9 @@ function setupStaticTargets() {
 	    url: "https://fyren/intranet/",
 	}, {
 	    name: "Wiki",
-	    url: "https://fyren/mediawiki/index.php",
+	    url: "https://yorkie/mediawiki/index.php",
 	    deeplink: {
-		url: "https://fyren/mediawiki/index.php?title=Special%3AS%C3%B6k&search=<replace>&fulltext=S%C3%B6k",
+		url: "https://yorkie/mediawiki/index.php?title=Special%3AS%C3%B6k&search=<replace>&fulltext=S%C3%B6k",
 	    },
 	}, {
 	    name: "Faveo",
@@ -190,7 +190,7 @@ function setupStaticTargets() {
 	    searchTerms: "UNIT4 Agresso,tid",
 	}, {
 	    name: "Mattermost",
-	    url: "https://mattermost.itello.se/",
+	    url: "https://mattermost/",
 	    searchTerms: "MatterMost",
 	}, {
 	    name: "Gitlab",
@@ -212,9 +212,9 @@ function setupStaticTargets() {
 	    }
 	}, {
 	    name: "Kanboard",
-	    url: "http://kallari/kanboard/",
+	    url: "https://yorkie/kanboard/",
 	    searchTerms: "KanBoard,kallari",
-	    // http://kallari/kanboard/?controller=DocumentationController&action=show&file=api-project-procedures  - se getAllProjects
+	    // https://yorkie/kanboard/?controller=DocumentationController&action=show&file=api-project-procedures  - se getAllProjects
 	}, {
 	    name: "BlameFactory",
 	    url: "https://fyren/intranet/itello/development/testtools/BlameFactory/blame-factory.html",
@@ -224,7 +224,7 @@ function setupStaticTargets() {
 	    searchTerms: "Jenkins,marabou",
 	}, {
 	    name: "JFrog Artifactory",
-	    url: "https://artifactory.itello.se/artifactory/webapp",
+	    url: "https://artifactory/artifactory/webapp",
 	}, {
 	    name: "Inca Changelog",
 	    url: "file://itello.se/Versions/Itello/Inca/Changelog/",
