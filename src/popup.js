@@ -282,6 +282,11 @@ function setupStaticTargets() {
 	    url: "http://skumbanan/",
 	    searchTerms: "SkumBanan,Testla",
 	}, {
+	    name: "Inställningar",
+	    url: chrome.runtime.getURL("options.html"),
+	    searchTerms: "Inställningar,settings,options",
+	    details: `Öppna inställningarna för ${chrome.runtime.getManifest().name}.`,
+	}, {
 	    name: "Lion Bar",
 	    url: "http://lionbar.se/",
 	    details: '<img src="http://lionbar.se/wp-content/uploads/2014/10/rest2.png" title="HAPPY HOUR EVERY HOUR!" style="float: right" />' +
