@@ -236,9 +236,9 @@ function setupStaticTargets() {
 	    name: "AccuRev",
 	    url: "https://accurev:8443/accurev/WebGui.jsp",
 	}, {
-	    name: "Inca History",
+	    name: "Gitlab Inca History",
 	    url: "https://gitlab/inca/inca-history",
-	    searchTerms: "Inca History,AccuRev",
+	    searchTerms: "Gitlab Inca History,AccuRev",
 	    details: `
 		<em>https://gitlab/inca/inca-history</em>
 		<h1>Inca-history</h1>
