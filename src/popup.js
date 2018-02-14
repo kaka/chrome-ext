@@ -193,9 +193,9 @@ function setupStaticTargets() {
 	    url: "https://mattermost/",
 	    searchTerms: "MatterMost",
 	}, {
-	    name: "Gitlab",
-	    url: "https://gitlab",
-	    searchTerms: "Gitlab,malaco",
+	    name: "Gitlab Inca",
+	    url: "https://gitlab/inca/inca",
+	    searchTerms: "Gitlab Inca,malaco",
 	    deeplink: {
 		url: "https://gitlab/inca/inca/issues/<replace>",
 		shorthand: "#?[1-9][0-9]{0,6}",
