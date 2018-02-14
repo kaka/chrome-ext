@@ -347,6 +347,9 @@ TargetLoader.add({
     name: "environments",
     url: "https://fyren/incaversions/testmiljoer.php",
     parser: function(text) {
+	function extraSearchTermFor(name) {
+	    return (name.startsWith("Robur") ? ",Swedbank" : "");
+	}
 	var targets = [];
 	$("<div>").html(text)
 	    .find("table tr").each(function(i, e) {
@@ -355,7 +358,7 @@ TargetLoader.add({
 		    var name = td.eq(0).text();
 		    targets.push({
 			name: name,
-			searchTerms: name + "," + td.eq(4).text(),
+			searchTerms: name + "," + td.eq(4).text() + extraSearchTermFor(name),
 			url: td.eq(0).find("a").eq(0).attr("href"),
 			details: td.eq(1).html() + "<br />"
 			    + "<br /><b>Ansvarig</b>: " + td.eq(2).html()
