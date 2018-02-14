@@ -13,7 +13,7 @@ function Mode({onEnterMode, onExitMode, onSelect, onAdvance, onBack, onTargetsCh
     this.badge = badge;
     this.text = "";
     this.placeholder = placeholder || "Sök";
-    this.urlToTarget = new Map(); // Used to avoid duplicates when adding more targets
+    this.urlsToTargets = new Map(); // Used to avoid duplicates when adding more targets
 }
 
 Mode.prototype.enterMode = function() {
@@ -33,11 +33,11 @@ Mode.prototype.setInput = function(text, event) {
 };
 
 Mode.prototype.filterDuplicates = function(newTargets) {
-    var urlToTarget = this.urlToTarget;
+    var urlsToTargets = this.urlsToTargets;
     return newTargets.filter(function(target) {
 	var normalizedUrl = target.getNormalizedUrl();
-	if (urlToTarget.has(normalizedUrl)) {
-	    var originalTarget = urlToTarget.get(normalizedUrl);
+	if (urlsToTargets.has(normalizedUrl)) {
+	    var originalTarget = urlsToTargets.get(normalizedUrl);
 	    if (originalTarget.searchTerms) {
 		if (!originalTarget.searchTerms.toLowerCase().includes(target.name.toLowerCase()))
 		    originalTarget.searchTerms += "," + target.name;
@@ -48,7 +48,7 @@ Mode.prototype.filterDuplicates = function(newTargets) {
 	    return false;
 	} else {
 	    if (normalizedUrl) {
-		urlToTarget.set(normalizedUrl, target);
+		urlsToTargets.set(normalizedUrl, target);
 	    }
 	    return true;
 	}
@@ -66,7 +66,7 @@ Mode.prototype.addTargets = function(targets) {
 
 Mode.prototype.clearTargets = function() {
     this.targets = [];
-    this.urlToTarget.clear();
+    this.urlsToTargets.clear();
 };
 
 Mode.prototype.getCurrentTarget = function() {
