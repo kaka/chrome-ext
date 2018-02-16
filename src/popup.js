@@ -587,13 +587,20 @@ function updateSelection(targetIndex) {
     log("updateSelection(" + targetIndex + ")");
     $("#list-container > ul > li").removeClass("selected");
     $("#list-container > ul > li").eq(targetIndex).addClass("selected");
-    $("#details").empty();
+    let details = $("#details");
+    details.empty();
     var target = mode().getCurrentTarget();
     if (target) {
+	let tags = $('<div class="search-terms" />');
+	$.each(target.searchTerms.split(","), function(i, e) {
+	    tags.append("<span>" + e + "</span>");
+	});
+	details.append("<hr />");
+	details.append(tags);
 	if (target.details) {
-	    $("#details").html("<hr />" + target.details);
+	    details.append(target.details);
 	} else {
-	    $("#details").html("<hr />" + target.url);
+	    details.append("<em>" + target.url + "</em>");
 	}
     }
     var selected = $("#list-container > ul > li.selected")[0];

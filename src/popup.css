@@ -31,6 +31,22 @@ body {
     border-radius: 2px;
 }
 
+.search-terms > span {
+    font-size: 8pt;
+    font-weight: 500;
+    color: lightcyan;
+    background: darkcyan;
+    border-radius: 3px;
+    padding: 3px 4px 3px 3px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 1px;
+    margin-right: 4px;
+}
+
+.search-terms {
+    margin-top: -3px;
+    margin-bottom: 6px;
+}
+
 .icon {
     float: right;
     width: 1em;
