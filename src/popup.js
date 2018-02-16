@@ -324,13 +324,17 @@ function loadBookmarkTargets() {
 	function traverse(nodes) {
 	    $(nodes).each(function(i, node) {
 		if (node.url) {
+		    let searchTerms = node.title + "," + breadcrumbs.join(",");
+		    if (!searchTerms.toLowerCase().includes("bokmärk")) searchTerms += ",bokmärken";
+		    if (!searchTerms.toLowerCase().includes("bookmark")) searchTerms += ",bookmarks";
 		    targets.push({
 			name: node.title,
 			url: node.url,
-			searchTerms: node.title + "," + breadcrumbs.join(",") + ",bokmärken",
+			searchTerms: searchTerms,
 		    });
 		} else {
-		    breadcrumbs.push(node.title);
+		    if (node.title != "")
+			breadcrumbs.push(node.title);
 		    traverse(node.children);
 		    breadcrumbs.pop();
 		}
