@@ -297,7 +297,7 @@ function setupStaticTargets() {
 		<ul>
 		<li><a target="_blank" href="https://goo.gl/maps/EXaVkRiXKhs" title="Sveavägen 39">Sveavägen</a></li>
 		<li><a target="_blank" href="https://goo.gl/maps/CF4QapegZ4L2" title="Långholmsgatan 40">Hornstull</a></li>
-		<li><a target="_blank" href="https://goo.gl/maps/8sWoigBnKLz" title="Fridhemsgatan 34">Kungsholmen</a></li>
+		<li><a target="_blank" href="https://goo.gl/maps/6fQGuSMgUk42" title="Östgötagatan 27">Medborgarplatsen</a></li>
 		<li><a target="_blank" href="https://goo.gl/maps/ZRdh89xk7D82" title="Sveavägen 74">Rådmansgatan</a></li>
 		<li><a target="_blank" href="https://goo.gl/maps/DdBidPcYYyJ2" title="Kornhamnstorg 61">Gamla stan</a></li>
 		</ul>
