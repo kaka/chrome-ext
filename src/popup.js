@@ -352,6 +352,9 @@ TargetLoader.add({
     name: "environments",
     url: "https://fyren/incaversions/testmiljoer.php",
     parser: function(text) {
+	function processName(name) {
+	    return name == "Produktstudion" ? "ProduktStudion" : name;
+	}
 	function extraSearchTermFor(name) {
 	    return (name.startsWith("Robur") ? ",Swedbank" : "");
 	}
@@ -360,7 +363,7 @@ TargetLoader.add({
 	    .find("table tr").each(function(i, e) {
 		if (i > 0) {
 		    var td = $(e).children("td");
-		    var name = td.eq(0).text();
+		    var name = processName(td.eq(0).text());
 		    targets.push({
 			name: name,
 			searchTerms: name + "," + td.eq(4).text() + extraSearchTermFor(name),
