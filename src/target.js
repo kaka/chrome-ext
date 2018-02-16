@@ -31,8 +31,19 @@ Target.prototype.activate = function() {
 }
 
 Target.prototype.getNormalizedUrl = function() {
-    var url = this.deeplink ? this.deeplink.url : (this.url ? this.url : null);
-    return url ? url.replace(/(^https?:\/\/)|(\/$)/g, "") : null;
+    return this.url ? this.url.replace(/(^https?:\/\/)|(\/$)/g, "") : null;
+}
+
+Target.prototype.shouldMergeWith = function(other) {
+    let urlA = (this.deeplink || {url: null}).url;
+    let urlB = (other.deeplink || {url: null}).url;
+    return urlA == null || urlB == null || urlA == urlB;
+}
+
+Target.prototype.merge = function(other) {
+    let searchTerms = new Set(this.searchTerms.split(",").concat(other.searchTerms.split(",")));
+    this.searchTerms = Array.from(searchTerms).join(",");
+    this.details = (this.details || "") + (other.details || "");
 }
 
 function Deeplink({url, shorthand, placeholder, description}) {

@@ -38,20 +38,16 @@ Mode.prototype.filterDuplicates = function(newTargets) {
 	var normalizedUrl = target.getNormalizedUrl();
 	if (urlsToTargets.has(normalizedUrl)) {
 	    var originalTarget = urlsToTargets.get(normalizedUrl);
-	    if (originalTarget.searchTerms) {
-		if (!originalTarget.searchTerms.toLowerCase().includes(target.name.toLowerCase()))
-		    originalTarget.searchTerms += "," + target.name;
-	    } else {
-		if (originalTarget.name.toLowerCase() != target.name.toLowerCase())
-		    originalTarget.searchTerms = originalTarget.name + "," + target.name;
+	    if (originalTarget.shouldMergeWith(target)) {
+		originalTarget.merge(target);
+		return false;
 	    }
-	    return false;
 	} else {
 	    if (normalizedUrl) {
 		urlsToTargets.set(normalizedUrl, target);
 	    }
-	    return true;
 	}
+	return true;
     });
 }
 

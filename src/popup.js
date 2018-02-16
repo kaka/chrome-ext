@@ -211,6 +211,16 @@ function setupStaticTargets() {
 		description: "Sök efter dokument",
 	    }
 	}, {
+	    name: "Planeringsverktyget",
+	    url: "https://forastero:10443/vertigo/common/GOActivities/GOActivities/mainFrameset",
+	    searchTerms: "Planeringsverktyget,backlog",
+	    deeplink: {
+		url: "https://forastero:10443/vertigo/common/GOBacklog/GOBacklog/viewObject?ItemClassName=BACKLOG_ENTRY&STORY_ID=<replace>",
+		shorthand: "#?[1-9][0-9]{0,6}",
+		placeholder: "Backlog-id",
+		description: "Öppnar en backlog-uppgift",
+	    }
+	}, {
 	    name: "Kanboard",
 	    url: "https://yorkie/kanboard/",
 	    searchTerms: "KanBoard,kallari",
