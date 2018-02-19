@@ -164,9 +164,9 @@ function setupStaticTargets() {
 	    url: "https://fyren/intranet/",
 	}, {
 	    name: "Wiki",
-	    url: "https://yorkie/mediawiki/index.php",
+	    url: "https://yorkie.itello.se/mediawiki/index.php",
 	    deeplink: {
-		url: "https://yorkie/mediawiki/index.php?title=Special%3AS%C3%B6k&search=<replace>&fulltext=S%C3%B6k",
+		url: "https://yorkie.itello.se/mediawiki/index.php?title=Special%3AS%C3%B6k&search=<replace>&fulltext=S%C3%B6k",
 	    },
 	}, {
 	    name: "Faveo",
@@ -190,24 +190,24 @@ function setupStaticTargets() {
 	    searchTerms: "UNIT4 Agresso,tid",
 	}, {
 	    name: "Mattermost",
-	    url: "https://mattermost/",
+	    url: "https://mattermost.itello.se/",
 	    searchTerms: "MatterMost",
 	}, {
 	    name: "Gitlab Inca",
-	    url: "https://gitlab/inca/inca",
+	    url: "https://gitlab.itello.se/inca/inca",
 	    searchTerms: "Gitlab Inca,malaco",
 	    deeplink: {
-		url: "https://gitlab/inca/inca/issues/<replace>",
+		url: "https://gitlab.itello.se/inca/inca/issues/<replace>",
 		shorthand: "#?[1-9][0-9]{0,6}",
 		placeholder: "Issue",
 		description: "Öppnar ett issue i Inca-repot",
 	    }
 	}, {
 	    name: "Itello Search",
-	    url: "https://skotte/default.aspx",
+	    url: "https://skotte.itello.se/default.aspx",
 	    searchTerms: "Itello Search,skotte",
 	    deeplink: {
-		url: "https://skotte/results.aspx?k=<replace>",
+		url: "https://skotte.itello.se/results.aspx?k=<replace>",
 		description: "Sök efter dokument",
 	    }
 	}, {
@@ -222,19 +222,19 @@ function setupStaticTargets() {
 	    }
 	}, {
 	    name: "Kanboard",
-	    url: "https://yorkie/kanboard/",
+	    url: "https://yorkie.itello.se/kanboard/",
 	    searchTerms: "KanBoard,kallari",
-	    // https://yorkie/kanboard/?controller=DocumentationController&action=show&file=api-project-procedures  - se getAllProjects
+	    // https://yorkie.itello.se/kanboard/?controller=DocumentationController&action=show&file=api-project-procedures  - se getAllProjects
 	}, {
 	    name: "BlameFactory",
 	    url: "https://fyren/intranet/itello/development/testtools/BlameFactory/blame-factory.html",
 	}, {
 	    name: "Jenkins",
-	    url: "https://jenkins/",
+	    url: "https://jenkins.itello.se/",
 	    searchTerms: "Jenkins,marabou",
 	}, {
 	    name: "JFrog Artifactory",
-	    url: "https://artifactory/artifactory/webapp",
+	    url: "https://artifactory.itello.se/artifactory/webapp",
 	}, {
 	    name: "Inca Changelog",
 	    url: "file://itello.se/Versions/Itello/Inca/Changelog/",
@@ -244,13 +244,13 @@ function setupStaticTargets() {
 	    searchTerms: "Inca ReleaseNotes,RS",
 	}, {
 	    name: "AccuRev",
-	    url: "https://accurev:8443/accurev/WebGui.jsp",
+	    url: "https://accurev.itello.se:8443/accurev/WebGui.jsp",
 	}, {
 	    name: "Gitlab Inca History",
-	    url: "https://gitlab/inca/inca-history",
+	    url: "https://gitlab.itello.se/inca/inca-history",
 	    searchTerms: "Gitlab Inca History,AccuRev",
 	    details: `
-		<em>https://gitlab/inca/inca-history</em>
+		<em>https://gitlab.itello.se/inca/inca-history</em>
 		<h1>Inca-history</h1>
 		<p>Versionshanteringshistoriken ifrån Accurev (med reservation för eventuella konverteringsfel)</p>
 		<h2>Begränsningar</h2>
@@ -290,7 +290,7 @@ function setupStaticTargets() {
 	    searchTerms: "Benify,friskvård,förmånsportalen",
 	}, {
 	    name: "Skumbanan",
-	    url: "http://skumbanan/",
+	    url: "http://skumbanan.itello.se/",
 	    searchTerms: "SkumBanan,Testla",
 	}, {
 	    name: "Inställningar",
