@@ -698,7 +698,31 @@ function loadTargets(forceReload=false) {
     });
 }
 
+function loadTheme() {
+    log("loadTheme()");
+    var theme = localStorage["theme"];
+    if (theme) {
+	$(`head link[rel="stylesheet"]`).last().after(`<link href="/css/themes/${theme}.css" rel="stylesheet" />`);
+    }
+}
+
+function executeCommand(input) {
+    log("executeCommand()");
+    if (!input.startsWith(":")) return false;
+    let command = input.split(" ")[0].substr(1);
+    let arg = input.split(" ", 2)[1];
+    if (command == "theme") {
+	arg = arg == "default" ? undefined : arg
+	localStorage["theme"] = arg;
+	loadTheme();
+	return true;
+    }
+    return false;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    loadTheme();
+
     // setup refresh button
     Spinner.init($("#refresh"), function() {
 	loadTargets(true);
@@ -731,6 +755,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.onkeydown = function(event) {
 	hideHelp();
 	if (event.keyCode == 13) { // enter
+	    if (executeCommand($("#input").val())) {
+		return true;
+	    }
 	    mode().onSelect();
 	    return false;
 	}
