@@ -282,7 +282,7 @@ function setupStaticTargets() {
 	    searchTerms: "Kundmiljöer - Prod,grisen",
 	}, {
 	    name: "Instruktioner Release Notes",
-	    url: "https://fyren/intranet/itello/productmanagement/Instruktioner%20Release%20Notes.pdf",
+	    url: "https://fyren/intranet/itello/productmanagement/Instruktioner%20Release%20NotesV5.pdf",
 	    searchTerms: "Instruktioner Release Notes,RS",
 	}, {
 	    name: "Benify",
