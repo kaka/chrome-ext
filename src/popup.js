@@ -447,7 +447,10 @@ TargetLoader.add({
 	return targets;
     },
     onLoadError: function(request) {
-	notifyError("<p>Kunde inte hämta personalinfo</p>");
+	notifyError(`
+		    <b>Kunde inte hämta personalinfo</b>
+		    <p>Det kan bero på att du inte har tillåtit fil-URL:er. Klicka här!</p>
+		    `, chrome.runtime.getURL("help.html"));
     }
 });
 
