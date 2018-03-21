@@ -169,6 +169,8 @@ function searchMRULE(s) {
     s.addSearchPart(encodedText => [["RULE_NAME"], ["%25"+encodedText+"%25"]]);
     s.addSearchPart(encodedText => [["CLASS_NAME"], ["%25"+encodedText+"%25"]]);
     s.addSearchPart(encodedText => [["ATTRIBUTE_NAME"], ["%25"+encodedText+"%25"]]);
+    s.addSearchPart(encodedText => [["RULE_STANDARD_VALUE"], ["%25"+encodedText+"%25"]]);
+    s.addSearchPart(encodedText => [["RULE_VALUE"], ["%25"+encodedText+"%25"]]);
     s.setOnAddResults((searchText, results) => {
 	function highlight(text) {
 	    return $("<span>").html(text.replace(new RegExp(searchText, "gi"), "<mark>$&</mark>"));
@@ -182,14 +184,14 @@ function searchMRULE(s) {
 	    tr.append($("<td>").append(highlight(r.CLASS_NAME)));
 	    tr.append($("<td>").append(highlight(r.ATTRIBUTE_NAME)));
 	    tr.append($("<td>").append(highlight(r.RULE_NAME)));
-	    tr.append($("<td>").append(highlight(r.RULE_STANDARD_VAL_DESC)));
-	    tr.append($("<td>").append(highlight(r.RULE_VALUE_DESCRIPTION)));
+	    tr.append($("<td>").append(r.RULE_STANDARD_VAL_DESC));
+	    tr.append($("<td>").append(r.RULE_VALUE_DESCRIPTION));
 	    tr.click(() => {
 		$("#rowModal .modal-title").text(r.MRULE_ID + " - " + r.RULE_NAME);
 		let dl = $('<dl class="row">');
 		Object.keys(r).forEach((key, index) => {
 		    // Highlight only the values of attributes that was searched
-		    let value = ["MRULE_ID", "RULE_NAME", "CLASS_NAME", "ATTRIBUTE_NAME"].includes(key) ?
+		    let value = ["MRULE_ID", "RULE_NAME", "CLASS_NAME", "ATTRIBUTE_NAME", "RULE_STANDARD_VALUE", "RULE_VALUE"].includes(key) ?
 			highlight(r[key]) : r[key];
 		    dl.append($('<dt class="col-sm-3">').append(key));
 		    dl.append($('<dd class="col-sm-9">').append($("<pre>").append(value)));
