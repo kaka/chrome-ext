@@ -270,11 +270,11 @@ function setupStaticTargets() {
 		`,
 	}, {
 	    name: "ProductStudio - System text",
-	    url: chrome.runtime.getURL("translate.html"),
+	    url: chrome.runtime.getURL("productstudio.html"),
 	    searchTerms: "ProductStudio - System text,translate,översätt",
 	    details: "Sök i systemtexttabellen",
 	    deeplink: {
-		url: chrome.runtime.getURL("translate.html") + "?search=<replace>",
+		url: chrome.runtime.getURL("productstudio.html") + "?class=SYSTEM_TEXT_TABLE&search=<replace>",
 	    },
 	}, {
 	    name: "Kundmiljöer - Prod",
