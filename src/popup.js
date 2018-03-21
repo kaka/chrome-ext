@@ -277,6 +277,15 @@ function setupStaticTargets() {
 		url: chrome.runtime.getURL("productstudio.html") + "?class=SYSTEM_TEXT_TABLE&search=<replace>",
 	    },
 	}, {
+	    name: "ProductStudio - Regler",
+	    url: chrome.runtime.getURL("productstudio.html"),
+	    searchTerms: "ProductStudio - Regler,MRule",
+	    details: "Sök bland regler",
+	    deeplink: {
+		url: chrome.runtime.getURL("productstudio.html") + "?class=MRULE&search=<replace>",
+		shorthand: "[1-9][0-9]{0,6}",
+	    },
+	}, {
 	    name: "Kundmiljöer - Prod",
 	    url: "https://fyren/incaversions/kundmiljoer.php",
 	    searchTerms: "Kundmiljöer - Prod,grisen",
