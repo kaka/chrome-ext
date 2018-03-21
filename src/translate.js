@@ -27,24 +27,38 @@ class Spinner {
 }
 
 class Search {
-    constructor(text, streamName, language, onAddResults) {
-	this.text = text;
+    constructor(className, streamName, text) {
+	this.className = className;
 	this.streamName = streamName;
-	this.language = language;
-	this.onAddResults = onAddResults;
-	let encodedText = encodeURI(text);
-	this.parts = [
-	    this.newSearchPart(["TEXT_STRING"], ["%25"+encodedText+"%25"]),
-	    this.newSearchPart(["TEXT_OBJECT"], ["%25"+encodedText+"%25"]),
-	    this.newSearchPart(["TEXT_OBJECT_VALUE", "TEXT_OBJECT_TYPE"], [encodedText, "CONSTANT"]),
-	];
+	this.text = text;
+	this.onAddResults = null;
+	this.attributes = [];
+	this.parts = [];
 	this.results = [];
     }
 
-    newSearchPart(attrs, values) {
-	attrs.push("LANGUAGE");
-	values.push(this.language);
-	return new SearchPart(this, this.streamName, attrs, values);
+    setClassName(className) {
+	this.className = className;
+    }
+
+    setOnAddResults(onAddResults) {
+	this.onAddResults = onAddResults;
+    }
+
+    /* Will be applied to all search parts */
+    addAttribute(name, value) {
+	this.attributes.push({name: name, value: value});
+    }
+
+    addSearchPart(builder) {
+	let a = builder(encodeURI(this.text));
+	let attrs = a[0];
+	let values = a[1];
+	this.attributes.map(a => {
+	    attrs.push(a.name);
+	    values.push(a.value);
+	});
+	this.parts.push(new SearchPart(this, this.streamName, attrs, values));
     }
 
     startSearch() {
@@ -76,13 +90,16 @@ class SearchPart {
     }
 
     get urlParams() {
-	return "&startIndex=" + this.startIndex + "&itemCount=" + this.itemCount + "&streamName=" + this.streamName
+	return "className=" + this.search.className
+	    + "&startIndex=" + this.startIndex
+	    + "&itemCount=" + this.itemCount
+	    + "&streamName=" + this.streamName
 	    + this.attrs.map(a => "&attr[]=" + a).join("")
 	    + this.values.map(a => "&value[]=" + a).join("");
     }
 
     get url() {
-	return "https://forastero/vertigo/maintenanceps-api/getObjects?className=SYSTEM_TEXT_TABLE" + this.urlParams;
+	return "https://forastero/vertigo/maintenanceps-api/getObjects?" + this.urlParams;
     }
 
     startSearch() {
@@ -106,34 +123,83 @@ class SearchPart {
     }
 }
 
-function search(text, incaVersion, language) {
+function search(text, incaVersion) {
     let table = $("#results");
     table.empty();
-    let s = new Search(text, incaVersion, language, onAddResults);
+
+    let cls = $("#class").val();
+    let s = new Search(cls, incaVersion, text);
+
+    if (cls == "SYSTEM_TEXT_TABLE")	searchSYSTEM_TEXT_TABLE(s);
+    else if (cls == "MRULE")		searchMRULE(s);
+
     s.startSearch();
     log(s);
 }
 
-function onAddResults(searchText, results) {
-    function highlight(text) {
-	return $("<span>").html(text.replace(new RegExp(searchText, "gi"), "<mark>$&</mark>"));
-    }
+function searchSYSTEM_TEXT_TABLE(s) {
+    s.addAttribute("LANGUAGE", $("#language").val());
+    s.addSearchPart(encodedText => [["TEXT_STRING"], ["%25"+encodedText+"%25"]]);
+    s.addSearchPart(encodedText => [["TEXT_OBJECT"], ["%25"+encodedText+"%25"]]);
+    s.addSearchPart(encodedText => [["TEXT_OBJECT_VALUE", "TEXT_OBJECT_TYPE"], [encodedText, "CONSTANT"]]);
+    s.setOnAddResults((searchText, results) => {
+	function highlight(text) {
+	    return $("<span>").html(text.replace(new RegExp(searchText, "gi"), "<mark>$&</mark>"));
+	}
 
-    let table = $("#results");
-    for (let i = 0; i < results.length; i++) {
-	let r = results[i];
-	let tr = $("<tr>");
-	log(r);
-	tr.append($("<td>")
-		  .append($("<span>").addClass("badge badge-secondary").append(r.TEXT_TYPE))
-		  .append(" ")
-		  .append($("<span>").addClass("badge badge-secondary").append(r.TEXT_OBJECT_TYPE))
-		 );
-	tr.append($("<td>").append(highlight(r.TEXT_OBJECT)));
-	tr.append($("<td>").append(highlight(r.TEXT_OBJECT_VALUE)));
-	tr.append($("<td>").append(highlight(r.TEXT_STRING)));
-	table.append(tr);
-    }
+	let table = $("#results");
+	for (let i = 0; i < results.length; i++) {
+	    let r = results[i];
+	    let tr = $("<tr>");
+	    tr.append($("<td>")
+		      .append($("<span>").addClass("badge badge-secondary").append(r.TEXT_TYPE))
+		      .append(" ")
+		      .append($("<span>").addClass("badge badge-secondary").append(r.TEXT_OBJECT_TYPE))
+		     );
+	    tr.append($("<td>").append(highlight(r.TEXT_OBJECT)));
+	    tr.append($("<td>").append(highlight(r.TEXT_OBJECT_VALUE)));
+	    tr.append($("<td>").append(highlight(r.TEXT_STRING)));
+	    table.append(tr);
+	}
+    });
+}
+
+function searchMRULE(s) {
+    s.addSearchPart(encodedText => [["MRULE_ID"], [encodedText]]);
+    s.addSearchPart(encodedText => [["RULE_NAME"], ["%25"+encodedText+"%25"]]);
+    s.addSearchPart(encodedText => [["CLASS_NAME"], ["%25"+encodedText+"%25"]]);
+    s.addSearchPart(encodedText => [["ATTRIBUTE_NAME"], ["%25"+encodedText+"%25"]]);
+    s.setOnAddResults((searchText, results) => {
+	function highlight(text) {
+	    return $("<span>").html(text.replace(new RegExp(searchText, "gi"), "<mark>$&</mark>"));
+	}
+
+	let table = $("#results");
+	for (let i = 0; i < results.length; i++) {
+	    let r = results[i];
+	    let tr = $('<tr class="clickable">');
+	    tr.append($("<td>").append(highlight(r.MRULE_ID)));
+	    tr.append($("<td>").append(highlight(r.CLASS_NAME)));
+	    tr.append($("<td>").append(highlight(r.ATTRIBUTE_NAME)));
+	    tr.append($("<td>").append(highlight(r.RULE_NAME)));
+	    tr.append($("<td>").append(highlight(r.RULE_STANDARD_VAL_DESC)));
+	    tr.append($("<td>").append(highlight(r.RULE_VALUE_DESCRIPTION)));
+	    tr.click(() => {
+		$("#rowModal .modal-title").text(r.MRULE_ID + " - " + r.RULE_NAME);
+		let dl = $('<dl class="row">');
+		Object.keys(r).forEach((key, index) => {
+		    // Highlight only the values of attributes that was searched
+		    let value = ["MRULE_ID", "RULE_NAME", "CLASS_NAME", "ATTRIBUTE_NAME"].includes(key) ?
+			highlight(r[key]) : r[key];
+		    dl.append($('<dt class="col-sm-3">').append(key));
+		    dl.append($('<dd class="col-sm-9">').append($("<pre>").append(value)));
+		});
+		$("#rowModal .modal-body").html(dl);
+		$("#rowModal").modal("show");
+	    });
+	    table.append(tr);
+	}
+    });
 }
 
 function fetchTranslation(url, callback) {
@@ -194,6 +260,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let input = $("#input");
     let button = $("button");
     let params = new URL(document.location).searchParams;
+    if (params.has("class")) {
+	$("#class").val(params.get("class"));
+    }
     if (params.has("search")) {
 	input.val(params.get("search"));
     } else {
@@ -209,7 +278,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		select.append($("<option>").append(streams[i].name));
 	    }
 	    if (params.has("search")) {
-		search(params.get("search"), streams[0].name, $("#language").val());
+		search(params.get("search"), streams[0].name);
 	    }
 	},
 	onError: function() {
@@ -220,9 +289,13 @@ document.addEventListener('DOMContentLoaded', function() {
     $("form").submit(function(event) {
 	let text = input.val().trim();
 	if (text) {
-	    search(text, $("#stream").val(), $("#language").val());
+	    search(text, $("#stream").val());
 	}
 	return false;
+    });
+
+    $("#class").change(function() {
+	$("#language").prop("disabled", $(this).val() != "SYSTEM_TEXT_TABLE");
     });
 });
 

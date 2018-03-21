@@ -10,6 +10,7 @@
       -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous" />
     <script src="jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="log.js"></script>
     <script src="translate.js"></script>
     <style>
@@ -25,6 +26,14 @@
         border-radius: 3px;
         background-color: palegreen;
       }
+
+      .modal-xl {
+        max-width: 1200px;
+      }
+
+      .clickable {
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
@@ -32,6 +41,10 @@
       <div class="row justify-content-center">
 	<div class="col-auto">
 	  <form class="form-inline">
+	    <select class="form-control" id="class">
+	      <option value="SYSTEM_TEXT_TABLE" selected="selected">Systemtexter</option>
+	      <option value="MRULE">Regler</option>
+	    </select>
 	    <input class="form-control" id="input" type="text"></input>
 	    <select class="form-control" id="stream">
 	      <option>...</option>
@@ -57,6 +70,26 @@
       <div class="row justify-content-center">
 	<div class="col-auto">
 	  <img id="spinner" class="icon" style="display: none" src="img/refresh.svg" />
+	</div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="rowModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-xl" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+	  </div>
+	  <div class="modal-body">
+            ...
+	  </div>
+	  <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+	  </div>
 	</div>
       </div>
     </div>
