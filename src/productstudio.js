@@ -71,10 +71,15 @@ class Search {
     }
 
     addResults(results) {
-	Array.prototype.push.apply(this.results, results);
+	Array.prototype.push.apply(this.results, results.filter(r => !this.results.includes(r)));
+	let highlighter = text => {
+	    return text !== null
+		? $("<span>").html(text.replace(new RegExp(this.text, "gi"), "<mark>$&</mark>"))
+		: '<span class="badge badge-info">null</span>';
+	};
 	let s = this;
-	setTimeout(function() {
-	    s.onAddResults(s.text, results);
+	setTimeout(function() { // Run in a new thread
+	    s.onAddResults(results, highlighter);
 	}, 0);
     }
 }
@@ -142,11 +147,7 @@ function searchSYSTEM_TEXT_TABLE(s) {
     s.addSearchPart(encodedText => [["TEXT_STRING"], ["%25"+encodedText+"%25"]]);
     s.addSearchPart(encodedText => [["TEXT_OBJECT"], ["%25"+encodedText+"%25"]]);
     s.addSearchPart(encodedText => [["TEXT_OBJECT_VALUE", "TEXT_OBJECT_TYPE"], [encodedText, "CONSTANT"]]);
-    s.setOnAddResults((searchText, results) => {
-	function highlight(text) {
-	    return $("<span>").html(text.replace(new RegExp(searchText, "gi"), "<mark>$&</mark>"));
-	}
-
+    s.setOnAddResults((results, highlight) => {
 	let table = $("#results");
 	for (let i = 0; i < results.length; i++) {
 	    let r = results[i];
@@ -171,11 +172,7 @@ function searchMRULE(s) {
     s.addSearchPart(encodedText => [["ATTRIBUTE_NAME"], ["%25"+encodedText+"%25"]]);
     s.addSearchPart(encodedText => [["RULE_STANDARD_VALUE"], ["%25"+encodedText+"%25"]]);
     s.addSearchPart(encodedText => [["RULE_VALUE"], ["%25"+encodedText+"%25"]]);
-    s.setOnAddResults((searchText, results) => {
-	function highlight(text) {
-	    return $("<span>").html(text.replace(new RegExp(searchText, "gi"), "<mark>$&</mark>"));
-	}
-
+    s.setOnAddResults((results, highlight) => {
 	let table = $("#results");
 	for (let i = 0; i < results.length; i++) {
 	    let r = results[i];
