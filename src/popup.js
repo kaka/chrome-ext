@@ -243,6 +243,9 @@ function setupStaticTargets() {
 	    url: "file://itello.se/Versions/Itello/Inca/ReleaseNotes/",
 	    searchTerms: "Inca ReleaseNotes,RS",
 	}, {
+	    name: "IncaWebServiceStatistics",
+	    url: "file://itello.se/Source/Users/Infra/WS/LogMerger/IncaWebServiceStatistics.xlsx",
+	}, {
 	    name: "AccuRev",
 	    url: "https://accurev.itello.se:8443/accurev/WebGui.jsp",
 	}, {
