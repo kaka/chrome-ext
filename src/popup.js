@@ -185,6 +185,10 @@ function setupStaticTargets() {
 		placeholder: "#",
 	    },
 	}, {
+	    name: "Xledger",
+	    url: "https://www.xledger.net",
+	    searchTerms: "Xledger,tid",
+	}, {
 	    name: "UNIT4 Agresso",
 	    url: "https://unit4/",
 	    searchTerms: "UNIT4 Agresso,tid",
