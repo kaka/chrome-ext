@@ -170,17 +170,17 @@ function setupStaticTargets() {
 	    },
 	}, {
 	    name: "Faveo",
-	    url: "https://taza.itello.se:8443/arsys/home",
+	    url: "https://faveo.itello.se:8443/arsys/home",
 	    deeplink: {
-		url: "https://taza.itello.se:8443/arsys/forms/10.18.1.40/02%3A01%3AAR/?eid=<replace>",
+		url: "https://faveo.itello.se:8443/arsys/forms/faveoapp-prod/02%3A01%3AAR/Default+Web+View/?eid=<replace>",
 		shorthand: "5[0-9]{5}",
 		placeholder: "Issue",
 	    },
 	}, {
 	    name: "Defect",
-	    url: "https://taza.itello.se:8443/arsys/home",
+	    url: "https://faveo.itello.se:8443/arsys/home",
 	    deeplink: {
-		url: "https://taza.itello.se:8443/arsys/forms/10.18.1.40/06%3A01%3ADefects/?eid=<replace>",
+		url: "https://faveo.itello.se:8443/arsys/forms/faveoapp-prod/06%3A01%3ADefects/?eid=<replace>",
 		shorthand: "1[0-9]{5}",
 		placeholder: "#",
 	    },
