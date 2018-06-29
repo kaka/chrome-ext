@@ -549,6 +549,34 @@ TargetLoader.add({
     }
 });
 
+TargetLoader.add({
+    name: "blamefactory",
+    url: "https://fyren/intranet/itello/development/testtools/BlameFactory/js/blame.js",
+    parser: function(text) {
+	let targets = [];
+	let teams = {}
+	let re = /se\.itello\.vertigo\.([^']+).+(framework|real)Code\(([^\)]+)/g;
+	let match;
+	while ((match = re.exec(text)) !== null) {
+	    let name = match[3].replace(".", " ");
+	    let team = teams[name] || [];
+	    team.push(match[1]);
+	    teams[name] = team;
+	}
+	$.each(teams, function(k, v) {
+	    targets.push({
+		name: k,
+		details: `<ul><li>${v.join("</li><li>")}</li></ul>`,
+		searchTerms: `${k},${v.join(",")}`,
+	    });
+	});
+	return targets;
+    },
+    onLoadError: function(request) {
+	notifyError("<p>Kunde inte hämta pensionsordlistan</p>");
+    }
+});
+
 function notifyError(html, urlOnClick) {
     var div = $("<div>", {class: "error"})
 	.html(html)
