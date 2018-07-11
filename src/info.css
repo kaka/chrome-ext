@@ -1,0 +1,28 @@
+.new {
+    color: orange;
+}
+
+#toc {
+    list-style-type: none;
+}
+
+#toc a {
+    color: #99979c;
+}
+
+#toc a:hover {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.toc-h2 {
+    margin-left: 0em;
+}
+
+.toc-h3 {
+    margin-left: 1em;
+}
+
+.toc-h4 {
+    margin-left: 2em;
+}

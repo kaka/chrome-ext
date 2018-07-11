@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Info</title>
+    <!--
+	- JavaScript and HTML must be in separate files: see our Content Security
+	- Policy documentation[1] for details and explanation.
+	-
+	- [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+      -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous" />
+    <link rel="stylesheet" href="info.css" />
+    <script src="js/jquery.min.js"></script>
+    <script src="info.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+	<div class="col-8">
+	  <h1 class="display-4">Fast AMF03 Finder And More</h1>
+
+	  <div class="row">
+	    <div class="col-9" id="main">
+	      <p class="lead">
+		Här kan du läsa om vad som finns och vad som går att göra. Känner du att du saknar något viktigt kan du lämna önskemål hos <a href="mailto:tomas.wenstrom@itello.se">tomas.wenstrom@itello.se</a>.
+	      </p>
+
+	      <h2>Sökning</h2>
+
+	      <p><abbr title="Fast AMF03 finder and more">FAMFFAM</abbr> är byggd för att så snabbt som möjligt kunna söka fram olika objekt och är inspirerad av hur sökningen fungerar i IntelliJ.</p>
+
+	      <p>Söktexten försöks matchas mot inledande bokstäver i ord. T.ex:</p>
+	      <dl class="row">
+		<dt class="col-1">lb</dt>
+		<dd class="col-11"><i>matchar</i> <b>L</b>ion <b>B</b>ar</dd>
+		<dt class="col-1">lioba</dt>
+		<dd class="col-11"><i>matchar</i> <b>Lio</b>n <b>Ba</b>r</dd>
+		<dt class="col-1">lio ba</dt>
+		<dd class="col-11"><i>matchar</i> <b>Lio</b>n <b>Ba</b>r</dd>
+		<dt class="col-1">bar</dt>
+		<dd class="col-11"><i>matchar</i> Lion <b>Bar</b></dd>
+	      </dl>
+
+	      <p>Detta gäller även ihopskrivna ord som <i>BlameFactory</i>, då varje versal räknas som början på ett ord.</p>
+
+	      <p>Bokstäver med diakritiska tecken <i>(accenter, apostrofer och liknande samt åäö)</i> tolkas som "rena" bokstäver och vice versa.</p>
+
+	      <p>De flesta sökbara objekt har - utöver deras titel (<i>se nedan</i>) - även andra sökbara ord, vilka syns i beskrivningen av objektet. Prova exempelvis att söka på <i>hälsa</i>.</p>
+	      <figure class="figure">
+		<img src="img/info/search-terms.png" class="figure-img img-fluid rounded" />
+		<figcaption class="figure-caption">
+		  Här är de sökbara orden <i>Lion Bar</i>, <i>after work</i>, <i>sunkhak</i> och <i>gränges</i>.
+		</figcaption>
+	      </figure>
+
+	      <h3>Djuplänkar</h3>
+
+	      <p>
+		Vissa objekt kan dirigera dig vidare till mer specifika sidor, t.ex ett visst Gitlab-ärende eller en sökning på wikin. De känns igen på den lilla pilen till längst till höger (<b><big>&#9656;</big></b>).
+		Navigerar man till ett sådant objekt och trycker på <kbd>tab</kbd> eller <kbd>space</kbd> ändras vyn och det går då att skriva in ett ord/nummer/id/whatever och trycka på <kbd>enter</kbd> så dirigeras man vidare.
+	      </p>
+	      <p>
+		Några av dessa djuplänkar kommer även att matchas i sökningen om söktexten liknar det format som en djuplänk kan ha specificerat.
+		Det rör sig oftast om siffror (id:n) och några exempel är <i>Faveo</i>, <i>Defect</i> och <i>Gitlab Inca</i>.
+	      </p>
+
+	      <h4>Lägga till egna</h4>
+
+	      <p>Om du trycker på kugghjulet (<a href="options.html" target="_blank"><img src="img/options.svg" title="Kugghjul" /></a>) får du upp ett fönster där du kan lägga till egna länkar och då framförallt djuplänkar.</p>
+	      <p>Vill man exempelvis lägga till en djuplänk som snappar upp git commits i sökfältet kan man lägga till en med djuplänks-URL:n <code>https://gitlab.itello.se/inca/inca/commit/&lt;replace&gt;</code> och med snabbskriften <code>[0-9a-fA-F]{8,40}</code>.</p>
+	      <p>Skriver man då t.ex <i>407d0347</i> i sökfältet får man upp sin länk som alternativ, som leder direkt till den commit:n i Gitlab.</p>
+
+	      <h3 class="warning">Produktstudion</h3>
+
+	      <div class="alert alert-warning" role="alert">
+		Det går tyvärr inte att söka på något med <i>åäö</i> just nu, så om du inte får något sökresultat kan det bero på att söktexten innehåller ett av dessa tecken.
+	      </div>
+
+	      <p>Det finns ett specialbyggt sökverktyg för att göra vissa sökningar i <abbr title="ProduktStudion">PS</abbr> lite enklare.</p>
+
+	      <figure class="figure">
+		<img src="img/info/productstudio-targets.png" class="figure-img img-fluid rounded" />
+		<figcaption class="figure-caption">
+		  De 2 övre alternativen leder till ett inbyggt sökverktyg, det 3:e leder till Produktstudion.
+		</figcaption>
+	      </figure>
+
+	      <h4 data-version="0.3">Systemtexttabellen</h4>
+	      <p>Här går det att göra fritextsökningar, vilka söker igenom flera fält på en och samma gång, så går det mycket fortare att hitta översättningar eftersom jag (twe) alltid glömmer filket fält som är vilket.</p>
+
+	      <h4 data-version="0.9">Regler</h4>
+	      <p>Även här går det att göra fritextsökningar som söker igenom flera fält, men det går också att skriva in ett id direkt. Tryck på en rad för att få fram all information om en regel.</p>
+
+	      <h2>Vad går att söka efter?</h2>
+
+	      <!-- <dl> -->
+	      <!-- 	<dt>AMF03</dt> -->
+	      <!-- 	<dd><i>Alt+O</i> + <i>A</i> + <i>3</i> + <i>Enter</i>. Boom. <i>#micdrop</i></dd> -->
+
+	      <!-- 	<dt>Övriga Inca-miljöer</dt> -->
+	      <!-- 	<dd>For completeness.</dd> -->
+
+	      <!-- 	<dt>Diverse verktyg</dt> -->
+	      <!-- 	<dd>Wiki, Faveo, tidrapportering, Mattermost, Gitlab, planeringsverktyget, BlameFactory, Jenkins, Artifactory, Incas changelog och releasenotes, Accurev osv.</dd> -->
+
+	      <!-- 	<dt>Länkar från Fyren</dt> -->
+	      <!-- 	<dd> -->
+	      <!-- 	  <ul class="list-unstyle"> -->
+	      <!-- 	    <li>Alla länkar i vänstermenyn på förstasidan finns med</li> -->
+	      <!-- 	    <li>Alla länkar från personalsidan</li> -->
+	      <!-- 	    <li>Info från hälsoportalen (inte länkar)</li> -->
+	      <!-- 	  </ul> -->
+	      <!-- 	</dd> -->
+
+	      <!-- 	<dt>Personal</dt> -->
+	      <!-- 	<dd>Alla personer från personalsidan, vilka är sökbara på namn, förkortning, avdelning samt roll.</dd> -->
+
+	      <!-- 	<dt>Releaseinformation</dt> -->
+	      <!-- 	<dd>Vad, när, vem. Kanske hur.</dd> -->
+
+	      <!-- 	<dt>Utvecklingsteam</dt> -->
+	      <!-- 	<dt>Bokmärken</dt> -->
+	      <!-- </dl> -->
+
+	      <h3><a href="https://montezumas:4033/vertigo/vertigo/GOPerson/GOPerson/mainFrameset" target="_blank">AMF03</a></h3>
+	      <p><kbd>Alt+O</kbd> + <kbd>A</kbd> + <kbd>3</kbd> + <kbd>Enter</kbd>. Boom. <i>#micdrop</i></p>
+
+	      <h3>Övriga <a href="https://fyren/incaversions/testmiljoer.php" target="_blank">Inca-miljöer</a></h3>
+	      <p>For completeness.</p>
+
+	      <h3>Länkar från Fyren</h3>
+	      <ul>
+		<li>Alla länkar i <a href="https://fyren/intranet/navigation.html" target="_blank">vänstermenyn</a> på förstasidan finns med</li>
+		<li>Alla länkar från <a href="https://fyren/intranet/itello/stab/personal/personal.html" target="_blank">personalsidan</a></li>
+	      </ul>
+
+	      <h3>Personal</h3>
+	      <p>Alla personer från <a href="https://fyren/intranet/itello/stab/whoswho_js.html" target="_blank">presentationssidan</a>, vilka är sökbara på namn, förkortning, avdelning samt roll.</p>
+
+	      <h3>Releaseinformation</h3>
+	      <p>Vad, när, vem. Kanske hur.</p>
+	      <p><small>Hämtas från <a href="https://fyren/intranet/main.html" target="_blank">förstasidan</a> och <a href="https://fyren/intranet/itello/qualityassurance/qualityassurance.html" target="_blank">Quality Assurance</a>.</small></p>
+
+	      <h3 data-version="0.9.4">Utvecklingsteam</h3>
+	      <p>Visar vilket team som ansvarar över vilka paket.</p>
+	      <p><small>Hämtas från <a href="https://fyren/intranet/itello/development/testtools/BlameFactory/blame-factory.html" target="_blank">Blamefactory</a>.</small></p>
+
+	      <h3 data-version="0.3">Bokmärken</h3>
+	      <p>Dina bokmärken från webbläsaren läses in och görs sökbara.</p>
+
+	      <h3>Övrigt</h3>
+	      <ul>
+		<li>Info från <a href="https://fyren/intranet/itello/stab/halsoportal/halsa.html" target="_blank">hälsoportalen</a></li>
+	      </ul>
+
+	      <h2 data-version="0.7.2">Färgscheman</h2>
+	      <p>Det finns marginellt stöd för att ändra färgschema och det görs genom att skriva <kbd>:theme &lt;namn&gt;</kbd> och trycka på <kbd>Enter</kbd>. Byt ut <code>&lt;namn&gt;</code> mot något av följande:</p>
+	      <ul>
+		<li>default <i>(<abbr title="Fast AMF03 finder and more">FAMFFAM</abbr> måste startas om för att ändringen ska synas)</i></li>
+		<li title="Dank Darkness">dark</li>
+		<li title="Bodacious Brown">brown</li>
+	      </ul>
+	    </div>
+
+	    <div class="col-3">
+	      <ul id="toc" />
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </div>
+  </body>
+</html>

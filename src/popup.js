@@ -329,7 +329,7 @@ function setupStaticTargets() {
 		</ul>
 		<img src="http://lionbar.se/wp-content/uploads/2014/07/planka-212x300.jpg" />
 		`,
-	    searchTerms: "Lion Bar,after work,sunkhak",
+	    searchTerms: "Lion Bar,after work,sunkhak,Gränges",
 	}
     ];
     addTargets(staticTargets);
@@ -788,6 +788,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	} else { // fallback
 	    window.open(chrome.runtime.getURL("options.html"));
 	}
+    });
+
+    // setup info link
+    $("#info").click(function() {
+	window.open(chrome.runtime.getURL("info.html"));
     });
 
     // handle filtering
