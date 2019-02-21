@@ -444,7 +444,7 @@ TargetLoader.add({
 
 TargetLoader.add({
     name: "staff",
-    file: "Q:\\Intranet\\itello\\stab\\whoswho.data.txt",
+    url: "https://fyren/intranet/itello/stab/whoswho.data.txt",
     parser: function(text) {
 	var targets = [];
 	$.each(text.match(/addUser\((".*?"(,\s.*)?)+\)/g), function(i, e) {
@@ -463,10 +463,7 @@ TargetLoader.add({
 	return targets;
     },
     onLoadError: function(request) {
-	notifyError(`
-		    <b>Kunde inte hämta personalinfo</b>
-		    <p>Det kan bero på att du inte har tillåtit fil-URL:er. Klicka här!</p>
-		    `, chrome.runtime.getURL("help.html"));
+	notifyError("<b>Kunde inte hämta personalinfo</b>");
     }
 });
 
