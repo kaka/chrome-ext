@@ -164,9 +164,9 @@ function setupStaticTargets() {
 	    url: "https://fyren/intranet/",
 	}, {
 	    name: "Wiki",
-	    url: "https://yorkie.itello.se/mediawiki/index.php",
+	    url: "https://mediawiki.itello.se/index.php",
 	    deeplink: {
-		url: "https://yorkie.itello.se/mediawiki/index.php?title=Special%3AS%C3%B6k&search=<replace>&fulltext=S%C3%B6k",
+		url: "https://mediawiki.itello.se/index.php?title=Special%3AS%C3%B6k&search=<replace>&fulltext=S%C3%B6k",
 	    },
 	}, {
 	    name: "Faveo",
@@ -226,7 +226,7 @@ function setupStaticTargets() {
 	    }
 	}, {
 	    name: "Kanboard",
-	    url: "https://yorkie.itello.se/kanboard/",
+	    url: "https://kanboard.itello.se/",
 	    searchTerms: "KanBoard,kallari",
 	    // https://yorkie.itello.se/kanboard/?controller=DocumentationController&action=show&file=api-project-procedures  - se getAllProjects
 	}, {
@@ -298,7 +298,7 @@ function setupStaticTargets() {
 	    searchTerms: "Kundmiljöer - Prod,grisen",
 	}, {
 	    name: "Instruktioner Release Notes",
-	    url: "https://fyren/intranet/itello/productmanagement/Instruktioner%20Release%20NotesV5.pdf",
+	    url: "https://fyren/intranet/itello/productmanagement/Instruktioner%20Release%20Notes%202018-09-13.pdf",
 	    searchTerms: "Instruktioner Release Notes,RS",
 	}, {
 	    name: "Benify",
@@ -321,10 +321,10 @@ function setupStaticTargets() {
 		<h2>Lion Bar</h2>
 		<p><em>"Vår strävan att ge våra gäster en exceptionell upplevelse och ge stort utrymme för glädje och humor."</em></p>
 		<ul>
-		<li><a target="_blank" href="https://goo.gl/maps/EXaVkRiXKhs" title="Sveavägen 39">Sveavägen</a></li>
+		<li><a target="_blank" href="https://goo.gl/maps/EXaVkRiXKhs" title="Sveavägen 39">Sveavägen</a> (RIP)</li>
 		<li><a target="_blank" href="https://goo.gl/maps/CF4QapegZ4L2" title="Långholmsgatan 40">Hornstull</a></li>
-		<li><a target="_blank" href="https://goo.gl/maps/6fQGuSMgUk42" title="Östgötagatan 27">Medborgarplatsen</a></li>
-		<li><a target="_blank" href="https://goo.gl/maps/ZRdh89xk7D82" title="Sveavägen 74">Rådmansgatan</a></li>
+		<li><a target="_blank" href="https://goo.gl/maps/6fQGuSMgUk42" title="Östgötagatan 27">Medborgarplatsen</a> (RIP)</li>
+		<li><a target="_blank" href="https://goo.gl/maps/ZRdh89xk7D82" title="Sveavägen 74">Rådmansgatan</a> (RIP)</li>
 		<li><a target="_blank" href="https://goo.gl/maps/DdBidPcYYyJ2" title="Kornhamnstorg 61">Gamla stan</a></li>
 		</ul>
 		<img src="http://lionbar.se/wp-content/uploads/2014/07/planka-212x300.jpg" />
