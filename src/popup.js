@@ -253,8 +253,12 @@ function setupStaticTargets() {
 	    url: "file://itello.se/Versions/Itello/Inca/Changelog/",
 	}, {
 	    name: "Inca ReleaseNotes",
-	    url: "file://itello.se/Versions/Itello/Inca/ReleaseNotes/",
+	    url: "https://fyren/Intranet/publicering/ReleaseNotes2/index.html",
 	    searchTerms: "Inca ReleaseNotes,RS",
+	}, {
+	    name: "Inca ReleaseNotes (gamla)",
+	    url: "file://itello.se/Versions/Itello/Inca/ReleaseNotes/",
+	    searchTerms: "Inca ReleaseNotes (gamla),RS",
 	}, {
 	    name: "IncaWebServiceStatistics",
 	    url: "file://itello.se/Source/Users/Infra/WS/LogMerger/IncaWebServiceStatistics.xlsx",
