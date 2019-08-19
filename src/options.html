@@ -45,7 +45,9 @@
       <dl>
 	<dt><input id="deeplink-url" type="text" placeholder="Url" /></dt>
 	<dd>Url:n måste innehålla texten <i style="background:lightgrey">&lt;replace&gt;</i> som sedan byts ut mot det som skrivs i sökfältet,
-	  t.ex: <i style="background:lightgrey">https://malaco/inca/inca/issues/&lt;replace&gt;</i></dd>
+	  t.ex: <i style="background:lightgrey">https://malaco/inca/inca/issues/&lt;replace&gt;</i><br/>
+	  Det går även att referera till regex-grupper genom att inom <code>&lt;&gt;</code> skriva t.ex <code>$1</code> för att ersätta med första regex-gruppen.
+	</dd>
 
 	<dt><input id="deeplink-shorthand" type="text" placeholder="Snabbskrift (i regex, valfritt)" /></dt>
 	<dt><input id="deeplink-description" type="text" placeholder="Kort beskrivning (valfritt)" /></dt>

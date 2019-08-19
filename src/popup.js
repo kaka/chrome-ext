@@ -201,8 +201,8 @@ function setupStaticTargets() {
 	    url: "https://gitlab.itello.se/inca/inca",
 	    searchTerms: "Gitlab Inca,malaco",
 	    deeplink: {
-		url: "https://gitlab.itello.se/inca/inca/issues/<replace>",
-		shorthand: "#?[1-9][0-9]{0,6}",
+		url: "https://gitlab.itello.se/inca/inca/issues/<$1>",
+		shorthand: "#?([1-9][0-9]{0,6})",
 		placeholder: "Issue",
 		description: "Öppnar ett issue i Inca-repot",
 	    }
@@ -215,12 +215,21 @@ function setupStaticTargets() {
 		description: "Sök efter dokument",
 	    }
 	}, {
+	    name: "Jira",
+	    url: "https://jira.itello.se/",
+	    deeplink: {
+		url: "https://jira.itello.se/browse/INCA-<$3>",
+		shorthand: "([Ii]([Nn][Cc][Aa]-?)?)?([1-9][0-9]{0,6})",
+		placeholder: "Issue",
+		description: "Öppnar ett issue i Jira",
+	    }
+	}, {
 	    name: "Planeringsverktyget",
 	    url: "https://forastero:10443/vertigo/common/GOActivities/GOActivities/mainFrameset",
 	    searchTerms: "Planeringsverktyget,backlog",
 	    deeplink: {
-		url: "https://forastero:10443/vertigo/common/GOBacklog/GOBacklog/viewObject?ItemClassName=BACKLOG_ENTRY&STORY_ID=<replace>",
-		shorthand: "#?[1-9][0-9]{0,6}",
+		url: "https://forastero:10443/vertigo/common/GOBacklog/GOBacklog/viewObject?ItemClassName=BACKLOG_ENTRY&STORY_ID=<$1>",
+		shorthand: "#?([1-9][0-9]{0,6})",
 		placeholder: "Backlog-id",
 		description: "Öppnar en backlog-uppgift",
 	    }

@@ -15,7 +15,9 @@ Target.prototype.deeplinkShorthandMatches = function(text) {
 }
 
 Target.prototype.getDeeplinkUrl = function(text) {
-    return this.deeplink.url.replace("<replace>", encodeURI(text));
+    return this.deeplink.url.includes("<replace>")
+	? this.deeplink.url.replace("<replace>", encodeURI(text))
+	: text.replace(this.deeplink.shorthand, this.deeplink.url.replace(/<(\$[0-9]+)>/g, "$1"));
 }
 
 Target.prototype.openDeeplink = function(text) {
