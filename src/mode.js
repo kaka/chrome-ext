@@ -153,5 +153,16 @@ function matches(search, text) {
 	return matches;
     }
 
-    return recurse(0, 0, false, []);
+    var result = recurse(0, 0, false, []);
+    if (!result) {
+	var start = t.toLowerCase().indexOf(s);
+	if (start !== -1) {
+	    result = []
+	    var end = s.length + start;
+	    for (i = start; i < end; i++) {
+		result.push(i);
+	    }
+	}
+    }
+    return result;
 }
