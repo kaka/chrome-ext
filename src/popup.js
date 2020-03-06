@@ -163,6 +163,10 @@ function setupStaticTargets() {
 	    name: "Fyren",
 	    url: "https://fyren/intranet/",
 	}, {
+	    name: "Intranet",
+	    url: "https://intranet.itello.se",
+	    searchTerms: "Intranet,Confluence",
+	}, {
 	    name: "Wiki",
 	    url: "https://mediawiki.itello.se/index.php",
 	    deeplink: {
@@ -215,14 +219,26 @@ function setupStaticTargets() {
 		description: "Sök efter dokument",
 	    }
 	}, {
-	    name: "Jira",
+	    name: "Jira (Inca)",
 	    url: "https://jira.itello.se/",
 	    deeplink: {
 		url: "https://jira.itello.se/browse/INCA-<$3>",
 		shorthand: "([Ii]([Nn][Cc][Aa]-?)?)?([1-9][0-9]{0,6})",
 		placeholder: "Issue",
-		description: "Öppnar ett issue i Jira",
+		description: "Öppnar ett Inca-issue i Jira",
 	    }
+	}, {
+	    name: "Jira (Customers)",
+	    url: "https://jira.itello.se/",
+	    deeplink: {
+		url: "https://jira.itello.se/browse/CUST-<$3>",
+		shorthand: "([Cc]([Uu][Ss][Tt]-?)?)?([1-9][0-9]{0,6})",
+		placeholder: "Issue",
+		description: "Öppnar ett Customers-issue i Jira",
+	    }
+	}, {
+	    name: "Hjälpcentral - Jira Service Desk",
+	    url: "https://jira.itello.se/servicedesk/customer/portal/1",
 	}, {
 	    name: "Planeringsverktyget",
 	    url: "https://forastero:10443/vertigo/common/GOActivities/GOActivities/mainFrameset",
@@ -250,6 +266,9 @@ function setupStaticTargets() {
 	    url: "https://artifactory.itello.se/artifactory/webapp",
 	}, {
 	    name: "Inca Changelog",
+	    url: "https://intranet.itello.se/display/PM/Changelog",
+	}, {
+	    name: "Inca Changelog (gamla)",
 	    url: "file://itello.se/Versions/Itello/Inca/Changelog/",
 	}, {
 	    name: "Inca ReleaseNotes",
