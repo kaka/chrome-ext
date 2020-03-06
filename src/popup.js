@@ -527,8 +527,10 @@ TargetLoader.add({
 
 TargetLoader.add({
     name: "fyren-operations",
-    url: "https://fyren/Intranet/itello/operations/operations.html",
-    parser: parseIncaReleases("https://fyren/Intranet/itello/operations/operations.html"),
+    // url: "https://fyren/Intranet/itello/operations/operations.html",
+    // parser: parseIncaReleases("https://fyren/Intranet/itello/operations/operations.html"),
+    url: "https://fyren/intranet/itello/productmanagement/Inca.html",
+    parser: parseIncaReleases("https://fyren/intranet/itello/productmanagement/Inca.html"),
     onLoadError: function(request) {
 	notifyError("<p>Kunde inte läsa från Operations</p>");
     }
