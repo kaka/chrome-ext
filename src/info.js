@@ -13,6 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	if (e.getAttribute("class") == "warning") {
 	    li.append(" ").append($("<span>!</span>").addClass("badge badge-warning"));
 	}
+	// Show dangers
+	if (e.getAttribute("class") == "danger") {
+	    li.append(" ").append($("<span>!</span>").addClass("badge badge-danger"));
+	}
 	// Show what's new
 	if (e.getAttribute("data-version") == chrome.runtime.getManifest().version) {
 	    li.append(" ").append($("<span>Nytt</span>").addClass("badge badge-info"));

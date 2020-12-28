@@ -70,57 +70,32 @@
 	      <p>Vill man exempelvis lägga till en djuplänk som snappar upp git commits i sökfältet kan man lägga till en med djuplänks-URL:n <code>https://gitlab.itello.se/inca/inca/commit/&lt;replace&gt;</code> och med snabbskriften <code>[0-9a-fA-F]{8,40}</code>.</p>
 	      <p>Skriver man då t.ex <i>407d0347</i> i sökfältet får man upp sin länk som alternativ, som leder direkt till den commit:n i Gitlab.</p>
 
-	      <h3 class="warning">Produktstudion</h3>
+	      <h3 class="danger">Produktstudion</h3>
 
-	      <div class="alert alert-warning" role="alert">
-		Det går tyvärr inte att söka på något med <i>åäö</i> just nu, så om du inte får något sökresultat kan det bero på att söktexten innehåller ett av dessa tecken.
+	      <div class="alert alert-danger" role="alert">
+		I.o.m att API:t till produktstudion verkar ha försvunnit fungerar inte längre sökverktygen för regler och systemtexter. Kanske kommer tillbaka någon gång. Vem vet.
 	      </div>
 
-	      <p>Det finns ett specialbyggt sökverktyg för att göra vissa sökningar i <abbr title="ProduktStudion">PS</abbr> lite enklare.</p>
+	      <del>
+		<div class="text-muted">
+		  <p>Det finns ett specialbyggt sökverktyg för att göra vissa sökningar i <abbr title="ProduktStudion">PS</abbr> lite enklare.</p>
 
-	      <figure class="figure">
-		<img src="img/info/productstudio-targets.png" class="figure-img img-fluid rounded" />
-		<figcaption class="figure-caption">
-		  De 2 övre alternativen leder till ett inbyggt sökverktyg, det 3:e leder till Produktstudion.
-		</figcaption>
-	      </figure>
+		  <figure class="figure">
+		    <img src="img/info/productstudio-targets.png" class="figure-img img-fluid rounded" />
+		    <figcaption class="figure-caption">
+		      De 2 övre alternativen leder till ett inbyggt sökverktyg, det 3:e leder till Produktstudion.
+		    </figcaption>
+		  </figure>
 
-	      <h4 data-version="0.3">Systemtexttabellen</h4>
-	      <p>Här går det att göra fritextsökningar, vilka söker igenom flera fält på en och samma gång, så går det mycket fortare att hitta översättningar eftersom jag (twe) alltid glömmer filket fält som är vilket.</p>
+		  <h4 data-version="0.3">Systemtexttabellen</h4>
+		  <p>Här går det att göra fritextsökningar, vilka söker igenom flera fält på en och samma gång, så går det mycket fortare att hitta översättningar eftersom jag (twe) alltid glömmer filket fält som är vilket.</p>
 
-	      <h4 data-version="0.9">Regler</h4>
-	      <p>Även här går det att göra fritextsökningar som söker igenom flera fält, men det går också att skriva in ett id direkt. Tryck på en rad för att få fram all information om en regel.</p>
+		  <h4 data-version="0.9">Regler</h4>
+		  <p>Även här går det att göra fritextsökningar som söker igenom flera fält, men det går också att skriva in ett id direkt. Tryck på en rad för att få fram all information om en regel.</p>
+		</div>
+	      </del>
 
 	      <h2>Vad går att söka efter?</h2>
-
-	      <!-- <dl> -->
-	      <!-- 	<dt>AMF03</dt> -->
-	      <!-- 	<dd><i>Alt+O</i> + <i>A</i> + <i>3</i> + <i>Enter</i>. Boom. <i>#micdrop</i></dd> -->
-
-	      <!-- 	<dt>Övriga Inca-miljöer</dt> -->
-	      <!-- 	<dd>For completeness.</dd> -->
-
-	      <!-- 	<dt>Diverse verktyg</dt> -->
-	      <!-- 	<dd>Wiki, Faveo, tidrapportering, Mattermost, Gitlab, planeringsverktyget, BlameFactory, Jenkins, Artifactory, Incas changelog och releasenotes, Accurev osv.</dd> -->
-
-	      <!-- 	<dt>Länkar från Fyren</dt> -->
-	      <!-- 	<dd> -->
-	      <!-- 	  <ul class="list-unstyle"> -->
-	      <!-- 	    <li>Alla länkar i vänstermenyn på förstasidan finns med</li> -->
-	      <!-- 	    <li>Alla länkar från personalsidan</li> -->
-	      <!-- 	    <li>Info från hälsoportalen (inte länkar)</li> -->
-	      <!-- 	  </ul> -->
-	      <!-- 	</dd> -->
-
-	      <!-- 	<dt>Personal</dt> -->
-	      <!-- 	<dd>Alla personer från personalsidan, vilka är sökbara på namn, förkortning, avdelning samt roll.</dd> -->
-
-	      <!-- 	<dt>Releaseinformation</dt> -->
-	      <!-- 	<dd>Vad, när, vem. Kanske hur.</dd> -->
-
-	      <!-- 	<dt>Utvecklingsteam</dt> -->
-	      <!-- 	<dt>Bokmärken</dt> -->
-	      <!-- </dl> -->
 
 	      <h3><a href="https://montezumas:4033/vertigo/vertigo/GOPerson/GOPerson/mainFrameset" target="_blank">AMF03</a></h3>
 	      <p><kbd>Alt+O</kbd> + <kbd>A</kbd> + <kbd>3</kbd> + <kbd>Enter</kbd>. Boom. <i>#micdrop</i></p>
@@ -128,7 +103,7 @@
 	      <h3>Övriga <a href="https://fyren/incaversions/testmiljoer.php" target="_blank">Inca-miljöer</a></h3>
 	      <p>For completeness.</p>
 
-	      <h3>Länkar från Fyren</h3>
+	      <h3>Länkar från Fyren (gamla intranätet)</h3>
 	      <ul>
 		<li>Alla länkar i <a href="https://fyren/intranet/navigation.html" target="_blank">vänstermenyn</a> på förstasidan finns med</li>
 		<li>Alla länkar från <a href="https://fyren/intranet/itello/stab/personal/personal.html" target="_blank">personalsidan</a></li>
@@ -156,7 +131,7 @@
 	      <h2 data-version="0.7.2">Färgscheman</h2>
 	      <p>Det finns marginellt stöd för att ändra färgschema och det görs genom att skriva <code>:theme &lt;namn&gt;</code> och trycka på <kbd>Enter</kbd>. Byt ut <code>&lt;namn&gt;</code> mot något av följande:</p>
 	      <ul>
-		<li>default <i>(<abbr title="Fast AMF03 finder and more">FAMFFAM</abbr> måste startas om för att ändringen ska synas)</i></li>
+		<li title="Delicious Default">default <i>(<abbr title="Fast AMF03 finder and more">FAMFFAM</abbr> måste startas om för att ändringen ska synas)</i></li>
 		<li title="Dank Darkness">dark</li>
 		<li title="Bodacious Brown">brown</li>
 	      </ul>
