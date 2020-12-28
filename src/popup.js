@@ -160,12 +160,17 @@ function setupStaticTargets() {
     log("setupStaticTargets()");
     var staticTargets = [
 	{
-	    name: "Fyren",
-	    url: "https://fyren/intranet/",
+	    name: "ONE",
+	    url: "https://itellohq.sharepoint.com/",
+	    searchTerms: "One,intranät,sharepoint",
 	}, {
 	    name: "Intranet",
 	    url: "https://intranet.itello.se",
 	    searchTerms: "Intranet,Confluence",
+	}, {
+	    name: "Fyren",
+	    url: "https://fyren/intranet/",
+	    searchTerms: "Fyren,intranät",
 	}, {
 	    name: "Wiki",
 	    url: "https://mediawiki.itello.se/index.php",
@@ -191,11 +196,7 @@ function setupStaticTargets() {
 	}, {
 	    name: "Xledger",
 	    url: "https://www.xledger.net",
-	    searchTerms: "Xledger,tid",
-	}, {
-	    name: "UNIT4 Agresso",
-	    url: "https://unit4/",
-	    searchTerms: "UNIT4 Agresso,tid",
+	    searchTerms: "Xledger,tidrapport",
 	}, {
 	    name: "Mattermost",
 	    url: "https://mattermost.itello.se/",
@@ -212,11 +213,11 @@ function setupStaticTargets() {
 	    }
 	}, {
 	    name: "Itello Search",
-	    url: "https://skotte.itello.se/default.aspx",
-	    searchTerms: "Itello Search,skotte",
+//	    url: "", // utkommenterad så den inte slås ihop med exempelvis ONE
+	    searchTerms: "Itello Search,One",
 	    deeplink: {
-		url: "https://skotte.itello.se/results.aspx?k=<replace>",
-		description: "Sök efter dokument",
+		url: "https://itellohq.sharepoint.com/_layouts/15/search.aspx/siteall?q=<replace>",
+		description: "Sök på ONE",
 	    }
 	}, {
 	    name: "Jira (Inca)",
@@ -256,14 +257,14 @@ function setupStaticTargets() {
 	    // https://yorkie.itello.se/kanboard/?controller=DocumentationController&action=show&file=api-project-procedures  - se getAllProjects
 	}, {
 	    name: "BlameFactory",
-	    url: "https://fyren/intranet/itello/development/testtools/BlameFactory/blame-factory.html",
+	    url: "https://pcloud.itello.se/inca/blame-factory/",
 	}, {
 	    name: "Jenkins",
 	    url: "https://jenkins.itello.se/",
 	    searchTerms: "Jenkins,marabou",
 	}, {
 	    name: "JFrog Artifactory",
-	    url: "https://artifactory.itello.se/artifactory/webapp",
+	    url: "https://artifactory.itello.se/",
 	}, {
 	    name: "Inca Changelog",
 	    url: "https://intranet.itello.se/display/PM/Changelog",
@@ -271,13 +272,20 @@ function setupStaticTargets() {
 	    name: "Inca Changelog (gamla)",
 	    url: "file://itello.se/Versions/Itello/Inca/Changelog/",
 	}, {
-	    name: "Inca ReleaseNotes",
-	    url: "https://fyren/Intranet/publicering/ReleaseNotes2/index.html",
-	    searchTerms: "Inca ReleaseNotes,RS",
+	    name: "Inca Release Notes",
+	    url: "https://fyren/intranet/publicering/ReleaseNotesJira/",
+	    searchTerms: "Inca Release Notes,RS",
 	}, {
-	    name: "Inca ReleaseNotes (gamla)",
+	    name: "PAF Release Notes",
+	    url: "https://fyren/intranet/publicering/ReleaseNotesPAF/",
+	    searchTerms: "PAF Release Notes,RS",
+	}, {
+	    name: "Inca Release Notes (gamla)",
 	    url: "file://itello.se/Versions/Itello/Inca/ReleaseNotes/",
-	    searchTerms: "Inca ReleaseNotes (gamla),RS",
+	    searchTerms: "Inca Release Notes (gamla),RS",
+	}, {
+	    name: "Release Notes Developer's Guide",
+	    url: "https://fyren/intranet/itello/productmanagement/Instruktioner%20Release%20Notes%202018-09-13.pdf",
 	}, {
 	    name: "IncaWebServiceStatistics",
 	    url: "file://itello.se/Source/Users/Infra/WS/LogMerger/IncaWebServiceStatistics.xlsx",
@@ -308,30 +316,26 @@ function setupStaticTargets() {
 		</ul>
 		`,
 	}, {
-	    name: "ProductStudio - System text",
-	    url: chrome.runtime.getURL("productstudio.html") + "?class=SYSTEM_TEXT_TABLE",
-	    searchTerms: "ProductStudio - System text,translate,översätt",
-	    details: "Sök i systemtexttabellen",
-	    deeplink: {
-		url: chrome.runtime.getURL("productstudio.html") + "?class=SYSTEM_TEXT_TABLE&search=<replace>",
-	    },
-	}, {
-	    name: "ProductStudio - Regler",
-	    url: chrome.runtime.getURL("productstudio.html") + "?class=MRULE",
-	    searchTerms: "ProductStudio - Regler,MRule",
-	    details: "Sök bland regler",
-	    deeplink: {
-		url: chrome.runtime.getURL("productstudio.html") + "?class=MRULE&search=<replace>",
-		shorthand: "[1-9][0-9]{0,6}",
-	    },
-	}, {
+	//     name: "ProductStudio - System text",
+	//     url: chrome.runtime.getURL("productstudio.html") + "?class=SYSTEM_TEXT_TABLE",
+	//     searchTerms: "ProductStudio - System text,translate,översätt",
+	//     details: "Sök i systemtexttabellen",
+	//     deeplink: {
+	// 	url: chrome.runtime.getURL("productstudio.html") + "?class=SYSTEM_TEXT_TABLE&search=<replace>",
+	//     },
+	// }, {
+	//     name: "ProductStudio - Regler",
+	//     url: chrome.runtime.getURL("productstudio.html") + "?class=MRULE",
+	//     searchTerms: "ProductStudio - Regler,MRule",
+	//     details: "Sök bland regler",
+	//     deeplink: {
+	// 	url: chrome.runtime.getURL("productstudio.html") + "?class=MRULE&search=<replace>",
+	// 	shorthand: "[1-9][0-9]{0,6}",
+	//     },
+	// }, {
 	    name: "Kundmiljöer - Prod",
 	    url: "https://fyren/incaversions/kundmiljoer.php",
 	    searchTerms: "Kundmiljöer - Prod,grisen",
-	}, {
-	    name: "Instruktioner Release Notes",
-	    url: "https://fyren/intranet/itello/productmanagement/Instruktioner%20Release%20Notes%202018-09-13.pdf",
-	    searchTerms: "Instruktioner Release Notes,RS",
 	}, {
 	    name: "Benify",
 	    url: "https://www.benify.se/fps/public/public.do",
@@ -351,12 +355,12 @@ function setupStaticTargets() {
 	    details: `
 		<img src="http://lionbar.se/wp-content/uploads/2014/10/rest2.png" title="HAPPY HOUR EVERY HOUR!" style="float: right" />
 		<h2>Lion Bar</h2>
-		<p><em>"Vår strävan att ge våra gäster en exceptionell upplevelse och ge stort utrymme för glädje och humor."</em></p>
+		<p><em>Restaurang & Bar med familjär känsla</em></p>
 		<ul>
 		<li><a target="_blank" href="https://goo.gl/maps/EXaVkRiXKhs" title="Sveavägen 39">Sveavägen</a> (RIP)</li>
 		<li><a target="_blank" href="https://goo.gl/maps/CF4QapegZ4L2" title="Långholmsgatan 40">Hornstull</a></li>
 		<li><a target="_blank" href="https://goo.gl/maps/6fQGuSMgUk42" title="Östgötagatan 27">Medborgarplatsen</a> (RIP)</li>
-		<li><a target="_blank" href="https://goo.gl/maps/ZRdh89xk7D82" title="Sveavägen 74">Rådmansgatan</a> (RIP)</li>
+		<li><a target="_blank" href="https://goo.gl/maps/ZRdh89xk7D82" title="Sveavägen 74">Rådmansgatan</a></li>
 		<li><a target="_blank" href="https://goo.gl/maps/DdBidPcYYyJ2" title="Kornhamnstorg 61">Gamla stan</a></li>
 		</ul>
 		<img src="http://lionbar.se/wp-content/uploads/2014/07/planka-212x300.jpg" />
