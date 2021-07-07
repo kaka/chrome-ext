@@ -168,10 +168,10 @@ function setupStaticTargets() {
 	    url: "https://intranet.itello.se",
 	    searchTerms: "Intranet,Confluence",
 	}, {
-	    name: "Fyren",
-	    url: "https://fyren/intranet/",
-	    searchTerms: "Fyren,intranät",
-	}, {
+	//     name: "Fyren",
+	//     url: "https://fyren/intranet/",
+	//     searchTerms: "Fyren,intranät",
+	// }, {
 	    name: "Wiki",
 	    url: "https://mediawiki.itello.se/index.php",
 	    deeplink: {
@@ -194,13 +194,34 @@ function setupStaticTargets() {
 		placeholder: "#",
 	    },
 	}, {
-	    name: "Xledger",
-	    url: "https://www.xledger.net",
-	    searchTerms: "Xledger,tidrapport",
+	    name: "Jira (Inca)",
+	    url: "https://jira.itello.se/",
+	    deeplink: {
+		url: "https://jira.itello.se/browse/INCA-<$3>",
+		shorthand: "([Ii]([Nn][Cc][Aa]-?)?)?([1-9][0-9]{0,6})",
+		placeholder: "Issue",
+		description: "Öppnar ett Inca-issue i Jira",
+	    }
 	}, {
-	    name: "Mattermost",
-	    url: "https://mattermost.itello.se/",
-	    searchTerms: "MatterMost",
+	    name: "Jira (Customers)",
+	    url: "https://jira.itello.se/",
+	    deeplink: {
+		url: "https://jira.itello.se/browse/CUST-<$3>",
+		shorthand: "([Cc]([Uu][Ss][Tt]-?)?)?([1-9][0-9]{0,6})",
+		placeholder: "Issue",
+		description: "Öppnar ett Customers-issue i Jira",
+	    }
+	}, {
+	    name: "Jira (alla projekt)",
+	    url: "https://jira.itello.se/",
+	    details: "Öppnar ett issue i Jira",
+	    searchTerms: "Jira",
+	    deeplink: {
+		url: "https://jira.itello.se/browse/<replace>",
+		shorthand: "[A-Za-z]+-[1-9][0-9]{0,6}",
+		placeholder: "<Project>-<Issue number>",
+		description: "Öppnar ett issue i Jira",
+	    }
 	}, {
 	    name: "Gitlab Inca",
 	    url: "https://gitlab.itello.se/inca/inca",
@@ -220,37 +241,27 @@ function setupStaticTargets() {
 		description: "Sök på ONE",
 	    }
 	}, {
-	    name: "Jira (Inca)",
-	    url: "https://jira.itello.se/",
-	    deeplink: {
-		url: "https://jira.itello.se/browse/INCA-<$3>",
-		shorthand: "([Ii]([Nn][Cc][Aa]-?)?)?([1-9][0-9]{0,6})",
-		placeholder: "Issue",
-		description: "Öppnar ett Inca-issue i Jira",
-	    }
+	    name: "Xledger",
+	    url: "https://www.xledger.net",
+	    searchTerms: "Xledger,tidrapportering",
 	}, {
-	    name: "Jira (Customers)",
-	    url: "https://jira.itello.se/",
-	    deeplink: {
-		url: "https://jira.itello.se/browse/CUST-<$3>",
-		shorthand: "([Cc]([Uu][Ss][Tt]-?)?)?([1-9][0-9]{0,6})",
-		placeholder: "Issue",
-		description: "Öppnar ett Customers-issue i Jira",
-	    }
+	    name: "Mattermost",
+	    url: "https://mattermost.itello.se/",
+	    searchTerms: "MatterMost",
 	}, {
 	    name: "Hjälpcentral - Jira Service Desk",
 	    url: "https://jira.itello.se/servicedesk/customer/portal/1",
 	}, {
-	    name: "Planeringsverktyget",
-	    url: "https://forastero:10443/vertigo/common/GOActivities/GOActivities/mainFrameset",
-	    searchTerms: "Planeringsverktyget,backlog",
-	    deeplink: {
-		url: "https://forastero:10443/vertigo/common/GOBacklog/GOBacklog/viewObject?ItemClassName=BACKLOG_ENTRY&STORY_ID=<$1>",
-		shorthand: "#?([1-9][0-9]{0,6})",
-		placeholder: "Backlog-id",
-		description: "Öppnar en backlog-uppgift",
-	    }
-	}, {
+	//     name: "Planeringsverktyget",
+	//     url: "https://forastero:10443/vertigo/common/GOActivities/GOActivities/mainFrameset",
+	//     searchTerms: "Planeringsverktyget,backlog",
+	//     deeplink: {
+	// 	url: "https://forastero:10443/vertigo/common/GOBacklog/GOBacklog/viewObject?ItemClassName=BACKLOG_ENTRY&STORY_ID=<$1>",
+	// 	shorthand: "#?([1-9][0-9]{0,6})",
+	// 	placeholder: "Backlog-id",
+	// 	description: "Öppnar en backlog-uppgift",
+	//     }
+	// }, {
 	    name: "Kanboard",
 	    url: "https://kanboard.itello.se/",
 	    searchTerms: "KanBoard,kallari",
@@ -272,27 +283,27 @@ function setupStaticTargets() {
 	    name: "Inca Changelog (gamla)",
 	    url: "file://itello.se/Versions/Itello/Inca/Changelog/",
 	}, {
-	    name: "Inca Release Notes",
-	    url: "https://fyren/intranet/publicering/ReleaseNotesJira/",
-	    searchTerms: "Inca Release Notes,RS",
-	}, {
-	    name: "PAF Release Notes",
-	    url: "https://fyren/intranet/publicering/ReleaseNotesPAF/",
-	    searchTerms: "PAF Release Notes,RS",
-	}, {
+	//     name: "Inca Release Notes",
+	//     url: "https://fyren/intranet/publicering/ReleaseNotesJira/",
+	//     searchTerms: "Inca Release Notes,RS",
+	// }, {
+	//     name: "PAF Release Notes",
+	//     url: "https://fyren/intranet/publicering/ReleaseNotesPAF/",
+	//     searchTerms: "PAF Release Notes,RS",
+	// }, {
 	    name: "Inca Release Notes (gamla)",
 	    url: "file://itello.se/Versions/Itello/Inca/ReleaseNotes/",
 	    searchTerms: "Inca Release Notes (gamla),RS",
 	}, {
 	    name: "Release Notes Developer's Guide",
-	    url: "https://fyren/intranet/itello/productmanagement/Instruktioner%20Release%20Notes%202018-09-13.pdf",
+	    url: "https://itellohq.sharepoint.com/sites/LumeraProduct/SitePages/Release-Notes-Developer%C2%B4s-Guide.aspx",
 	}, {
 	    name: "IncaWebServiceStatistics",
 	    url: "file://itello.se/Source/Users/Infra/WS/LogMerger/IncaWebServiceStatistics.xlsx",
 	}, {
-	    name: "AccuRev",
-	    url: "https://accurev.itello.se:8443/accurev/WebGui.jsp",
-	}, {
+	//     name: "AccuRev",
+	//     url: "https://accurev.itello.se:8443/accurev/WebGui.jsp",
+	// }, {
 	    name: "Gitlab Inca History",
 	    url: "https://gitlab.itello.se/inca/inca-history",
 	    searchTerms: "Gitlab Inca History,AccuRev",
@@ -333,16 +344,16 @@ function setupStaticTargets() {
 	// 	shorthand: "[1-9][0-9]{0,6}",
 	//     },
 	// }, {
-	    name: "Kundmiljöer - Prod",
-	    url: "https://fyren/incaversions/kundmiljoer.php",
-	    searchTerms: "Kundmiljöer - Prod,grisen",
+	    name: "Versions at Customers",
+	    url: "https://itellohq.sharepoint.com/sites/Operations/SitePages/Versions-at-Customers.aspx",
+	    searchTerms: "Versions at Customers,kundmiljöer,installationer,grisen",
 	}, {
 	    name: "Benify",
 	    url: "https://www.benify.se/fps/public/public.do",
 	    searchTerms: "Benify,friskvård,förmånsportalen",
 	}, {
 	    name: "Skumbanan",
-	    url: "http://skumbanan.itello.se/",
+	    url: "https://skumbanan.itello.se/",
 	    searchTerms: "SkumBanan,Testla",
 	}, {
 	    name: "Inställningar",
@@ -351,9 +362,9 @@ function setupStaticTargets() {
 	    details: `Öppna inställningarna för ${chrome.runtime.getManifest().name}.`,
 	}, {
 	    name: "Lion Bar",
-	    url: "http://lionbar.se/",
+	    url: "https://lionbar.se/",
 	    details: `
-		<img src="http://lionbar.se/wp-content/uploads/2014/10/rest2.png" title="HAPPY HOUR EVERY HOUR!" style="float: right" />
+		<img src="https://lionbar.se/wp-content/uploads/2014/10/rest2.png" title="HAPPY HOUR EVERY HOUR!" style="float: right" />
 		<h2>Lion Bar</h2>
 		<p><em>Restaurang & Bar med familjär känsla</em></p>
 		<ul>
@@ -363,7 +374,7 @@ function setupStaticTargets() {
 		<li><a target="_blank" href="https://goo.gl/maps/ZRdh89xk7D82" title="Sveavägen 74">Rådmansgatan</a></li>
 		<li><a target="_blank" href="https://goo.gl/maps/DdBidPcYYyJ2" title="Kornhamnstorg 61">Gamla stan</a></li>
 		</ul>
-		<img src="http://lionbar.se/wp-content/uploads/2014/07/planka-212x300.jpg" />
+		<img src="https://lionbar.se/wp-content/uploads/2014/07/planka-212x300.jpg" />
 		`,
 	    searchTerms: "Lion Bar,after work,sunkhak,Gränges",
 	}
@@ -419,7 +430,7 @@ TargetLoader.defaultTargetReceiver = addTargets;
 
 TargetLoader.add({
     name: "environments",
-    url: "https://fyren/incaversions/testmiljoer.php",
+    url: "https://knockout.itello.se/",
     parser: function(text) {
 	function processName(name) {
 	    return name == "Produktstudion" ? "ProduktStudion" : name;
@@ -447,147 +458,159 @@ TargetLoader.add({
 	return targets;
     },
     onLoadError: function(request) {
-	notifyError("<b>Kunde inte hämta Inca-miljöerna :'(</b><pre>" + request.status + " " + request.statusText + "</pre>" +
-		    "<p>Det kan bero på att din session på Fyren har gått ut. Klicka här för att testa.</p>",
-		    "https://fyren/incaversions/testmiljoer.php");
+	notifyError("<b>Kunde inte hämta Inca-miljöerna :'(</b><pre>" + request.status + " " + request.statusText + "</pre>");
     }
 });
 
-TargetLoader.add({
-    name: "fyren-navigation",
-    url: "https://fyren/intranet/navigation.html",
-    parser: function(text) {
-	var targets = [];
-	$("<div>").html(text)
-	    .find("a").each(function(i, e) {
-		var a = $(e);
-		var url = a.attr("href");
-		if (!url.startsWith("http")) {
-		    url = "https://fyren" + (url.startsWith("/") ? "" : "/intranet/") + url;
-		}
-		targets.push({
-		    name: a.text(),
-		    url: url,
-		    searchTerms: a.text() + ",fyren",
-		});
-	    });
-	return targets;
-    },
-    onLoadError: function(request) {
-	notifyError("<p>Kunde inte läsa från Fyrens vänstermeny</p>");
-    }
-});
+// TargetLoader.add({
+//     name: "fyren-navigation",
+//     url: "https://fyren/intranet/navigation.html",
+//     parser: function(text) {
+// 	var targets = [];
+// 	$("<div>").html(text)
+// 	    .find("a").each(function(i, e) {
+// 		var a = $(e);
+// 		var url = a.attr("href");
+// 		if (!url.startsWith("http")) {
+// 		    url = "https://fyren" + (url.startsWith("/") ? "" : "/intranet/") + url;
+// 		}
+// 		targets.push({
+// 		    name: a.text(),
+// 		    url: url,
+// 		    searchTerms: a.text() + ",fyren",
+// 		});
+// 	    });
+// 	return targets;
+//     },
+//     onLoadError: function(request) {
+// 	notifyError("<p>Kunde inte läsa från Fyrens vänstermeny</p>");
+//     }
+// });
 
-TargetLoader.add({
-    name: "staff",
-    url: "https://fyren/intranet/itello/stab/whoswho.data.txt",
-    parser: function(text) {
-	var targets = [];
-	$.each(text.match(/addUser\((".*?"(,\s.*)?)+\)/g), function(i, e) {
-	    var args = e.slice(9, -2).split(/"\s*,\s*"/);
-	    targets.push({
-		name: args[1],
-		searchTerms: [args[1], args[0].toLowerCase(), args[3], args[5]].join(","),
-		details: "<strong>" + args[1] + " (" + args[0].toLowerCase() + ")</strong>" +
-		    "<br /><em>" + args[4] + "</em>" +
-		    "<br />Började " + args[2] +
-		    "<br />Roll: " + args[5] +
-		    "<br />Avdelning: " + args[3] +
-		    '<br /><br /><img style="max-width:100%" alt="Foto saknas" src="https://fyren/intranet/itello/stab/images/' + args[0].toLowerCase() + '.jpg" />',
-	    });
-	});
-	return targets;
-    },
-    onLoadError: function(request) {
-	notifyError("<b>Kunde inte hämta personalinfo</b>");
-    }
-});
+// TargetLoader.add({
+//     name: "staff",
+//     url: "https://fyren/intranet/itello/stab/whoswho.data.txt",
+//     parser: function(text) {
+// 	var targets = [];
+// 	$.each(text.match(/addUser\((".*?"(,\s.*)?)+\)/g), function(i, e) {
+// 	    var args = e.slice(9, -2).split(/"\s*,\s*"/);
+// 	    targets.push({
+// 		name: args[1],
+// 		searchTerms: [args[1], args[0].toLowerCase(), args[3], args[5]].join(","),
+// 		details: "<strong>" + args[1] + " (" + args[0].toLowerCase() + ")</strong>" +
+// 		    "<br /><em>" + args[4] + "</em>" +
+// 		    "<br />Började " + args[2] +
+// 		    "<br />Roll: " + args[5] +
+// 		    "<br />Avdelning: " + args[3] +
+// 		    '<br /><br /><img style="max-width:100%" alt="Foto saknas" src="https://fyren/intranet/itello/stab/images/' + args[0].toLowerCase() + '.jpg" />',
+// 	    });
+// 	});
+// 	return targets;
+//     },
+//     onLoadError: function(request) {
+// 	notifyError("<b>Kunde inte hämta personalinfo</b>");
+//     }
+// });
 
-function parseIncaReleases(url) {
-    return function(text) {
-	var targets = [];
-	$("<div>").html(text)
-	    .find("#inca-release article").each(function(i, e) {
-		var article = $(e);
-		targets.push({
-		    name: "Release " + article.find("h2,h4").text(),
-		    searchTerms: "Release " + article.find("h2,h4").text() + ",fyren,inca",
-		    url: url + "#release" + article.find("h2,h4").text(),
-		    details: article.html(),
-		});
-	    });
-	return targets;
-    }
-}
+// function parseIncaReleases(url) {
+//     return function(text) {
+// 	var targets = [];
+// 	$("<div>").html(text)
+// 	    .find("#inca-release article").each(function(i, e) {
+// 		var article = $(e);
+// 		targets.push({
+// 		    name: "Release " + article.find("h2,h4").text(),
+// 		    searchTerms: "Release " + article.find("h2,h4").text() + ",fyren,inca",
+// 		    url: url + "#release" + article.find("h2,h4").text(),
+// 		    details: article.html(),
+// 		});
+// 	    });
+// 	return targets;
+//     }
+// }
 
-TargetLoader.add({
-    name: "fyren-main",
-    url: "https://fyren/intranet/main.html",
-    parser: parseIncaReleases("https://fyren/intranet/main.html"),
-    onLoadError: function(request) {
-	notifyError("<p>Kunde inte läsa från Fyren</p>");
-    }
-});
+// TargetLoader.add({
+//     name: "fyren-main",
+//    url: "https://fyren/intranet/main.html",
+//     parser: parseIncaReleases("https://fyren/intranet/main.html"),
+//     onLoadError: function(request) {
+// 	notifyError("<p>Kunde inte läsa från Fyren</p>");
+//     }
+// });
 
-TargetLoader.add({
-    name: "fyren-operations",
-    // url: "https://fyren/Intranet/itello/operations/operations.html",
-    // parser: parseIncaReleases("https://fyren/Intranet/itello/operations/operations.html"),
-    url: "https://fyren/intranet/itello/productmanagement/Inca.html",
-    parser: parseIncaReleases("https://fyren/intranet/itello/productmanagement/Inca.html"),
-    onLoadError: function(request) {
-	notifyError("<p>Kunde inte läsa från Operations</p>");
-    }
-});
+// TargetLoader.add({
+//     name: "fyren-operations",
+//     // url: "https://fyren/Intranet/itello/operations/operations.html",
+//     // parser: parseIncaReleases("https://fyren/Intranet/itello/operations/operations.html"),
+//     url: "https://fyren/intranet/itello/productmanagement/Inca.html",
+//     parser: parseIncaReleases("https://fyren/intranet/itello/productmanagement/Inca.html"),
+//     onLoadError: function(request) {
+// 	notifyError("<p>Kunde inte läsa från Operations</p>");
+//     }
+// });
 
-TargetLoader.add({
-    name: "personal",
-    url: "https://fyren/intranet/itello/stab/personal/personal.html",
-    parser: function(text) {
-	var targets = [];
-	$("<div>").html(text)
-	    .find(".personalLink").each(function(i, e) {
-		var a = $(e);
-		targets.push({
-		    name: a.text(),
-		    url: "https://fyren/intranet/itello/stab/personal/" + a.attr("href"),
-		    searchTerms: a.text() + ",fyren,personal",
-		});
-	    });
-	return targets;
-    },
-    onLoadError: function(request) {
-	notifyError("<p>Kunde inte hämta personalsidan</p>");
-    }
-});
+// TargetLoader.add({
+//     name: "personal",
+//     url: "https://fyren/intranet/itello/stab/personal/personal.html",
+//     parser: function(text) {
+// 	var targets = [];
+// 	$("<div>").html(text)
+// 	    .find(".personalLink").each(function(i, e) {
+// 		var a = $(e);
+// 		targets.push({
+// 		    name: a.text(),
+// 		    url: "https://fyren/intranet/itello/stab/personal/" + a.attr("href"),
+// 		    searchTerms: a.text() + ",fyren,personal",
+// 		});
+// 	    });
+// 	return targets;
+//     },
+//     onLoadError: function(request) {
+// 	notifyError("<p>Kunde inte hämta personalsidan</p>");
+//     }
+// });
 
-TargetLoader.add({
-    name: "personal-halsa",
-    url: "https://fyren/intranet/itello/stab/halsoportal/halsa.html",
-    parser: function(text) {
-	var targets = [];
-	$("<div>").html(text)
-	    .find("td").each(function(i, e) {
-		var td = $(e);
-		targets.push({
-		    name: td.find("h2").text(),
-		    url: "https://fyren/intranet/itello/stab/halsoportal/halsa.html" + "#" + td.find("h2").text(),
-		    searchTerms: td.find("h2").text() + ",fyren,personal,hälsa",
-		    details: td.html(),
-		});
-	    });
-	log(targets);
-	return targets;
-    },
-    onLoadError: function(request) {
-	notifyError("<p>Kunde inte hämta personalsidan</p>");
-    }
-});
+// TargetLoader.add({
+//     name: "personal-halsa",
+//     url: "https://fyren/intranet/itello/stab/halsoportal/halsa.html",
+//     parser: function(text) {
+// 	var targets = [];
+// 	$("<div>").html(text)
+// 	    .find("td").each(function(i, e) {
+// 		var td = $(e);
+// 		targets.push({
+// 		    name: td.find("h2").text(),
+// 		    url: "https://fyren/intranet/itello/stab/halsoportal/halsa.html" + "#" + td.find("h2").text(),
+// 		    searchTerms: td.find("h2").text() + ",fyren,personal,hälsa",
+// 		    details: td.html(),
+// 		});
+// 	    });
+// 	log(targets);
+// 	return targets;
+//     },
+//     onLoadError: function(request) {
+// 	notifyError("<p>Kunde inte hämta personalsidan</p>");
+//     }
+// });
 
 TargetLoader.add({
     name: "blamefactory",
-    url: "https://fyren/intranet/itello/development/testtools/BlameFactory/js/blame.js",
+    url: "https://pcloud.itello.se/inca/blame-factory/js/blame.js",
     parser: function(text) {
+	function urlFor(name) {
+	    switch (name) {
+	    case "Team Flux": return "https://itellohq.sharepoint.com/sites/LumeraProduct/SitePages/Flux.aspx";
+	    case "Team Postit": return "https://itellohq.sharepoint.com/sites/LumeraProduct/SitePages/Post-It.aspx";
+	    case "Team Infra": return "https://itellohq.sharepoint.com/sites/LumeraProduct/SitePages/Infra.aspx";
+	    case "Team Listerine": return "https://itellohq.sharepoint.com/sites/LumeraProduct/SitePages/Listerine.aspx";
+	    case "Team Pythagoras": return "https://itellohq.sharepoint.com/sites/LumeraProduct/SitePages/Pythagoras.aspx";
+	    case "Team Pactum": return "https://itellohq.sharepoint.com/sites/LumeraProduct/SitePages/Pactum.aspx";
+	    case "Team Knappverket": return "https://itellohq.sharepoint.com/sites/LumeraProduct/SitePages/Knappverket.aspx";
+	    case "Team Solvo": return "https://itellohq.sharepoint.com/sites/LumeraProduct/SitePages/Solvo.aspx";
+	    case "Team FriendsWithBenefitAgreements": return "https://itellohq.sharepoint.com/sites/LumeraProduct/SitePages/Friends-With-Benefit-Agreements.aspx";
+	    default: return "https://itellohq.sharepoint.com/sites/LumeraProduct";
+	    }
+	}
 	let targets = [];
 	let teams = {}
 	let re = /se\.itello\.vertigo\.([^']+).+(framework|real)Code\(([^\)]+)/g;
@@ -601,6 +624,7 @@ TargetLoader.add({
 	$.each(teams, function(k, v) {
 	    targets.push({
 		name: k,
+		url: urlFor(k),
 		details: `<ul><li>${v.join("</li><li>")}</li></ul>`,
 		searchTerms: `${k},${v.join(",")}`,
 	    });
@@ -608,7 +632,7 @@ TargetLoader.add({
 	return targets;
     },
     onLoadError: function(request) {
-	notifyError("<p>Kunde inte hämta pensionsordlistan</p>");
+	notifyError("<p>Kunde inte hämta info från BlameFactory</p>");
     }
 });
 
