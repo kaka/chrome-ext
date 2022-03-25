@@ -3,9 +3,9 @@
 // found in the LICENSE file.
 
 /**
- * Quick search for internal web pages at Itello.
+ * Quick search for internal web pages at Lumera.
  *
- * @author Tomas Wenström <twe@itello.se>
+ * @author Tomas Wenström <twe@lumera.com>
  */
 
 
@@ -163,6 +163,10 @@ function setupStaticTargets() {
 	    name: "ONE",
 	    url: "https://itellohq.sharepoint.com/",
 	    searchTerms: "One,intranät,sharepoint",
+	    deeplink: {
+		url: "https://itellohq.sharepoint.com/_layouts/15/search.aspx/siteall?q=<replace>",
+		placeholder: "Sök på ONE",
+	    }
 	}, {
 	    name: "Intranet",
 	    url: "https://intranet.itello.se",
@@ -195,31 +199,31 @@ function setupStaticTargets() {
 	    },
 	}, {
 	    name: "Jira (Inca)",
-	    url: "https://jira.itello.se/",
+	    url: "https://lumeragroup.atlassian.net/",
 	    deeplink: {
-		url: "https://jira.itello.se/browse/INCA-<$3>",
+		url: "https://lumeragroup.atlassian.net/browse/INCA-<$3>",
 		shorthand: "([Ii]([Nn][Cc][Aa]-?)?)?([1-9][0-9]{0,6})",
 		placeholder: "Issue",
 		description: "Öppnar ett Inca-issue i Jira",
 	    }
 	}, {
 	    name: "Jira (Customers)",
-	    url: "https://jira.itello.se/",
+	    url: "https://lumeragroup.atlassian.net/",
 	    deeplink: {
-		url: "https://jira.itello.se/browse/CUST-<$3>",
+		url: "https://lumeragroup.atlassian.net/browse/CUST-<$3>",
 		shorthand: "([Cc]([Uu][Ss][Tt]-?)?)?([1-9][0-9]{0,6})",
 		placeholder: "Issue",
 		description: "Öppnar ett Customers-issue i Jira",
 	    }
 	}, {
 	    name: "Jira (alla projekt)",
-	    url: "https://jira.itello.se/",
+	    url: "https://lumeragroup.atlassian.net/",
 	    details: "Öppnar ett issue i Jira",
 	    searchTerms: "Jira",
 	    deeplink: {
-		url: "https://jira.itello.se/browse/<replace>",
+		url: "https://lumeragroup.atlassian.net/browse/<replace>",
 		shorthand: "[A-Za-z]+-[1-9][0-9]{0,6}",
-		placeholder: "<Project>-<Issue number>",
+		placeholder: "T.ex 'INCA-123'",
 		description: "Öppnar ett issue i Jira",
 	    }
 	}, {
@@ -233,14 +237,6 @@ function setupStaticTargets() {
 		description: "Öppnar ett issue i Inca-repot",
 	    }
 	}, {
-	    name: "Itello Search",
-//	    url: "", // utkommenterad så den inte slås ihop med exempelvis ONE
-	    searchTerms: "Itello Search,One",
-	    deeplink: {
-		url: "https://itellohq.sharepoint.com/_layouts/15/search.aspx/siteall?q=<replace>",
-		description: "Sök på ONE",
-	    }
-	}, {
 	    name: "Xledger",
 	    url: "https://www.xledger.net",
 	    searchTerms: "Xledger,tidrapportering",
@@ -250,7 +246,8 @@ function setupStaticTargets() {
 	    searchTerms: "MatterMost",
 	}, {
 	    name: "Hjälpcentral - Jira Service Desk",
-	    url: "https://jira.itello.se/servicedesk/customer/portal/1",
+	    url: "https://lumeragroup.atlassian.net/servicedesk/customer/portal/1",
+	    searchTerms: "Hjälpcentral - Jira Service Desk,help",
 	}, {
 	//     name: "Planeringsverktyget",
 	//     url: "https://forastero:10443/vertigo/common/GOActivities/GOActivities/mainFrameset",
