@@ -169,7 +169,7 @@ function setupStaticTargets() {
 	    }
 	}, {
 	    name: "Intranet",
-	    url: "https://intranet.itello.se",
+	    url: "https://lumeragroup.atlassian.net/wiki",
 	    searchTerms: "Intranet,Confluence",
 	}, {
 	//     name: "Fyren",
