@@ -176,12 +176,12 @@ function setupStaticTargets() {
 	//     url: "https://fyren/intranet/",
 	//     searchTerms: "Fyren,intranät",
 	// }, {
-	    name: "Wiki",
-	    url: "https://mediawiki.itello.se/index.php",
-	    deeplink: {
-		url: "https://mediawiki.itello.se/index.php?title=Special%3AS%C3%B6k&search=<replace>&fulltext=S%C3%B6k",
-	    },
-	}, {
+	//     name: "Wiki",
+	//     url: "https://mediawiki.itello.se/index.php",
+	//     deeplink: {
+	// 	url: "https://mediawiki.itello.se/index.php?title=Special%3AS%C3%B6k&search=<replace>&fulltext=S%C3%B6k",
+	//     },
+	// }, {
 	    name: "Faveo",
 	    url: "https://faveo.itello.se:8443/arsys/home",
 	    deeplink: {
@@ -198,11 +198,11 @@ function setupStaticTargets() {
 		placeholder: "#",
 	    },
 	}, {
-	    name: "Jira (Inca)",
+	    name: "Jira (Core)",
 	    url: "https://lumeragroup.atlassian.net/",
 	    deeplink: {
-		url: "https://lumeragroup.atlassian.net/browse/INCA-<$3>",
-		shorthand: "([Ii]([Nn][Cc][Aa]-?)?)?([1-9][0-9]{0,6})",
+		url: "https://lumeragroup.atlassian.net/browse/CORE-<$3>",
+		shorthand: "([Cc]([Oo][Rr][Ee]-?)?)?([1-9][0-9]{0,6})",
 		placeholder: "Issue",
 		description: "Öppnar ett Inca-issue i Jira",
 	    }
@@ -223,7 +223,7 @@ function setupStaticTargets() {
 	    deeplink: {
 		url: "https://lumeragroup.atlassian.net/browse/<replace>",
 		shorthand: "[A-Za-z]+-[1-9][0-9]{0,6}",
-		placeholder: "T.ex 'INCA-123'",
+		placeholder: "T.ex 'CORE-123'",
 		description: "Öppnar ett issue i Jira",
 	    }
 	}, {
@@ -237,6 +237,10 @@ function setupStaticTargets() {
 		description: "Öppnar ett issue i Inca-repot",
 	    }
 	}, {
+	    name: "Heartpace",
+	    url: "https://lumera.heartpace.com",
+	    searchTerms: "HeartPace,HR",
+	}, {
 	    name: "Xledger",
 	    url: "https://www.xledger.net",
 	    searchTerms: "Xledger,tidrapportering",
@@ -245,9 +249,9 @@ function setupStaticTargets() {
 	    url: "https://mattermost.itello.se/",
 	    searchTerms: "MatterMost",
 	}, {
-	    name: "Hjälpcentral - Jira Service Desk",
-	    url: "https://lumeragroup.atlassian.net/servicedesk/customer/portal/1",
-	    searchTerms: "Hjälpcentral - Jira Service Desk,help",
+	    name: "Help Center",
+	    url: "https://lumeragroup.atlassian.net/servicedesk/customer/portals",
+	    searchTerms: "Help Center,IT support,Incident,Facilities,Risk,Finance and Salary",
 	}, {
 	//     name: "Planeringsverktyget",
 	//     url: "https://forastero:10443/vertigo/common/GOActivities/GOActivities/mainFrameset",
@@ -259,11 +263,11 @@ function setupStaticTargets() {
 	// 	description: "Öppnar en backlog-uppgift",
 	//     }
 	// }, {
-	    name: "Kanboard",
-	    url: "https://kanboard.itello.se/",
-	    searchTerms: "KanBoard,kallari",
-	    // https://yorkie.itello.se/kanboard/?controller=DocumentationController&action=show&file=api-project-procedures  - se getAllProjects
-	}, {
+	//     name: "Kanboard",
+	//     url: "https://kanboard.itello.se/",
+	//     searchTerms: "KanBoard,kallari",
+	//     // https://yorkie.itello.se/kanboard/?controller=DocumentationController&action=show&file=api-project-procedures  - se getAllProjects
+	// }, {
 	    name: "BlameFactory",
 	    url: "https://pcloud.itello.se/inca/blame-factory/",
 	}, {
@@ -275,7 +279,7 @@ function setupStaticTargets() {
 	    url: "https://artifactory.itello.se/",
 	}, {
 	    name: "Inca Changelog",
-	    url: "https://intranet.itello.se/display/PM/Changelog",
+	    url: "https://changelog.pcloud.lumera.com/lumera/",
 	}, {
 	    name: "Inca Changelog (gamla)",
 	    url: "file://itello.se/Versions/Itello/Inca/Changelog/",
@@ -342,7 +346,7 @@ function setupStaticTargets() {
 	//     },
 	// }, {
 	    name: "Versions at Customers",
-	    url: "https://itellohq.sharepoint.com/sites/Operations/SitePages/Versions-at-Customers.aspx",
+	    url: "https://lumeragroup.sharepoint.com/sites/ManagedServicesorg/SitePages/Versions-at-Customers.aspx",
 	    searchTerms: "Versions at Customers,kundmiljöer,installationer,grisen",
 	}, {
 	    name: "Benify",
@@ -361,19 +365,20 @@ function setupStaticTargets() {
 	    name: "Lion Bar",
 	    url: "https://lionbar.se/",
 	    details: `
-		<img src="https://lionbar.se/wp-content/uploads/2014/10/rest2.png" title="HAPPY HOUR EVERY HOUR!" style="float: right" />
+		<img src="https://lionbar.se/wp-content/uploads/2023/03/LB-guld.png" width="100px" title="HAPPY HOUR EVERY HOUR!" style="float: right" />
 		<h2>Lion Bar</h2>
-		<p><em>Restaurang & Bar med familjär känsla</em></p>
+		<p><em>After work, good times och lunchmöten</em></p>
 		<ul>
-		<li><a target="_blank" href="https://goo.gl/maps/EXaVkRiXKhs" title="Sveavägen 39">Sveavägen</a> (RIP)</li>
-		<li><a target="_blank" href="https://goo.gl/maps/CF4QapegZ4L2" title="Långholmsgatan 40">Hornstull</a></li>
-		<li><a target="_blank" href="https://goo.gl/maps/6fQGuSMgUk42" title="Östgötagatan 27">Medborgarplatsen</a> (RIP)</li>
-		<li><a target="_blank" href="https://goo.gl/maps/ZRdh89xk7D82" title="Sveavägen 74">Rådmansgatan</a></li>
-		<li><a target="_blank" href="https://goo.gl/maps/DdBidPcYYyJ2" title="Kornhamnstorg 61">Gamla stan</a></li>
+		<li><a target="_blank" href="https://maps.app.goo.gl/cpCDxQxVsbDpc4J39" title="Sveavägen 74">Sveavägen</a></li>
+		<li><a target="_blank" href="https://maps.app.goo.gl/QFTCjYRqxw2HjcnQ7" title="Hornsgatan 154">Hornstull</a></li>
+		<li><a target="_blank" href="https://maps.app.goo.gl/xJf2PpX4YY11zqz26" title="Roslagsgatan 20">Vasastan</a></li>
+		<li><a target="_blank" href="https://maps.app.goo.gl/iSwcLiZZnUcWvg5S7" title="Furusundsgatan 20">Gärdet</a></li>
+		<li><a target="_blank" href="https://maps.app.goo.gl/HMuFNXznw9mrD6DN7" title="Tulegatan 7">Sundbyberg</a></li>
+		<li><a target="_blank" href="https://maps.app.goo.gl/SuZTS1J7qt65xRkg8" title="Storgatan 55">Umeå</a></li>
 		</ul>
-		<img src="https://lionbar.se/wp-content/uploads/2014/07/planka-212x300.jpg" />
 		`,
-	    searchTerms: "Lion Bar,after work,sunkhak,Gränges",
+		// <img src="https://lionbar.se/wp-content/uploads/2014/07/planka-212x300.jpg" />
+	    searchTerms: "Lion Bar,after work,Gränges",
 	}
     ];
     addTargets(staticTargets);
