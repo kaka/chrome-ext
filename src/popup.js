@@ -596,7 +596,8 @@ TargetLoader.add({
     parser: function(text) {
 	function urlFor(name) {
 	    switch (name) {
-	    case "Team Flux": return "https://itellohq.sharepoint.com/sites/LumeraProduct/SitePages/Flux.aspx";
+	    case "Team Monty": return "https://itellohq.sharepoint.com/sites/LumeraProduct/SitePages/Flux.aspx#Monty";
+	    case "Team Python": return "https://itellohq.sharepoint.com/sites/LumeraProduct/SitePages/Flux.aspx#Python";
 	    case "Team Postit": return "https://itellohq.sharepoint.com/sites/LumeraProduct/SitePages/Post-It.aspx";
 	    case "Team Infra": return "https://itellohq.sharepoint.com/sites/LumeraProduct/SitePages/Infra.aspx";
 	    case "Team Listerine": return "https://itellohq.sharepoint.com/sites/LumeraProduct/SitePages/Listerine.aspx";
