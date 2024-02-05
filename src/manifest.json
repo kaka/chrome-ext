@@ -37,8 +37,6 @@
     },
     "permissions": [
 	"storage",
-	"activeTab",
-	"scripting",
 	"clipboardRead",
 	"bookmarks"
     ],

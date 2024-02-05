@@ -761,8 +761,8 @@ function copyToClipboard(text) {
     temp.remove();
 }
 
-function insertSelectionOrClipboardIfShorthand() {
-    log("insertSelectionOrClipboardIfShorthand()");
+function insertClipboardIfShorthand() {
+    log("insertClipboardIfShorthand()");
     var input = $("#input");
     function insertIfMatch(text) {
 	for (var i = 0; i < mode().targets.length; i++) {
@@ -778,37 +778,13 @@ function insertSelectionOrClipboardIfShorthand() {
 	return false;
     }
 
-    function insertClipboard() {
-	input.focus();
-	document.execCommand("paste"); // This triggers an onInput event, filtering by what's pasted and rebuilding the list
-	var text = (input.val() || "").trim();
-	input.val("");
-	if (!insertIfMatch(text)) {
-	    mode().setInput("", null);
-	}
+    input.focus();
+    document.execCommand("paste"); // This triggers an onInput event, filtering by what's pasted and rebuilding the list
+    var text = (input.val() || "").trim();
+    input.val("");
+    if (!insertIfMatch(text)) {
+	mode().setInput("", null);
     }
-
-    insertClipboard();
-// TODO: funkar inte i.o.m manifest V3
-    // function getAndInsertSelection() {
-    // 	log("in execute script");
-    // 	log(window.getSelection());
-    // 	var selection = window.getSelection().toString();
-    // 	log(selection);
-    // 	return selection;
-    // 	// if (!insertIfMatch(selection[0].trim())) {
-    // 	//     insertClipboard();
-    // 	// }
-    // }
-
-    // // Get the current active tab
-    // chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
-    // 	var currentTabId = tabs[0].id;
-    // 	chrome.scripting.executeScript({
-    // 	    target: {tabId: currentTabId},
-    // 	    func: getAndInsertSelection
-    // 	});
-    // });
 }
 
 function clearNotifications() {
@@ -822,20 +798,20 @@ function async(func) {
 }
 
 function loadTargets(forceReload=false) {
-    function tryToInsertSelectionOrClipboard() {
+    function tryToInsertClipboard() {
 	var isFirstTime = !forceReload; // i.e. not manually reloaded
 	var inputIsEmpty = !$.trim($("#input").val());
 	if (isFirstTime && inputIsEmpty) {
-	    insertSelectionOrClipboardIfShorthand();
+	    insertClipboardIfShorthand();
 	}
     }
 
     async(function() {
 	clearNotifications();
 	basicMode.clearTargets();
-	setupStaticTargets();			tryToInsertSelectionOrClipboard();
-	loadCustomTargets();			tryToInsertSelectionOrClipboard();
-	TargetLoader.loadAll(forceReload);	tryToInsertSelectionOrClipboard();
+	setupStaticTargets();			tryToInsertClipboard();
+	loadCustomTargets();			tryToInsertClipboard();
+	TargetLoader.loadAll(forceReload);	tryToInsertClipboard();
 	loadBookmarkTargets();
     });
 }
