@@ -135,11 +135,25 @@ function setDeepLinkMode(target) {
 
 function setupHelp() {
     chrome.commands.getAll(function(cmds) {
-	var commands = {};
+	/*
+cmds = [{
+        "description": "",
+        "name": "_execute_action",
+        "shortcut": "Alt+O"
+    },
+    {
+        "description": "Flytta markören nedåt",
+        "name": "navigate-down",
+        "shortcut": "Alt+N"
+    }, ...]
+	*/
+	var openCommand;
 	$(cmds).each(function(i, cmd) {
-	    commands[cmd.name] = cmd;
+	    if (cmd.name === "_execute_action") {
+		openCommand = cmd;
+	    }
 	});
-	chrome.browserAction.setTitle({title: chrome.runtime.getManifest().name + " (" + commands["_execute_browser_action"].shortcut + ")"});
+	chrome.action.setTitle({title: chrome.runtime.getManifest().name + " (" + openCommand.shortcut + ")"});
 	$("#help").hover(function() {
 	    hideHelp();
 	});
@@ -763,19 +777,38 @@ function insertSelectionOrClipboardIfShorthand() {
 	}
 	return false;
     }
-    chrome.tabs.executeScript({
-	code: "window.getSelection().toString();"
-    }, function(selection) {
-	if (!insertIfMatch(selection[0].trim())) {
-	    input.focus();
-	    document.execCommand("paste"); // This triggers an onInput event, filtering by what's pasted and rebuilding the list
-	    var text = (input.val() || "").trim();
-	    input.val("");
-	    if (!insertIfMatch(text)) {
-		mode().setInput("", null);
-	    }
+
+    function insertClipboard() {
+	input.focus();
+	document.execCommand("paste"); // This triggers an onInput event, filtering by what's pasted and rebuilding the list
+	var text = (input.val() || "").trim();
+	input.val("");
+	if (!insertIfMatch(text)) {
+	    mode().setInput("", null);
 	}
-    });
+    }
+
+    insertClipboard();
+// TODO: funkar inte i.o.m manifest V3
+    // function getAndInsertSelection() {
+    // 	log("in execute script");
+    // 	log(window.getSelection());
+    // 	var selection = window.getSelection().toString();
+    // 	log(selection);
+    // 	return selection;
+    // 	// if (!insertIfMatch(selection[0].trim())) {
+    // 	//     insertClipboard();
+    // 	// }
+    // }
+
+    // // Get the current active tab
+    // chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+    // 	var currentTabId = tabs[0].id;
+    // 	chrome.scripting.executeScript({
+    // 	    target: {tabId: currentTabId},
+    // 	    func: getAndInsertSelection
+    // 	});
+    // });
 }
 
 function clearNotifications() {
